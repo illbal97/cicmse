@@ -1,0 +1,31 @@
+<div class="asana-page-wrapper">
+  <div class="asana-workspaces-container"></div>
+  <mat-tab-group *ngIf="user?.asanaPersonalAccessToken != null ; else warningtoken" class="mat-tab-workspaces" [@.disabled]="true">
+    <mat-tab  class="workspaces" label="Workspaces">
+      <mat-spinner *ngIf="!isLoading; else workspaces1"></mat-spinner>
+      <ng-template #workspaces1 > <mat-card *ngFor="let workspace of workspaces" class="workspace-card">{{workspace.name}}</mat-card></ng-template>
+    </mat-tab>
+    <mat-tab label="Projects"> Content 2 </mat-tab>
+    <mat-tab label="Users"> Content 3 </mat-tab>
+  </mat-tab-group>
+</div>
+<ng-template #warningtoken>
+  <div style="text-align: center;" class="warning-access-token">
+    <h1>Please add your personal access token for Asana</h1>
+  </div>
+  <div class="access-token-adding-container">
+      <form [formGroup]="addingToken" (ngSubmit)="addPersonalAccessToken()">
+        <mat-form-field class="field-access-token">
+          <mat-label style="font-size: 16px;">Personal Access Token:</mat-label>
+          <input formControlName = "accessToken"  style="font-size: 16px;" matInput required type="text">
+        </mat-form-field>
+        <button type="submit" mat-raised-button>Adding</button>
+      </form>
+  </div>
+  <div style="margin-top: 50px;">
+    <p style="text-align: center;"><a target="_blank" href="https://app.asana.com/-/developer_console">First, you have to create your personal access token, this link will help you</a>
+    </p>
+  </div>
+</ng-template>
+
+

@@ -1,0 +1,24 @@
+<div class="wrapper" >
+  <div class="welcome-section">
+    <div class="nav-bar">
+      <div class="account">
+       <mat-icon class="account-icon" [matMenuTriggerFor]="menu" >account_circle</mat-icon>
+       <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="signOut()">Sign out</button>
+      </mat-menu>
+      </div>
+    </div>
+    <div class="welcome-background">
+    </div>
+    <div class="container">
+      <h2>Your Managed infrastructures</h2>
+      <div class="cards-container">
+        <mat-card [routerLink]="['/home/asana']"><h1>Asana</h1><mat-icon class="launch-icon">launch</mat-icon></mat-card>
+        <mat-card><h1>AWS</h1><mat-icon class="launch-icon">launch</mat-icon></mat-card>
+        <mat-card><h1>Jenkins</h1><mat-icon class="launch-icon">launch</mat-icon></mat-card>
+        <mat-card><h1>Gitlab</h1><mat-icon class="launch-icon">launch</mat-icon></mat-card>
+        <mat-card><h1>Vmware Esxi</h1><mat-icon class="launch-icon">launch</mat-icon></mat-card>
+      </div>
+    </div>
+  </div>
+</div>

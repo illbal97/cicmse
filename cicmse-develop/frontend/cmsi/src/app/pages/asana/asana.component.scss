@@ -1,0 +1,39 @@
+div.asana-page-wrapper {
+
+  div.asana-workspaces-container {
+
+  }
+}
+
+
+
+mat-card.workspace-card {
+  margin: 20px auto;
+  max-width: 800px;
+  min-height: 30px;
+}
+div.access-token-adding-container {
+  margin-left:auto;
+  margin-right: auto;
+  max-width: 1200px;
+  text-align: center;
+
+}
+
+mat-form-field.field-access-token{
+  display: block;
+  margin-bottom: 50px;
+  text-align: center;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+mat-spinner {
+  max-width: 100px;
+    height: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px
+}
+
+

@@ -1,0 +1,96 @@
+div.wrapper {
+
+  div.container {
+    height: 100%;
+    background-color: #f6f7f9;
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content 1fr ;
+    grid-template-areas: "nav head"
+                          "nav main";
+    main {
+      height: 100%;
+      grid-area: main;
+    }
+    nav {
+      height: 100vh;
+      grid-area: nav;
+      width: 250px;
+      background-color: #03256C;
+      color: rgb(255, 255, 255,95%);
+
+      div.navbar-title-container{
+        display: flex;
+        padding: 0 18px;
+        align-items: center;
+        height: 58px;
+
+       div {
+        margin-left: 13px;
+        font-size: 16px;
+        }
+
+      }
+      div.home-title {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        height: 40px;
+        border-top: 1px solid rgb(255, 255,255, 0.3);
+        border-bottom: 1px solid rgb(255, 255,255,0.3);
+
+        div.home-text {
+          margin-left: 20px;
+        }
+
+      }
+      div.navbar-body {
+        height: 200px;
+        background-color: rgb(255, 255,255, 9%);
+        border-bottom: 1px solid rgb(255, 255,255,0.3);
+        padding-top: 12px;
+        padding-bottom: 12px;
+        div.infrastructures-section {
+
+          div.navbar-body-element-container {
+            display: flex;
+            padding: 0 20px;
+            height: 40px;
+            align-items: center;
+
+            div.navbar-body-element {
+              margin-left: 20px
+            }
+           &:hover {
+             background-color: rgba(255,255,255,15%);
+             cursor: pointer;
+           }
+          }
+        }
+      }
+    }
+    header {
+      grid-area:head;
+      div.account-icon-container {
+        display: flex;
+        justify-content: flex-end;
+        mat-icon.account-icon {
+            font-size: 38px;
+            color: darkviolet;
+        }
+      }
+    }
+  }
+ }
+.mat-icon.account-icon {
+  height: 38px;
+  width: 38px;
+  padding: 10px;
+}
+.mat-icon.home-icon {
+  width: 20px;
+  height: 20px;
+}
+.material-icons.home-icon{
+  font-size: 20px;
+}

@@ -1,0 +1,49 @@
+<div class="wrapper">
+  <div class="container" >
+    <header class="home-header">
+      <div class="account-icon-container">
+        <mat-icon class="account-icon" [matMenuTriggerFor]="menu" >account_circle</mat-icon>
+       <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="signOut()">Sign out</button>
+      </mat-menu>
+      </div>
+    </header>
+    <nav>
+      <div class="navbar-title-container">
+        <img src="../../../assets/images/infrastructure.png" width="28px" alt="inf">
+        <div>Complex infrastructures</div>
+      </div>
+      <div class="home-title">
+        <mat-icon class="home-icon">home</mat-icon>
+        <div class="home-text">Infrastructures</div>
+      </div>
+      <div class="navbar-body">
+        <div class="infrastructures-section">
+          <div [routerLink]="['./asana']" class="navbar-body-element-container">
+            <img src="../../../assets/images/asana.png" width="20px" alt="inf">
+            <div class="navbar-body-element">Asana</div>
+          </div>
+          <div class="navbar-body-element-container">
+            <img src="../../../assets/images/aws.png" width="20px" alt="inf">
+            <div class="navbar-body-element">Aws</div>
+          </div>
+          <div class="navbar-body-element-container">
+            <img src="../../../assets/images/gitlab.png" width="20px" alt="inf">
+            <div class="navbar-body-element">Gitlab</div>
+          </div>
+          <div class="navbar-body-element-container">
+            <img src="../../../assets/images/jenkins.png" width="20px" alt="inf">
+            <div class="navbar-body-element">Jenkins</div>
+          </div>
+          <div class="navbar-body-element-container">
+            <img src="../../../assets/images/vmware.png" width="20px" alt="inf">
+            <div class="navbar-body-element">Vmware Esxi</div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

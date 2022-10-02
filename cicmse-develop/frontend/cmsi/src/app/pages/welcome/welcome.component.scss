@@ -1,0 +1,113 @@
+div.wrapper{
+  height: 100%;
+  div.welcome-section {
+    background-color: #f6f7f9;
+    position: relative;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    button.logout-button {
+      width: 200px;
+      height: 50px;
+      transition: ease-in-out 2s;
+      border-radius: 10px;
+      z-index: 3;
+      background-color: white;
+      position: absolute;
+      top: 55px;
+      left: 134p;
+      right: 40px;
+    }
+    div.nav-bar {
+      z-index: 3;
+      height: 50px;
+      position: absolute;
+      left: 0;
+      top:0;
+      width: 100%;
+      text-align: right;
+    }
+
+    div.welcome-background {
+      position: absolute;
+      top:0;
+      left: 0;
+      height: 400px;
+      background-image: url('../../../assets/images/Wave-100s-3000px.png');
+      background-color: #1a73e8;
+      background-position: top;
+      background-repeat: no-repeat;
+      width: 100%;
+    }
+    div.container {
+      z-index: 0;
+      position: relative;
+      width: 810px;
+      margin-right: auto;
+      margin-left:auto;
+      div.cards-container {
+        display:flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
+::ng-deep .cdk-overlay-pane {
+  margin-right:50px;
+  text-align: center;
+}
+.mat-menu-item {
+  text-align: center;
+  font-size: medium;
+}
+
+mat-card {
+  margin:10px;
+  box-sizing: border-box;
+  height: 220px;
+  padding: 30px;
+  width: 250px;
+}
+
+mat-card:hover {
+ cursor: pointer;
+ background-color: #F8F8F8;
+}
+.material-icons {
+  font-size: 44px;
+}
+
+.material-icons.launch-icon{
+  font-size: 24px;
+}
+mat-icon.account-icon {
+  height: 44px;
+  width: 44px;
+  color: white;
+  padding: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+mat-icon.launch-icon {
+  position: absolute;
+  bottom: 15px;
+  color: rgb(0 0 0 / 50%);
+}
+
+h2 {
+  margin-top:0;
+  margin-left:10px;
+  color: white;
+  font-size: x-large;
+}
+h1 {
+  font-size: 20px;
+}
+
+@media (max-width: 847px) {
+  div.container {
+    width: 540px !important;
+  }
+}
