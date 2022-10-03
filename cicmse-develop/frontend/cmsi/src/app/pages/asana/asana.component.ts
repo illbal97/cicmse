@@ -65,7 +65,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
       },
       complete: () => this.isLoading = true,
     });
-   
+
   }
 
   addPersonalAccessToken() {
@@ -82,6 +82,12 @@ export class AsanaComponent implements OnInit, OnDestroy {
         this.ngOnInit();
       }
     });
+  }
+
+  openAsanaProject(workspace: any) {
+    this.asanaService.getAsanaProjectbyWorkspace(this.user, workspace.gid).subscribe((x: any) => {
+
+    })
   }
 
 }

@@ -18,14 +18,20 @@ constructor(http: HttpClient,authenticationService: AuthenticationService) {
  }
 
  setPersonalAccessTokenForUser(user:User, token:String): Observable<any> {
+  console.log()
    if(token != null && token != "") {
      user.asanaPersonalAccessToken = token;
    }
-  return this.http.post<User>(API_URL + "/add-access-token", user,{headers:this.getHeader()});
+
+  return  this.http.post<User>(API_URL + "/add-access-token", user,{headers:this.getHeader()});
   }
 
   getAsanaWorkspaces(user: User): Observable<any> {
     return this.http.post<any>(API_URL + "/workspaces", user, {headers:this.getHeader()})
+  }
+
+  getAsanaProjectbyWorkspace(user: User, workspacesGid: String): Observable<any> {
+    return this.http.post<any>(API_URL + "/projects", {user, workspacesGid},  {headers:this.getHeader()})
   }
 }
 

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -31,6 +32,10 @@ public class AsanaWorkspaces{
     private String name;
 
     private boolean isOrganization;
+
+    @OneToMany(mappedBy = "asanaWorkspaces")
+    @JsonIgnore()
+    private List<AsanaProjects> asanaProjects;
 
     @ManyToOne()
     @JsonIgnore()

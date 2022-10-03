@@ -1,26 +1,30 @@
 package com.modern_inf.management.service;
 
+import com.asana.models.Project;
 import com.asana.models.Workspace;
-import com.asana.resources.Workspaces;
 import com.modern_inf.management.model.Asana;
+import com.modern_inf.management.model.AsanaProjects;
+import com.modern_inf.management.model.AsanaWorkspaces;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.repository.AsanaDao;
+import com.modern_inf.management.repository.AsanaProjectsDao;
+import com.modern_inf.management.repository.AsanaWorkspacesDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.*;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AsanaServiceImpl implements AsanaService{
-    private AsanaApiService asanaApiService;
-    private AsanaDao asanaDao;
+    private final AsanaApiService asanaApiService;
+    private final AsanaDao asanaDao;
+    private final AsanaProjectsDao asanaProjectsDao;
+    private final AsanaWorkspacesDao asanaWorkspacesDao;
 
     private final static ZoneOffset zoneOffset = ZoneId.systemDefault().getRules().getOffset(Instant.now());
 
@@ -29,14 +33,35 @@ public class AsanaServiceImpl implements AsanaService{
     private Long ASANA_EXPIRATION_TIME_IN_MS ;
 
     @Autowired
-    public AsanaServiceImpl(AsanaApiService asanaApiService, AsanaDao asanaDao) {
+    public AsanaServiceImpl(AsanaApiService asanaApiService, AsanaDao asanaDao, AsanaProjectsDao asanaProjectsDao, AsanaWorkspacesDao asanaWorkspacesDao) {
         this.asanaApiService = asanaApiService;
         this.asanaDao = asanaDao;
+        this.asanaProjectsDao = asanaProjectsDao;
+        this.asanaWorkspacesDao = asanaWorkspacesDao;
     }
 
     public List<Workspace> getAsanaWorkspaces(Optional<User> user) throws IOException {
 
         return this.asanaApiService.getWorkspaces(user);
+
+    }
+
+    public List<AsanaProjects> getAllAsanaProjects() {
+        return this.asanaProjectsDao.findAll();
+    }
+
+    public List<AsanaWorkspaces> getAllAsanaWorkspaces() {
+        return this.asanaWorkspacesDao.findAll();
+    }
+
+
+    public void saveAsanaProject(AsanaProjects asanaProjects) {
+        this.asanaProjectsDao.save(asanaProjects);
+    }
+
+    public List<Project> getAsanaProjectsByWorkspaces(Optional<User> user, String grid) throws IOException {
+
+        return this.asanaApiService.getProjectsByWorkspace(user, grid, true);
 
     }
 
@@ -71,6 +96,10 @@ public class AsanaServiceImpl implements AsanaService{
 
     private long convertLocalDateTimeToMilliSecond(LocalDateTime localDateTime) {
         return localDateTime.toEpochSecond(zoneOffset) * 1000 + ASANA_EXPIRATION_TIME_IN_MS;
+    }
+
+    public void saveAsanaWorkspace(AsanaWorkspaces asanaWorkspace) {
+        this.asanaWorkspacesDao.save(asanaWorkspace);
     }
 }
 
