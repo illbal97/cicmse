@@ -18,6 +18,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
    user:User = new User();
    addingToken: FormGroup;
    workspaces: Array<any> = [];
+   projects: Array<any> = [];
    isLoading = false;
    subscriptionWorkspaces: Subscription | undefined;
    subscriptionUser: Subscription | undefined;
@@ -84,9 +85,9 @@ export class AsanaComponent implements OnInit, OnDestroy {
     });
   }
 
-  openAsanaProject(workspace: any) {
-    this.asanaService.getAsanaProjectbyWorkspace(this.user, workspace.gid).subscribe((x: any) => {
-
+  loadAsanaProjects(gid: any) {
+    this.asanaService.getAsanaProjectbyWorkspace(this.user, gid).subscribe( p => {
+     this.projects = p;
     })
   }
 
