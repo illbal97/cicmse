@@ -5,14 +5,58 @@ div.asana-page-wrapper {
   }
 }
 
+div.asana-project-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 600px;
+  background-color: white;
+  box-shadow: 0 0 0 1px #edeae9, 0 1px 4px 0 rgba(109, 110, 111, 0.08);
+  div.project-label-container {
+    padding: 20px;
+    font-size: 20px;
+    mat-form-field {
+      font-size: 17px;
 
+      mat-label {
+      }
+    }
 
-mat-card.workspace-card {
-  margin: 20px auto;
-  max-width: 800px;
-  min-height: 30px;
-  cursor: pointer;
+  }
+  div.project-container {
+    display: grid;
+    grid-template-columns: repeat(3, 250px);
+    justify-content: center;
+    justify-items: center;
+
+    div.project-card {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      align-items: center;
+      align-content: center;
+      cursor: pointer;
+      div {
+        width: 45px;
+          mat-icon {
+            font-size: 45px;
+            color: #0096FF;
+        }
+      }
+      div.project-name {
+        text-align: center;
+        span {
+          color: #333;
+        }
+      }
+    }
+  }
+
 }
+
+
 div.access-token-adding-container {
   margin-left:auto;
   margin-right: auto;
@@ -37,4 +81,12 @@ mat-spinner {
     margin-top: 100px
 }
 
+p.project-title {
+  font-size: 15px;
+  padding: 12px;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white;
+}
 

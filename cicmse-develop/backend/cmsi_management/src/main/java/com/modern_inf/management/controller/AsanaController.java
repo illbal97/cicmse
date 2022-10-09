@@ -7,7 +7,6 @@ import com.modern_inf.management.model.AsanaProjects;
 import com.modern_inf.management.model.AsanaWorkspaces;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.model.UserAndWorkspaceGidDto;
-import com.modern_inf.management.repository.AsanaWorkspacesDao;
 import com.modern_inf.management.service.AsanaService;
 import com.modern_inf.management.service.AsanaServiceImpl;
 import com.modern_inf.management.service.UserService;
@@ -109,7 +108,13 @@ public class AsanaController {
                     for (Project project : projects) {
                         var asanaProject = AsanaProjects.builder()
                                 .name(project.name)
+                                .asanaWorkspaces(this.asanaService.getAsanaWorkspaceByWorkspaceGid(dto.getWorkspacesGid()))
+                                .currentStatus(String.valueOf(project.currentStatus))
+                                .createdAt(project.createdAt)
+                                .isPublic(project.isPublic)
+                                .dueDate(project.dueDate)
                                 .resourceType(project.resourceType)
+                                .color(project.color)
                                 .gid(project.gid)
                                 .build();
                         if (asanaProjects.stream().noneMatch(x -> x.getGid().equals(asanaProject.getGid()))) {
@@ -123,6 +128,7 @@ public class AsanaController {
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     error.add("Bad asana personal access token");
+
                     return ResponseEntity.ok(error);
                 }
             }

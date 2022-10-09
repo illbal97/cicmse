@@ -59,9 +59,9 @@ public class AsanaServiceImpl implements AsanaService{
         this.asanaProjectsDao.save(asanaProjects);
     }
 
-    public List<Project> getAsanaProjectsByWorkspaces(Optional<User> user, String grid) throws IOException {
+    public List<Project> getAsanaProjectsByWorkspaces(Optional<User> user, String gid) throws IOException {
 
-        return this.asanaApiService.getProjectsByWorkspace(user, grid, true);
+        return this.asanaApiService.getProjectsByWorkspace(user, gid, false);
 
     }
 
@@ -81,6 +81,10 @@ public class AsanaServiceImpl implements AsanaService{
             this.asanaDao.save(a);
         }
 
+    }
+
+    public AsanaWorkspaces getAsanaWorkspaceByWorkspaceGid(String gid) {
+        return this.asanaWorkspacesDao.findByGid(gid);
     }
 
     public void updateAsanaTokenExpirationTime(Asana a) {

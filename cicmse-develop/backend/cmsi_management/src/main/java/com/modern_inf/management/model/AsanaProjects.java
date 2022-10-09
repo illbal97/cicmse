@@ -1,6 +1,7 @@
 package com.modern_inf.management.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.api.client.util.DateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +21,17 @@ public class AsanaProjects {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String color;
+
+    private DateTime createdAt;
+
+    private String currentStatus;
+
+    private DateTime dueDate;
+
     private String gid;
+
+    private boolean isPublic;
 
     private String resourceType;
 

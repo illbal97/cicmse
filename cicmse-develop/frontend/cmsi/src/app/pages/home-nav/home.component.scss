@@ -73,7 +73,18 @@ div.wrapper {
       grid-area:head;
       div.account-icon-container {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        div.greetings {
+          margin-top:20px;
+          margin-left:100px;
+          text-align: center;
+          h2 {
+             color: rgb(0,0,0,0.7);
+
+
+          }
+
+        }
         mat-icon.account-icon {
             font-size: 38px;
             color: darkviolet;
