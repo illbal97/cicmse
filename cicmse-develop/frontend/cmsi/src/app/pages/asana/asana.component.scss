@@ -1,8 +1,6 @@
 div.asana-page-wrapper {
 
-  div.asana-workspaces-container {
-
-  }
+  div.asana-workspaces-container {}
 }
 
 div.asana-project-wrapper {
@@ -13,17 +11,19 @@ div.asana-project-wrapper {
   height: 600px;
   background-color: white;
   box-shadow: 0 0 0 1px #edeae9, 0 1px 4px 0 rgba(109, 110, 111, 0.08);
+
   div.project-label-container {
-    padding: 20px;
+    padding: 15px;
     font-size: 20px;
+
     mat-form-field {
       font-size: 17px;
 
-      mat-label {
-      }
+      mat-label {}
     }
 
   }
+
   div.project-container {
     display: grid;
     grid-template-columns: repeat(3, 250px);
@@ -38,15 +38,21 @@ div.asana-project-wrapper {
       align-items: center;
       align-content: center;
       cursor: pointer;
+
       div {
-        width: 45px;
-          mat-icon {
-            font-size: 45px;
-            color: #0096FF;
+        width: 60px;
+
+        mat-icon {
+          font-size: 60px;
+          width: 60px;
+          height: 60px;
+          color: #0096FF;
         }
       }
+
       div.project-name {
         text-align: center;
+
         span {
           color: #333;
         }
@@ -55,17 +61,36 @@ div.asana-project-wrapper {
   }
 
 }
+div.project-adding-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  margin-right: 50px;
+}
+
+p.project-adding-text {
+  align-self: center;
+  margin: 0;
+}
+
+mat-icon.project-adding-icon {
+  font-size: 45px;
+  width: 45px;
+  height: 45px;
+  margin-right: 20px;
+  cursor: pointer;
+}
 
 
 div.access-token-adding-container {
-  margin-left:auto;
+  margin-left: auto;
   margin-right: auto;
   max-width: 1200px;
   text-align: center;
 
 }
 
-mat-form-field.field-access-token{
+mat-form-field.field-access-token {
   display: block;
   margin-bottom: 50px;
   text-align: center;
@@ -75,10 +100,10 @@ mat-form-field.field-access-token{
 
 mat-spinner {
   max-width: 100px;
-    height: 100px;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 100px
+  height: 100px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 100px
 }
 
 p.project-title {
@@ -89,4 +114,3 @@ p.project-title {
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white;
 }
-

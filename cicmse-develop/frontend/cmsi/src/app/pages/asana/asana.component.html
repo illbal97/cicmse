@@ -1,55 +1,74 @@
 <div class="asana-page-wrapper">
   <div class="asana-workspaces-container"></div>
-  <div *ngIf="user?.asanaPersonalAccessToken != null ; else warningtoken" class="mat-tab-workspaces" [@.disabled]="true">
-    <div  class="workspaces" label="Workspaces">
+  <div
+    *ngIf="user?.asanaPersonalAccessToken != null; else warningtoken"
+    class="mat-tab-workspaces"
+    [@.disabled]="true"
+  >
+    <div class="workspaces" label="Workspaces">
       <mat-spinner *ngIf="!isLoading; else workspaces1"></mat-spinner>
     </div>
-    <ng-template  #workspaces1>
-     <div class="asana-project-wrapper">
-      <div class="project-label-container">
-        <mat-form-field class="" appearance="fill">
-          <mat-label>workspace</mat-label>
-          <mat-select (valueChange)="loadAsanaProjects($event)" required>
-            <mat-option  *ngFor="let Workspace of workspaces" [value]="Workspace.gid">
-              {{Workspace.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div>
-          <p class="project-title">Projects:</p>
-        </div>
-      </div>
-      <div class="project-container">
-        <div  *ngFor="let project of projects" class="project-card">
+    <ng-template #workspaces1>
+      <div class="asana-project-wrapper">
+        <div class="project-label-container">
+          <mat-form-field class="" appearance="fill">
+            <mat-label>workspace</mat-label>
+            <mat-select (valueChange)="loadAsanaProjects($event)" required>
+              <mat-option
+                *ngFor="let Workspace of workspaces"
+                [value]="Workspace.gid"
+              >
+                {{ Workspace.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
           <div>
-            <mat-icon class="project-icon" >horizontal_split</mat-icon>
+            <p class="project-title">Projects:</p>
           </div>
-          <div class="project-name">
-            <span>{{project.name}}</span>
+        </div>
+        <div class="project-adding-container">
+          <mat-icon class="project-adding-icon">add_box</mat-icon>
+          <p class="project-adding-text">Project</p>
+        </div>
+        <div class="project-container">
+          <div *ngFor="let project of projects" class="project-card">
+            <div>
+              <mat-icon class="project-icon">horizontal_split</mat-icon>
+            </div>
+            <div class="project-name">
+              <span>{{ project.name }}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-   </ng-template>
+    </ng-template>
   </div>
 </div>
 <ng-template #warningtoken>
-  <div style="text-align: center;" class="warning-access-token">
+  <div style="text-align: center" class="warning-access-token">
     <h1>Please add your personal access token for Asana</h1>
   </div>
   <div class="access-token-adding-container">
-      <form [formGroup]="addingToken" (ngSubmit)="addPersonalAccessToken()">
-        <mat-form-field class="field-access-token">
-          <mat-label style="font-size: 16px;">Personal Access Token:</mat-label>
-          <input formControlName = "accessToken"  style="font-size: 16px;" matInput required type="text">
-        </mat-form-field>
-        <button type="submit" mat-raised-button>Adding</button>
-      </form>
+    <form [formGroup]="addingToken" (ngSubmit)="addPersonalAccessToken()">
+      <mat-form-field class="field-access-token">
+        <mat-label style="font-size: 16px">Personal Access Token:</mat-label>
+        <input
+          formControlName="accessToken"
+          style="font-size: 16px"
+          matInput
+          required
+          type="text"
+        />
+      </mat-form-field>
+      <button type="submit" mat-raised-button>Adding</button>
+    </form>
   </div>
-  <div style="margin-top: 50px;">
-    <p style="text-align: center;"><a target="_blank" href="https://app.asana.com/-/developer_console">First, you have to create your personal access token, this link will help you</a>
+  <div style="margin-top: 50px">
+    <p style="text-align: center">
+      <a target="_blank" href="https://app.asana.com/-/developer_console"
+        >First, you have to create your personal access token, this link will
+        help you</a
+      >
     </p>
   </div>
 </ng-template>
-
-
