@@ -1,0 +1,72 @@
+<div class="project-creation-dialog-wrapper">
+  <div class="project-creation-title">
+    <h2>Asana Project creation</h2>
+  </div>
+  <div class="projec-creation-form-container">
+    <form [formGroup]="creationAsanaProject" (ngSubmit)="createAsanaProject()">
+      <div class="form-fields-container">
+        <div>
+          <mat-form-field>
+            <mat-label>Project name</mat-label>
+            <input formControlName="name" required type="text" matInput>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Project owner</mat-label>
+            <input formControlName="owner" required type="text" matInput>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Project current status</mat-label>
+            <input formControlName="current_status" required type="text" matInput>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Project color</mat-label>
+            <input formControlName="color" required type="text" matInput>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+             <mat-label>Project notes</mat-label>
+             <input formControlName="notes" required type="text" matInput>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a start on date</mat-label>
+            <input formControlName="start_on" required matInput [matDatepicker]="datepicker1">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker1>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a due on date</mat-label>
+            <input formControlName="due_on" required matInput [matDatepicker]="datepicker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="project-creation-submit-container">
+        <button  [disabled]="!creationAsanaProject.valid" type="submit"  color="primary" mat-raised-button>Create</button>
+      </div>
+    </form>
+  </div>
+</div>

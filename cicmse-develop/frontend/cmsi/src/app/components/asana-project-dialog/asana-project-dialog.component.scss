@@ -1,0 +1,13 @@
+
+div.form-fields-container {
+  display: grid;
+  grid-template-columns: repeat(2, 300px);
+  margin-bottom: 30px;
+  justify-items: stretch;
+  justify-content: space-evenly;
+}
+
+div.project-creation-submit-container {
+  text-align: end;
+}
+

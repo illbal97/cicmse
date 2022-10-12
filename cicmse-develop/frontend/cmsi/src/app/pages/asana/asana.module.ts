@@ -4,14 +4,15 @@ import { AsanaComponent } from './asana.component';
 import { MaterialModule } from '../../moduls/material/material.module';
 import { AsanaRoutes } from './asana.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AsanaProjectDialogComponent } from 'src/app/components/asana-project-dialog/asana-project-dialog.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     AsanaRoutes,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
   ],
-  declarations: [AsanaComponent]
+  declarations: [AsanaComponent, AsanaProjectDialogComponent]
 })
 export class AsanaModule { }
