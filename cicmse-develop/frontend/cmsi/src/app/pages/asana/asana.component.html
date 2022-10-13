@@ -13,7 +13,7 @@
         <div class="project-label-container">
           <mat-form-field class="" appearance="fill">
             <mat-label>workspace</mat-label>
-            <mat-select (valueChange)="loadAsanaProjects($event)" required>
+            <mat-select [(value)]="selectedWorkspaceGid"  (valueChange)="loadAsanaProjects($event)" required>
               <mat-option
                 *ngFor="let Workspace of workspaces"
                 [value]="Workspace.gid"

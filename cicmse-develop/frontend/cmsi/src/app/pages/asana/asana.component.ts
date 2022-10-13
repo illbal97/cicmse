@@ -10,6 +10,7 @@ import { data } from 'jquery';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { AsanaProjectDialogComponent } from 'src/app/components/asana-project-dialog/asana-project-dialog.component';
+import { asanaProject } from 'src/app/model/asana-project';
 
 @Component({
   selector: 'app-asana',
@@ -19,11 +20,13 @@ import { AsanaProjectDialogComponent } from 'src/app/components/asana-project-di
 export class AsanaComponent implements OnInit, OnDestroy {
   user: User = new User();
   addingToken: FormGroup;
+  project: asanaProject | undefined;
   workspaces: Array<any> = [];
   projects: Array<any> = [];
   isLoading = false;
   subscriptionWorkspaces: Subscription | undefined;
   subscriptionUser: Subscription | undefined;
+  selectedWorkspaceGid: String = "Please, select";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +34,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
     private router: Router,
     private authenticationService: AuthenticationService,
     private asanaService: AsanaService) {
-
+    this.project = new asanaProject();
     this.addingToken = formBuilder.group({
       accessToken: ['', Validators.minLength(50)]
     })
@@ -51,6 +54,10 @@ export class AsanaComponent implements OnInit, OnDestroy {
         switch (asanaWorkspace.toString()) {
           case "Bad asana personal access token": {
             this.user.asanaPersonalAccessToken = null;
+            break;
+          }
+          case "Connection timeout": {
+            this.router.navigate(['/timeout-landing-page']);
             break;
           }
           case "Not exist any Asana account for this user: " + this.user.name: {
@@ -88,8 +95,8 @@ export class AsanaComponent implements OnInit, OnDestroy {
       });
   }
 
-  loadAsanaProjects(gid: any) {
-    this.asanaService.getAsanaProjectbyWorkspace(this.user, gid).subscribe(p => {
+  loadAsanaProjects(gid: any, isImmideatly = false) {
+    this.asanaService.getAsanaProjectbyWorkspace(this.user, gid, isImmideatly).subscribe(p => {
       this.projects = p;
     })
   }
@@ -97,12 +104,15 @@ export class AsanaComponent implements OnInit, OnDestroy {
   openAsanaProjectCreationDialog() {
     const dialogRef = this.asanaProjecCreationDialog.open(AsanaProjectDialogComponent, {
       width: "800px",
-      height: "450px"
+      height: "450px",
+      data: {project: this.project, gid: this.selectedWorkspaceGid, user: this.user}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed' + result);
-      //this.projects.push(result);
+      if (result != undefined) {
+        this.loadAsanaProjects(this.selectedWorkspaceGid, true)
+      }
     });
   }
 

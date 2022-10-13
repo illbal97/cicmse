@@ -1,10 +1,9 @@
 
 export class asanaProject {
   name:String = '';
-  current_status: String = '';
+  currentStatus: String = '';
   color: String  ='';
-  due_on: String = '';
+  dueOn: String = '';
   notes: String ='';
   owner: String = '';
-  start_on: String = '';
 }

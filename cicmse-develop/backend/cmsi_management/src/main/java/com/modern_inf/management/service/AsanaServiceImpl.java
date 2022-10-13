@@ -5,6 +5,7 @@ import com.asana.models.Workspace;
 import com.modern_inf.management.model.Asana;
 import com.modern_inf.management.model.AsanaProjects;
 import com.modern_inf.management.model.AsanaWorkspaces;
+import com.modern_inf.management.model.Dto.AsanaProjectDto;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.repository.AsanaDao;
 import com.modern_inf.management.repository.AsanaProjectsDao;
@@ -104,6 +105,11 @@ public class AsanaServiceImpl implements AsanaService{
 
     public void saveAsanaWorkspace(AsanaWorkspaces asanaWorkspace) {
         this.asanaWorkspacesDao.save(asanaWorkspace);
+    }
+
+    public Project createAsanaProject(AsanaProjectDto asanaProjectDto) throws IOException {
+        return this.asanaApiService.createProjectForWorkspace(asanaProjectDto);
+
     }
 }
 

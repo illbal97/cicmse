@@ -2,7 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { asanaProject } from 'src/app/model/asana-project';
+import { User } from 'src/app/model/user.model';
 import { AsanaComponent } from 'src/app/pages/asana/asana.component';
+import { AsanaService } from 'src/app/services/asana.service';
 
 @Component({
   selector: 'app-asana-project-dialog',
@@ -11,10 +13,13 @@ import { AsanaComponent } from 'src/app/pages/asana/asana.component';
 })
 export class AsanaProjectDialogComponent implements OnInit {
   creationAsanaProject: FormGroup;
+  asanaProject: asanaProject = new asanaProject();
+
   constructor(
+    private asanaService: AsanaService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AsanaComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: asanaProject
+    @Inject(MAT_DIALOG_DATA) public data:{project: asanaProject, gid: String, user: User}
     ) {
 
     this.creationAsanaProject = formBuilder.group({
@@ -24,7 +29,6 @@ export class AsanaProjectDialogComponent implements OnInit {
       due_on: '',
       notes: '',
       owner: '',
-      start_on: ''
     })
    }
 
@@ -32,17 +36,31 @@ export class AsanaProjectDialogComponent implements OnInit {
   }
 
   createAsanaProject() {
-    this.data.name = this.creationAsanaProject.value.name;
-    this.data.owner = this.creationAsanaProject.value.owner;
-    this.data.current_status = this.creationAsanaProject.value.current_status;
-    this.data.color = this.creationAsanaProject.value.color;
-    this.data.notes = this.creationAsanaProject.value.notes;
-    this.data.start_on = this.creationAsanaProject.value.start_on;
-    this.data.due_on = this.creationAsanaProject.value.due_on;
+    this.data.project.name = this.creationAsanaProject.value.name;
+    this.data.project.owner = this.creationAsanaProject.value.owner;
+    this.data.project.currentStatus = this.creationAsanaProject.value.current_status;
+    this.data.project.color = this.creationAsanaProject.value.color;
+    this.data.project.notes = this.creationAsanaProject.value.notes;
+    let dueOn: Date =  this.creationAsanaProject.value.due_on;
+    this.data.project.dueOn = this.dateFormatter(dueOn.getFullYear(), dueOn.getMonth() + 1, dueOn.getDate());
     // service
+    this.asanaService.createAsanaProjectbyWorkspace(this.data.user, this.data.gid, this.data.project).subscribe(
+      {
+        next: (value) => {
+            this.asanaProject = value;
+        },
+        error: (err) => {
+          console.log(err)
+        },
+        complete: () => {
+          this.dialogRef.close(this.asanaProject);
+        }
+      }
+    )
+  }
 
-
-    this.dialogRef.close();
+  dateFormatter(year: number, month: number, day: number): String {
+    return "" + year + "-" + month + "-" + day;
   }
 
 

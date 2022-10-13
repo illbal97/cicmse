@@ -2,6 +2,7 @@ package com.modern_inf.management.service;
 import com.asana.Client;
 import com.asana.models.Project;
 import com.asana.models.Workspace;
+import com.modern_inf.management.model.Dto.AsanaProjectDto;
 import com.modern_inf.management.model.User;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,19 @@ public class AsanaApiService {
         return client.projects.getProjectsForWorkspace(workspaceGid, archived)
                 .option("pretty", true)
                 .execute();
+    }
+
+    public Project createProjectForWorkspace(AsanaProjectDto asanaProjectDto) throws IOException {
+        client = getClient(Optional.ofNullable(asanaProjectDto.getUser()));
+        return client.projects.createProjectForWorkspace(asanaProjectDto.getWorkspaceGid())
+                .data("name", asanaProjectDto.getAsanaProject().getName())
+                .data("color", asanaProjectDto.getAsanaProject().getColor())
+                .data("due_on", asanaProjectDto.getAsanaProject().getDueOn())
+                .data("notes", asanaProjectDto.getAsanaProject().getNotes())
+                .data("owner", asanaProjectDto.getAsanaProject().getOwner())
+                .option("pretty", true)
+                .execute();
+
     }
 
     private Client getClient(Optional<User> user) {

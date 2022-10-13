@@ -5,13 +5,18 @@ import com.asana.models.Workspace;
 import com.modern_inf.management.helper.SymmetricEncryption;
 import com.modern_inf.management.model.AsanaProjects;
 import com.modern_inf.management.model.AsanaWorkspaces;
+import com.modern_inf.management.model.Dto.AsanaProjectDto;
 import com.modern_inf.management.model.User;
-import com.modern_inf.management.model.UserAndWorkspaceGidDto;
+import com.modern_inf.management.model.Dto.UserAndWorkspaceGidDto;
 import com.modern_inf.management.service.AsanaService;
 import com.modern_inf.management.service.AsanaServiceImpl;
 import com.modern_inf.management.service.UserService;
+import org.apache.http.conn.ConnectTimeoutException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -27,6 +32,8 @@ public class AsanaController {
     private final UserService userService;
     private final AsanaServiceImpl asanaService;
     private final SymmetricEncryption symmetricEncryption;
+
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 
     @Autowired
@@ -75,8 +82,12 @@ public class AsanaController {
                     this.asanaService.updateAsanaTokenExpirationTime(asana);
 
                     return ResponseEntity.ok(workspaces);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                } catch (ConnectTimeoutException e) {
+                    LOGGER.error(e.getMessage());
+                    error.add("Connection timeout");
+                    return ResponseEntity.ok(error);
+                }catch (Exception e) {
+                    LOGGER.error(e.getMessage());
                     error.add("Bad asana personal access token");
                     return ResponseEntity.ok(error);
                 }
@@ -94,9 +105,9 @@ public class AsanaController {
 
         if (asana != null) {
             var asanaWorkspaces =  asana.getAsanaWorkspaces();
-            var asanaProjects = asanaWorkspaces.stream().filter( a -> a.getGid().equals(dto.getWorkspacesGid())).findFirst().get().getAsanaProjects();
+            var asanaProjects = asanaWorkspaces.stream().filter( a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
 
-            if (!asanaProjects.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime())) {
+            if (!asanaProjects.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime()) && !dto.isImmediate()) {
 
                 // Get data from database cache
                 return ResponseEntity.ok(asanaProjects);
@@ -104,11 +115,11 @@ public class AsanaController {
                 try {
 
                     // API
-                    List<Project> projects = this.asanaService.getAsanaProjectsByWorkspaces(Optional.of(dto.getUser()), dto.getWorkspacesGid());
+                    List<Project> projects = this.asanaService.getAsanaProjectsByWorkspaces(Optional.of(dto.getUser()), dto.getWorkspaceGid());
                     for (Project project : projects) {
                         var asanaProject = AsanaProjects.builder()
                                 .name(project.name)
-                                .asanaWorkspaces(this.asanaService.getAsanaWorkspaceByWorkspaceGid(dto.getWorkspacesGid()))
+                                .asanaWorkspaces(this.asanaService.getAsanaWorkspaceByWorkspaceGid(dto.getWorkspaceGid()))
                                 .currentStatus(String.valueOf(project.currentStatus))
                                 .createdAt(project.createdAt)
                                 .isPublic(project.isPublic)
@@ -125,8 +136,12 @@ public class AsanaController {
                     this.asanaService.updateAsanaTokenExpirationTime(asana);
 
                     return ResponseEntity.ok(projects);
+                } catch (ConnectTimeoutException e) {
+                    LOGGER.error(e.getMessage());
+                    error.add("Connection timeout");
+                    return ResponseEntity.ok(error);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    LOGGER.error(e.getMessage());
                     error.add("Bad asana personal access token");
 
                     return ResponseEntity.ok(error);
@@ -156,5 +171,41 @@ public class AsanaController {
         us.setAccessToken(u.getAccessToken());
         us.setRefreshToken(u.getRefreshToken());
         return  ResponseEntity.ok(us);
+    }
+    @PostMapping("createProject")
+    public ResponseEntity createProject(@RequestBody AsanaProjectDto asanaProjectDto) {
+        List<String> error = new ArrayList<>();
+        Project project;
+        AsanaProjects asanaProject;
+
+        try {
+
+            project = this.asanaService.createAsanaProject(asanaProjectDto);
+            asanaProject = AsanaProjects.builder()
+                    .name(project.name)
+                    .gid(project.gid)
+                    .asanaWorkspaces(this.asanaService.getAsanaWorkspaceByWorkspaceGid(asanaProjectDto.getWorkspaceGid()))
+                    .owner(String.valueOf(project.owner))
+                    .resourceType(project.resourceType)
+                    .createdAt(project.createdAt)
+                    .dueDate(project.dueOn)
+                    .isPublic(project.isPublic)
+                    .color(project.color)
+                    .notes(project.notes)
+                    .build();
+            if (this.asanaService.getAllAsanaProjects().stream().noneMatch(a -> a.getName().equals(asanaProject.getName()))) {
+                this.asanaService.saveAsanaProject(asanaProject);
+                return ResponseEntity.ok(asanaProject);
+            }
+        } catch (ConnectTimeoutException e) {
+            LOGGER.error(e.getMessage());
+            error.add("Connection timeout");
+            return ResponseEntity.ok(error);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return  ResponseEntity.status(403).body("This project name is already taken");
+
     }
 }

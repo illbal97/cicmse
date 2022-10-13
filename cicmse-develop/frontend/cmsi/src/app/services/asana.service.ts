@@ -5,6 +5,7 @@ import { User } from '../model/user.model';
 import { Observable } from 'rxjs';
 import { HeaderService } from './base-header.service';
 import { AuthenticationService } from './authentication.service';
+import { asanaProject } from '../model/asana-project';
 
 const API_URL = environment.ROOT_URL + "/api/v1/asana"
 
@@ -13,25 +14,29 @@ const API_URL = environment.ROOT_URL + "/api/v1/asana"
 })
 export class AsanaService extends HeaderService {
 
-constructor(http: HttpClient,authenticationService: AuthenticationService) {
-  super(http, authenticationService);
- }
+  constructor(http: HttpClient, authenticationService: AuthenticationService) {
+    super(http, authenticationService);
+  }
 
- setPersonalAccessTokenForUser(user:User, token:String): Observable<any> {
-  console.log()
-   if(token != null && token != "") {
-     user.asanaPersonalAccessToken = token;
-   }
+  setPersonalAccessTokenForUser(user: User, token: String): Observable<any> {
+    console.log()
+    if (token != null && token != "") {
+      user.asanaPersonalAccessToken = token;
+    }
 
-  return  this.http.post<User>(API_URL + "/add-access-token", user,{headers:this.getHeader()});
+    return this.http.post<User>(API_URL + "/add-access-token", user, { headers: this.getHeader() });
   }
 
   getAsanaWorkspaces(user: User): Observable<any> {
-    return this.http.post<any>(API_URL + "/workspaces", user, {headers:this.getHeader()})
+    return this.http.post<any>(API_URL + "/workspaces", user, { headers: this.getHeader() })
   }
 
-  getAsanaProjectbyWorkspace(user: User, workspacesGid: String): Observable<any> {
-    return this.http.post<any>(API_URL + "/projects", {user, workspacesGid},  {headers:this.getHeader()})
+  getAsanaProjectbyWorkspace(user: User, workspaceGid: String, isImmideatly: boolean): Observable<any> {
+    return this.http.post<any>(API_URL + "/projects", { user, workspaceGid, isImmideatly }, { headers: this.getHeader() })
+  }
+
+  createAsanaProjectbyWorkspace(user: User, workspaceGid: String, asanaProject: asanaProject): Observable<any> {
+    return this.http.post<any>(API_URL + "/createProject", { user, workspaceGid, asanaProject }, { headers: this.getHeader() })
   }
 }
 

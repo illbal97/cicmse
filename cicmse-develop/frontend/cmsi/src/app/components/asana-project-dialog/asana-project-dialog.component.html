@@ -24,29 +24,19 @@
           </mat-form-field>
         </div>
         <div>
-          <mat-form-field>
-            <mat-label>Project color</mat-label>
-            <input formControlName="color" required type="text" matInput>
-          </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Project color</mat-label>
+              <mat-select formControlName="color" name="food">
+                <mat-option value="light-blue">light-blue</mat-option>
+                <mat-option value="light-green">light-green</mat-option>
+                <mat-option value="light-red">light-red</mat-option>
+              </mat-select>
+            </mat-form-field>
         </div>
         <div>
           <mat-form-field>
              <mat-label>Project notes</mat-label>
              <input formControlName="notes" required type="text" matInput>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field appearance="fill">
-            <mat-label>Choose a start on date</mat-label>
-            <input formControlName="start_on" required matInput [matDatepicker]="datepicker1">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
-            <mat-datepicker #datepicker1>
-              <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-              </mat-datepicker-actions>
-            </mat-datepicker>
           </mat-form-field>
         </div>
         <div>

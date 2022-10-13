@@ -29,6 +29,9 @@ public class AsanaProjects {
 
     private DateTime dueDate;
 
+    private String owner;
+    private String notes;
+
     private String gid;
 
     private boolean isPublic;
