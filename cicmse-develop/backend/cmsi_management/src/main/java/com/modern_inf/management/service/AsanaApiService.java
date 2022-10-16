@@ -2,11 +2,13 @@ package com.modern_inf.management.service;
 import com.asana.Client;
 import com.asana.models.Project;
 import com.asana.models.Workspace;
+import com.google.api.client.util.DateTime;
 import com.modern_inf.management.model.Dto.AsanaProjectDto;
 import com.modern_inf.management.model.User;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +35,7 @@ public class AsanaApiService {
         return client.projects.createProjectForWorkspace(asanaProjectDto.getWorkspaceGid())
                 .data("name", asanaProjectDto.getAsanaProject().getName())
                 .data("color", asanaProjectDto.getAsanaProject().getColor())
-                .data("due_on", asanaProjectDto.getAsanaProject().getDueOn())
+                .data("due_on",asanaProjectDto.getAsanaProject().getDueOn())
                 .data("notes", asanaProjectDto.getAsanaProject().getNotes())
                 .data("owner", asanaProjectDto.getAsanaProject().getOwner())
                 .option("pretty", true)

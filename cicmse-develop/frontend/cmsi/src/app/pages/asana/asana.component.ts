@@ -42,6 +42,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptionWorkspaces?.unsubscribe();
     this.subscriptionUser?.unsubscribe();
+    this.asanaProjecCreationDialog.closeAll();
   }
 
   ngOnInit() {

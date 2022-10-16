@@ -19,7 +19,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -114,16 +116,23 @@ public class AsanaController {
             } else {
                 try {
 
+                    DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     // API
                     List<Project> projects = this.asanaService.getAsanaProjectsByWorkspaces(Optional.of(dto.getUser()), dto.getWorkspaceGid());
                     for (Project project : projects) {
+                        if(project.dueDate != null) {
+                            LocalDate ld = LocalDate.parse(project.dueDate.toString(), DATEFORMATTER);
+                            LocalDateTime ldt = LocalDateTime.of(ld, LocalDateTime.now().toLocalTime());
+                        }
+
                         var asanaProject = AsanaProjects.builder()
                                 .name(project.name)
                                 .asanaWorkspaces(this.asanaService.getAsanaWorkspaceByWorkspaceGid(dto.getWorkspaceGid()))
                                 .currentStatus(String.valueOf(project.currentStatus))
                                 .createdAt(project.createdAt)
                                 .isPublic(project.isPublic)
-                                .dueDate(project.dueDate)
+                                .createdAt(project.createdAt)
+                                .dueDate(null)
                                 .resourceType(project.resourceType)
                                 .color(project.color)
                                 .gid(project.gid)
@@ -179,8 +188,11 @@ public class AsanaController {
         AsanaProjects asanaProject;
 
         try {
+            DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             project = this.asanaService.createAsanaProject(asanaProjectDto);
+            LocalDate ld = LocalDate.parse(project.dueDate.toString(), DATEFORMATTER);
+            LocalDateTime ldt = LocalDateTime.of(ld, LocalDateTime.now().toLocalTime());
             asanaProject = AsanaProjects.builder()
                     .name(project.name)
                     .gid(project.gid)
@@ -188,7 +200,7 @@ public class AsanaController {
                     .owner(String.valueOf(project.owner))
                     .resourceType(project.resourceType)
                     .createdAt(project.createdAt)
-                    .dueDate(project.dueOn)
+                    .dueDate(ldt)
                     .isPublic(project.isPublic)
                     .color(project.color)
                     .notes(project.notes)

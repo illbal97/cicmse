@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -27,7 +28,7 @@ public class AsanaProjects {
 
     private String currentStatus;
 
-    private DateTime dueDate;
+    private LocalDateTime dueDate;
 
     private String owner;
     private String notes;

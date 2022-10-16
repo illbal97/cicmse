@@ -28,7 +28,7 @@ export class AsanaProjectDialogComponent implements OnInit {
       color: '',
       due_on: '',
       notes: '',
-      owner: '',
+      owner: 'illbal97@gmail.com',
     })
    }
 
