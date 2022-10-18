@@ -49,55 +49,56 @@ public class AsanaController {
     @PostMapping("workspaces")
     public ResponseEntity<?> getAsanaWorkspaces(@RequestBody User user) {
         List<String> error = new ArrayList<>();
+        if (user.getAsanaPersonalAccessToken() == null || user.getAsanaPersonalAccessToken().isEmpty()) {
+            LOGGER.error("Not exist any Asana account for this user: " + user.getName());
+            error.add("AsanaPersonalAccessToken is null");
+            return ResponseEntity.ok(error);
+        }
+
         var asana = this.asanaService.getAsanaAccountIdByUser(user.getId());
 
         // If there are not any Asana account we do not have any Asana workspaces
-        if (asana != null) {
-            var asanaWorkspaces = this.asanaService.getAllAsanaWorkspaces();
-            asanaWorkspaces = asanaWorkspaces.stream().filter(
-                    a -> Objects.equals(a.getAsana().getId(), asana.getId()))
-                    .toList();
+        var asanaWorkspaces = this.asanaService.getAllAsanaWorkspaces();
+        asanaWorkspaces = asanaWorkspaces.stream().filter(
+                a -> Objects.equals(a.getAsana().getId(), asana.getId()))
+                .toList();
 
-            if (!asanaWorkspaces.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime())) {
+        if (!asanaWorkspaces.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime())) {
 
-                // Get data from database cache
-                return ResponseEntity.ok(asanaWorkspaces);
-            } else {
-                try {
+            // Get data from database cache
+            return ResponseEntity.ok(asanaWorkspaces);
+        } else {
+            try {
 
-                    // API
-                    List<Workspace> workspaces = this.asanaService.getAsanaWorkspaces(Optional.of(user));
-                    for (Workspace workspace : workspaces) {
-                        var asanaWorkspace = AsanaWorkspaces.builder()
-                                .name(workspace.name)
-                                .emailDomains(String.valueOf(workspace.emailDomains))
-                                .isOrganization(workspace.isOrganization)
-                                .resourceType(workspace.resourceType)
-                                .asana(asana)
-                                .gid(workspace.gid)
-                                .build();
-                        if (asanaWorkspaces.isEmpty() || asanaWorkspaces.stream().noneMatch(x -> x.getGid().equals(asanaWorkspace.getGid()))) {
-                            this.asanaService.saveAsanaWorkspace(asanaWorkspace);
-                        }
-
+                // API
+                List<Workspace> workspaces = this.asanaService.getAsanaWorkspaces(Optional.of(user));
+                for (Workspace workspace : workspaces) {
+                    var asanaWorkspace = AsanaWorkspaces.builder()
+                            .name(workspace.name)
+                            .emailDomains(String.valueOf(workspace.emailDomains))
+                            .isOrganization(workspace.isOrganization)
+                            .resourceType(workspace.resourceType)
+                            .asana(asana)
+                            .gid(workspace.gid)
+                            .build();
+                    if (asanaWorkspaces.isEmpty() || asanaWorkspaces.stream().noneMatch(x -> x.getGid().equals(asanaWorkspace.getGid()))) {
+                        this.asanaService.saveAsanaWorkspace(asanaWorkspace);
                     }
-                    this.asanaService.updateAsanaTokenExpirationTime(asana);
 
-                    return ResponseEntity.ok(workspaces);
-                } catch (ConnectTimeoutException e) {
-                    LOGGER.error(e.getMessage());
-                    error.add("Connection timeout");
-                    return ResponseEntity.ok(error);
-                }catch (Exception e) {
-                    LOGGER.error(e.getMessage());
-                    error.add("Bad asana personal access token");
-                    return ResponseEntity.ok(error);
                 }
+                this.asanaService.updateAsanaTokenExpirationTime(asana);
+
+                return ResponseEntity.ok(workspaces);
+            } catch (ConnectTimeoutException e) {
+                LOGGER.error(e.getMessage());
+                error.add("Connection timeout");
+                return ResponseEntity.ok(error);
+            }catch (Exception e) {
+                LOGGER.error(e.getMessage());
+                error.add("Bad asana personal access token");
+                return ResponseEntity.ok(error);
             }
         }
-        error.add("Not exist any Asana account for this user: " + user.getName());
-        return  ResponseEntity.ok(error);
-
     }
 
     @PostMapping("projects")

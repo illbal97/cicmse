@@ -1,23 +1,28 @@
-<div class="asana-page-wrapper">
-  <div class="asana-workspaces-container"></div>
-  <div
-    *ngIf="user?.asanaPersonalAccessToken != null; else warningtoken"
-    class="mat-tab-workspaces"
-    [@.disabled]="true"
-  >
-    <div class="workspaces" label="Workspaces">
-      <mat-spinner *ngIf="!isLoading; else workspaces1"></mat-spinner>
-    </div>
-    <ng-template #workspaces1>
+<div class="asana-page-wrapper" [ngSwitch]="asanaStatus">
+  <div *ngSwitchCase="'Bad asana personal access token'">
+    <app-adding-asana-personal-access-token
+      (addingAsanaPersonalAccessTokenEvent)="addPersonalAccessToken($event)"></app-adding-asana-personal-access-token>
+  </div>
+  <div *ngSwitchCase="'AsanaPersonalAccessToken is null'">
+    <app-adding-asana-personal-access-token
+      (addingAsanaPersonalAccessTokenEvent)="addPersonalAccessToken($event)"></app-adding-asana-personal-access-token>
+  </div>
+  <div *ngSwitchCase="'Connection timeout'">
+    <app-connection-timeout></app-connection-timeout>
+  </div>
+  <div class="workspaces" label="Workspaces">
+    <mat-spinner *ngIf="!isLoading; else workspace1"></mat-spinner>
+  </div>
+  <ng-template #workspace1>
+    <div *ngSwitchCase="'Asana account is active'">
       <div class="asana-project-wrapper">
         <div class="project-label-container">
           <mat-form-field class="" appearance="fill">
             <mat-label>workspace</mat-label>
-            <mat-select [(value)]="selectedWorkspaceGid"  (valueChange)="loadAsanaProjects($event)" required>
-              <mat-option
-                *ngFor="let Workspace of workspaces"
-                [value]="Workspace.gid"
-              >
+            <mat-select [(value)]="selectedWorkspaceGid"
+              (valueChange)="loadAsanaProjects($event)" required>
+              <mat-option *ngFor="let Workspace of workspaces"
+                [value]="Workspace.gid">
                 {{ Workspace.name }}
               </mat-option>
             </mat-select>
@@ -27,7 +32,8 @@
           </div>
         </div>
         <div class="project-adding-container">
-          <mat-icon (click)="openAsanaProjectCreationDialog()" class="project-adding-icon">add_box</mat-icon>
+          <mat-icon (click)="openAsanaProjectCreationDialog()"
+            class="project-adding-icon">add_box</mat-icon>
           <p class="project-adding-text">Project</p>
         </div>
         <div class="project-container">
@@ -41,34 +47,6 @@
           </div>
         </div>
       </div>
-    </ng-template>
-  </div>
+    </div>
+  </ng-template>
 </div>
-<ng-template #warningtoken>
-  <div style="text-align: center" class="warning-access-token">
-    <h1>Please add your personal access token for Asana</h1>
-  </div>
-  <div class="access-token-adding-container">
-    <form [formGroup]="addingToken" (ngSubmit)="addPersonalAccessToken()">
-      <mat-form-field class="field-access-token">
-        <mat-label style="font-size: 16px">Personal Access Token:</mat-label>
-        <input
-          formControlName="accessToken"
-          style="font-size: 16px"
-          matInput
-          required
-          type="text"
-        />
-      </mat-form-field>
-      <button type="submit" mat-raised-button>Adding</button>
-    </form>
-  </div>
-  <div style="margin-top: 50px">
-    <p style="text-align: center">
-      <a target="_blank" href="https://app.asana.com/-/developer_console"
-        >First, you have to create your personal access token, this link will
-        help you</a
-      >
-    </p>
-  </div>
-</ng-template>

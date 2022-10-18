@@ -19,25 +19,21 @@ import { asanaProject } from 'src/app/model/asana-project';
 })
 export class AsanaComponent implements OnInit, OnDestroy {
   user: User = new User();
-  addingToken: FormGroup;
   project: asanaProject | undefined;
   workspaces: Array<any> = [];
   projects: Array<any> = [];
-  isLoading = false;
+  isLoading: boolean = false;
   subscriptionWorkspaces: Subscription | undefined;
   subscriptionUser: Subscription | undefined;
-  selectedWorkspaceGid: String = "Please, select";
+  asanaStatus: String = "";
+  selectedWorkspaceGid: String = "";
 
   constructor(
-    private formBuilder: FormBuilder,
     private asanaProjecCreationDialog: MatDialog,
-    private router: Router,
     private authenticationService: AuthenticationService,
     private asanaService: AsanaService) {
     this.project = new asanaProject();
-    this.addingToken = formBuilder.group({
-      accessToken: ['', Validators.minLength(50)]
-    })
+
   }
   ngOnDestroy(): void {
     this.subscriptionWorkspaces?.unsubscribe();
@@ -46,42 +42,45 @@ export class AsanaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isLoading = false;
     this.subscriptionUser = this.authenticationService.currentUser.subscribe((data: User) => {
       this.user = data;
     });
 
     this.subscriptionWorkspaces = this.asanaService.getAsanaWorkspaces(this.user).subscribe({
       next: (asanaWorkspace: any) => {
-        switch (asanaWorkspace.toString()) {
-          case "Bad asana personal access token": {
-            this.user.asanaPersonalAccessToken = null;
-            break;
+          switch (asanaWorkspace.toString()) {
+            case "Bad asana personal access token": {
+              this.asanaStatus = "Bad asana personal access token"
+              break;
+            }
+            case "Connection timeout": {
+              this.asanaStatus = "Connection timeout"
+              break;
+            }
+            case "AsanaPersonalAccessToken is null": {
+              this.asanaStatus = "AsanaPersonalAccessToken is null";
+              break;
+            }
+            default: {
+              this.asanaStatus = "Asana account is active";
+              this.workspaces = asanaWorkspace;
+              break;
+            }
           }
-          case "Connection timeout": {
-            this.router.navigate(['/timeout-landing-page']);
-            break;
-          }
-          case "Not exist any Asana account for this user: " + this.user.name: {
-            this.user.asanaPersonalAccessToken = null;
-            break;
-          }
-          default: {
-            this.workspaces = asanaWorkspace;
-            break;
-          }
-        }
+
       },
       error: (err: string) => {
         console.error(err);
         this.isLoading = true;
       },
-      complete: () => this.isLoading = true,
+      complete: () => {this.isLoading = true}
     });
 
   }
 
-  addPersonalAccessToken() {
-    this.asanaService.setPersonalAccessTokenForUser(this.user, this.addingToken.value.accessToken)
+  addPersonalAccessToken(token: String) {
+    this.asanaService.setPersonalAccessTokenForUser(this.user, token)
       .subscribe({
         next: (data: User) => {
           this.authenticationService.setCurrentUser(data);
@@ -92,6 +91,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
         complete: () => {
           this.isLoading = false;
           this.ngOnInit();
+
         }
       });
   }
@@ -103,18 +103,19 @@ export class AsanaComponent implements OnInit, OnDestroy {
   }
 
   openAsanaProjectCreationDialog() {
-    const dialogRef = this.asanaProjecCreationDialog.open(AsanaProjectDialogComponent, {
-      width: "800px",
-      height: "450px",
-      data: {project: this.project, gid: this.selectedWorkspaceGid, user: this.user}
-    });
+    if(this.selectedWorkspaceGid !== "") {
+      const dialogRef = this.asanaProjecCreationDialog.open(AsanaProjectDialogComponent, {
+        width: "800px",
+        height: "450px",
+        data: {project: this.project, gid: this.selectedWorkspaceGid, user: this.user}
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed' + result);
-      if (result != undefined) {
-        this.loadAsanaProjects(this.selectedWorkspaceGid, true)
-      }
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed' + result);
+        if (result != undefined) {
+          this.loadAsanaProjects(this.selectedWorkspaceGid, true)
+        }
+      });
+    }
   }
-
 }

@@ -1,0 +1,20 @@
+<div style="text-align: center" class="warning-access-token">
+  <h1>Please add your personal access token for Asana</h1>
+</div>
+<div class="access-token-adding-container">
+  <form [formGroup]="addingToken" (ngSubmit)="addPersonalAccessToken()">
+    <mat-form-field class="field-access-token">
+      <mat-label style="font-size: 16px">Personal Access Token:</mat-label>
+      <input formControlName="accessToken" style="font-size: 16px" matInput
+        required type="text" />
+    </mat-form-field>
+    <button type="submit" [disabled]="addingToken.invalid" mat-raised-button>Adding</button>
+  </form>
+</div>
+<div style="margin-top: 50px">
+  <p style="text-align: center">
+    <a target="_blank" href="https://app.asana.com/-/developer_console">First,
+      you have to create your personal access
+      token, this link will help you</a>
+  </p>
+</div>
