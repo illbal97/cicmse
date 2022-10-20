@@ -1,9 +1,12 @@
 package com.modern_inf.management.service;
 import com.asana.Client;
 import com.asana.models.Project;
+import com.asana.models.Task;
 import com.asana.models.Workspace;
 import com.google.api.client.util.DateTime;
 import com.modern_inf.management.model.Dto.AsanaProjectDto;
+import com.modern_inf.management.model.Dto.AsanaProjectTasksDto;
+import com.modern_inf.management.model.Dto.UserAndWorkspaceGidDto;
 import com.modern_inf.management.model.User;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,13 @@ public class AsanaApiService {
                 .execute();
     }
 
+    public List<com.asana.models.User> getAsanaUsers(UserAndWorkspaceGidDto dto) throws IOException {
+        client = getClient(Optional.ofNullable(dto.getUser()));
+        return client.users.getUsers(dto.getWorkspaceGid())
+                .option("pretty", true)
+                .execute();
+    }
+
     public Project createProjectForWorkspace(AsanaProjectDto asanaProjectDto) throws IOException {
         client = getClient(Optional.ofNullable(asanaProjectDto.getUser()));
         return client.projects.createProjectForWorkspace(asanaProjectDto.getWorkspaceGid())
@@ -38,6 +48,14 @@ public class AsanaApiService {
                 .data("due_on",asanaProjectDto.getAsanaProject().getDueOn())
                 .data("notes", asanaProjectDto.getAsanaProject().getNotes())
                 .data("owner", asanaProjectDto.getAsanaProject().getOwner())
+                .option("pretty", true)
+                .execute();
+
+    }
+
+    public List<Task> getTasksFromProject(AsanaProjectTasksDto asanaProjectDto) throws IOException {
+        client = getClient(Optional.ofNullable(asanaProjectDto.getUser()));
+        return client.tasks.getTasksForProject(asanaProjectDto.getProjectGid())
                 .option("pretty", true)
                 .execute();
 

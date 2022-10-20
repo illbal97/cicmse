@@ -22,7 +22,7 @@
             <mat-select [(value)]="selectedWorkspaceGid"
               (valueChange)="loadAsanaProjects($event)" required>
               <mat-option *ngFor="let Workspace of workspaces"
-                [value]="Workspace.gid">
+                [value]="Workspace.gid" >
                 {{ Workspace.name }}
               </mat-option>
             </mat-select>
@@ -37,7 +37,7 @@
           <p class="project-adding-text">Project</p>
         </div>
         <div class="project-container">
-          <div *ngFor="let project of projects" class="project-card">
+          <div *ngFor="let project of projects" class="project-card" (click)="loadAsanaTasksForProject(project.gid)">
             <div>
               <mat-icon class="project-icon">horizontal_split</mat-icon>
             </div>

@@ -14,7 +14,12 @@
         <div>
           <mat-form-field>
             <mat-label>Project owner</mat-label>
-            <input readonly formControlName="owner" required type="text" matInput>
+            <mat-select formControlName="owner" required>
+            <mat-option *ngFor="let asanaUser of data.asanaUsers"
+              [value]="asanaUser.name" >
+              {{ asanaUser.name }}
+            </mat-option>
+          </mat-select>
           </mat-form-field>
         </div>
         <div>

@@ -27,6 +27,10 @@ export class AsanaService extends HeaderService {
     return this.http.post<User>(API_URL + "/add-access-token", user, { headers: this.getHeader() });
   }
 
+  getAsanaUser(user: User, workspaceGid: String): Observable<any> {
+    return this.http.post<any>(API_URL + "/asanaUser", {user, workspaceGid} , { headers: this.getHeader() })
+  }
+
   getAsanaWorkspaces(user: User): Observable<any> {
     return this.http.post<any>(API_URL + "/workspaces", user, { headers: this.getHeader() })
   }
@@ -34,6 +38,11 @@ export class AsanaService extends HeaderService {
   getAsanaProjectbyWorkspace(user: User, workspaceGid: String, isImmideatly: boolean): Observable<any> {
     return this.http.post<any>(API_URL + "/projects", { user, workspaceGid, isImmideatly }, { headers: this.getHeader() })
   }
+
+  getAsanaTasksbyProject(user: User, workspaceGid: String, projectGid: String): Observable<any> {
+    return this.http.post<any>(API_URL + "/projectTasks", { user, projectGid, workspaceGid }, { headers: this.getHeader() })
+  }
+
 
   createAsanaProjectbyWorkspace(user: User, workspaceGid: String, asanaProject: asanaProject): Observable<any> {
     return this.http.post<any>(API_URL + "/createProject", { user, workspaceGid, asanaProject }, { headers: this.getHeader() })

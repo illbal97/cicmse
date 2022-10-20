@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Builder
@@ -24,7 +25,7 @@ public class AsanaProjects {
 
     private String color;
 
-    private DateTime createdAt;
+    private LocalDateTime createdAt;
 
     private String currentStatus;
 
@@ -44,4 +45,8 @@ public class AsanaProjects {
     @ManyToOne()
     @JsonIgnore()
     private AsanaWorkspaces asanaWorkspaces;
+
+    @OneToMany(mappedBy = "asanaProjects")
+    @JsonIgnore()
+    private List<AsanaTasks> asanaTasks;
 }

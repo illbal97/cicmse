@@ -19,7 +19,7 @@ export class AsanaProjectDialogComponent implements OnInit {
     private asanaService: AsanaService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AsanaComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:{project: asanaProject, gid: String, user: User}
+    @Inject(MAT_DIALOG_DATA) public data:{project: asanaProject, gid: String, user: User, asanaUsers: Array<any>}
     ) {
 
     this.creationAsanaProject = formBuilder.group({
@@ -28,11 +28,12 @@ export class AsanaProjectDialogComponent implements OnInit {
       color: '',
       due_on: '',
       notes: '',
-      owner: 'illbal97@gmail.com',
+      owner: '',
     })
    }
 
   ngOnInit(): void {
+    console.log(this.data.asanaUsers)
   }
 
   createAsanaProject() {
