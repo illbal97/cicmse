@@ -39,13 +39,26 @@ export class AsanaService extends HeaderService {
     return this.http.post<any>(API_URL + "/projects", { user, workspaceGid, isImmideatly }, { headers: this.getHeader() })
   }
 
-  getAsanaTasksbyProject(user: User, workspaceGid: String, projectGid: String): Observable<any> {
-    return this.http.post<any>(API_URL + "/projectTasks", { user, projectGid, workspaceGid }, { headers: this.getHeader() })
+  getAsanaTasksbyProjectSection(user: User, workspaceGid: String, projectGid: String, sectionGid: String ): Observable<any> {
+    return this.http.post<any>(API_URL + "/projectTasksBySection", { user, projectGid, workspaceGid, sectionGid }, { headers: this.getHeader() })
+  }
+
+  getAsanaSectionsByProject(user: User, workspaceGid: String, projectGid: String): Observable<any> {
+    return this.http.post<any>(API_URL + "/projectSection", { user, projectGid, workspaceGid}, { headers: this.getHeader() })
   }
 
 
   createAsanaProjectbyWorkspace(user: User, workspaceGid: String, asanaProject: asanaProject): Observable<any> {
     return this.http.post<any>(API_URL + "/createProject", { user, workspaceGid, asanaProject }, { headers: this.getHeader() })
   }
+
+  createAsanaDefaultSectionbyProject(user: User, projectGid: String): Observable<any> {
+    return this.http.post<any>(API_URL + "/createSection", { user, projectGid }, { headers: this.getHeader() })
+  }
+
+  addAsanaTaskToSection(user: User, asanaSectionGid: String, asanaTaskGid: String): Observable<any> {
+    return this.http.post<any>(API_URL + "/addTaskToSection", { user, asanaSectionGid, asanaTaskGid }, { headers: this.getHeader() })
+  }
+
 }
 

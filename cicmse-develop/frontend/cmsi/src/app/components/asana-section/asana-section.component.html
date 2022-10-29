@@ -1,0 +1,10 @@
+<div> <h2>{{section.name}}</h2></div>
+<div
+  cdkDropList
+  [id]= 'section.name'
+ cdkDropList
+  [cdkDropListData]="asanaTask"
+  class="example-list"
+  (cdkDropListDropped)="drop($event)">
+<div class="example-box" *ngFor="let task of asanaTask" [cdkDragData]="task" cdkDrag>{{task.name}}</div>
+</div>

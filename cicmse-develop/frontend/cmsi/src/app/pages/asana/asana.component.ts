@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
-import { User } from '../../model/user.model';
-import { AsanaService } from '../../services/asana.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { MatDialog } from '@angular/material/dialog';
 import { AsanaProjectDialogComponent } from 'src/app/components/asana-project-dialog/asana-project-dialog.component';
 import { asanaProject } from 'src/app/model/asana-project';
 import { lastValueFrom } from 'rxjs';
+import { User } from 'src/app/model/user.model';
+import { AsanaService } from 'src/app/services/asana.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-asana',
@@ -26,10 +27,12 @@ export class AsanaComponent implements OnInit, OnDestroy {
   asanaUser: Array<any> = [];
 
   constructor(
+    private router:Router,
     private asanaProjecCreationDialog: MatDialog,
     private authenticationService: AuthenticationService,
     private asanaService: AsanaService) {
-    this.project = new asanaProject();
+      this.project = new asanaProject();
+
 
   }
   ngOnDestroy(): void {
@@ -96,10 +99,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
 
   loadAsanaTasksForProject(projectGid: String) {
     if (this.selectedWorkspaceGid !== "") {
-      this.asanaService.getAsanaTasksbyProject(this.user, this.selectedWorkspaceGid, projectGid).subscribe(x => {
-        console.log(x);
-      });
-
+      this.router.navigate(['/home/asanaTask'], {queryParams:{workspaceGid: this.selectedWorkspaceGid, projectGid: projectGid}});
     }
   }
 
@@ -107,8 +107,8 @@ export class AsanaComponent implements OnInit, OnDestroy {
     if (this.selectedWorkspaceGid !== "") {
      await lastValueFrom(this.asanaService.getAsanaUser(this.user, this.selectedWorkspaceGid)).then(users => {
         this.asanaUser = users;
-      }).catch( error => {
-        console.log(error);
+      }).catch( errr => {
+        console.log(errr);
       });
       const dialogRef = this.asanaProjecCreationDialog.open(AsanaProjectDialogComponent, {
         width: "800px",

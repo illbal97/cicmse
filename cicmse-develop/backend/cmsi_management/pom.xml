@@ -65,7 +65,7 @@
 		<dependency>
 			<groupId>com.asana</groupId>
 			<artifactId>asana</artifactId>
-			<version>0.10.4</version>
+			<version>1.0.0</version> <!--0.10.4 -->
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->

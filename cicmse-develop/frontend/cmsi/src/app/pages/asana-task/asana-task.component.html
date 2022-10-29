@@ -1,0 +1,14 @@
+<div class="asana-projects-task-wrapper">
+  <div class="asana-project-header">
+    <div class="project-name-container">
+       <p>Project name:</p>
+    </div>
+    <mat-tab-group>
+      <mat-tab label="Board">
+        <div class="sections-container" cdkDropListGroup>
+          <app-asana-section  *ngFor="let section of asanaSection " [user]="user" [projectGid]="projectGid" [workspaceGid]="workspaceGid" [asanaSection]="section"></app-asana-section>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

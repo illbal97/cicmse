@@ -1,15 +1,12 @@
 package com.modern_inf.management.service;
 import com.asana.models.Project;
+import com.asana.models.Section;
 import com.asana.models.Task;
 import com.asana.models.Workspace;
+import com.google.gson.JsonElement;
 import com.modern_inf.management.model.*;
-import com.modern_inf.management.model.Dto.AsanaProjectDto;
-import com.modern_inf.management.model.Dto.AsanaProjectTasksDto;
-import com.modern_inf.management.model.Dto.UserAndWorkspaceGidDto;
-import com.modern_inf.management.repository.AsanaDao;
-import com.modern_inf.management.repository.AsanaProjectsDao;
-import com.modern_inf.management.repository.AsanaTasksDao;
-import com.modern_inf.management.repository.AsanaWorkspacesDao;
+import com.modern_inf.management.model.Dto.*;
+import com.modern_inf.management.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,6 +23,8 @@ public class AsanaServiceImpl implements AsanaService{
     private final AsanaDao asanaDao;
     private final AsanaProjectsDao asanaProjectsDao;
 
+    private final AsanaSectionDao asanaSectionDao;
+
     private final AsanaTasksDao asanaTasksDao;
     private final AsanaWorkspacesDao asanaWorkspacesDao;
 
@@ -36,10 +35,11 @@ public class AsanaServiceImpl implements AsanaService{
     private Long ASANA_EXPIRATION_TIME_IN_MS ;
 
     @Autowired
-    public AsanaServiceImpl(AsanaApiService asanaApiService, AsanaDao asanaDao, AsanaProjectsDao asanaProjectsDao, AsanaTasksDao asanaTasksDao, AsanaWorkspacesDao asanaWorkspacesDao) {
+    public AsanaServiceImpl(AsanaApiService asanaApiService, AsanaDao asanaDao, AsanaProjectsDao asanaProjectsDao, AsanaSectionDao asanaSectionDao, AsanaTasksDao asanaTasksDao, AsanaWorkspacesDao asanaWorkspacesDao) {
         this.asanaApiService = asanaApiService;
         this.asanaDao = asanaDao;
         this.asanaProjectsDao = asanaProjectsDao;
+        this.asanaSectionDao = asanaSectionDao;
         this.asanaTasksDao = asanaTasksDao;
         this.asanaWorkspacesDao = asanaWorkspacesDao;
     }
@@ -50,16 +50,16 @@ public class AsanaServiceImpl implements AsanaService{
 
     }
 
-    public List<AsanaProjects> getAllAsanaProjects() {
+    public List<AsanaProject> getAllAsanaProjects() {
         return this.asanaProjectsDao.findAll();
     }
 
-    public List<AsanaWorkspaces> getAllAsanaWorkspaces() {
+    public List<AsanaWorkspace> getAllAsanaWorkspaces() {
         return this.asanaWorkspacesDao.findAll();
     }
 
 
-    public void saveAsanaProject(AsanaProjects asanaProjects) {
+    public void saveAsanaProject(AsanaProject asanaProjects) {
         this.asanaProjectsDao.save(asanaProjects);
     }
 
@@ -67,6 +67,9 @@ public class AsanaServiceImpl implements AsanaService{
 
         return this.asanaApiService.getProjectsByWorkspace(user, gid, false);
 
+    }
+    public List<Section> getSectionFromProject(AsanaProjectTasksDto dto) throws IOException {
+        return this.asanaApiService.getSectionFromProject(dto);
     }
 
     public Asana getAsanaAccountIdByUser(Long userId) {
@@ -87,12 +90,12 @@ public class AsanaServiceImpl implements AsanaService{
 
     }
 
-    public AsanaWorkspaces getAsanaWorkspaceByWorkspaceGid(String gid) {
+    public AsanaWorkspace getAsanaWorkspaceByWorkspaceGid(String gid) {
         return this.asanaWorkspacesDao.findByGid(gid);
     }
 
-    public List<Task> getAsanaTasksFromProject(AsanaProjectTasksDto asanaProjectDto) throws IOException {
-        return this.asanaApiService.getTasksFromProject(asanaProjectDto);
+    public List<Task> getTasksFromSection(AsanaProjectTaskSectionDto asanaProjectTaskSectionDto) throws IOException {
+        return this.asanaApiService.getTasksFromSection(asanaProjectTaskSectionDto);
     }
 
     public void updateAsanaTokenExpirationTime(Asana a) {
@@ -110,10 +113,10 @@ public class AsanaServiceImpl implements AsanaService{
         return localDateTime.toEpochSecond(zoneOffset) * 1000 + ASANA_EXPIRATION_TIME_IN_MS;
     }
 
-    public void saveAsanaWorkspace(AsanaWorkspaces asanaWorkspace) {
+    public void saveAsanaWorkspace(AsanaWorkspace asanaWorkspace) {
         this.asanaWorkspacesDao.save(asanaWorkspace);
     }
-    public void saveAsanaTask(AsanaTasks asanaTasks) {
+    public void saveAsanaTask(AsanaTask asanaTasks) {
         this.asanaTasksDao.save(asanaTasks);
     }
 
@@ -122,12 +125,32 @@ public class AsanaServiceImpl implements AsanaService{
 
     }
 
-    public AsanaProjects getAsanaProjectByProjectGid(String projectGid) {
+    public Section createSectionForProject(AsanaUserAndProjectDto asanaUserAndProjectDto, String sectionName) throws IOException {
+        return this.asanaApiService.createSectionForProject(asanaUserAndProjectDto, sectionName);
+    }
+
+    public AsanaProject getAsanaProjectByProjectGid(String projectGid) {
         return this.asanaProjectsDao.findByGid(projectGid);
     }
 
     public List<com.asana.models.User> getAsanaUsers(UserAndWorkspaceGidDto userAndWorkspaceGidDto) throws IOException {
         return this.asanaApiService.getAsanaUsers(userAndWorkspaceGidDto);
+    }
+
+    public void saveAsanaSection(AsanaSection asanaSection) {
+        this.asanaSectionDao.save(asanaSection);
+    }
+
+    public AsanaTask getAsanaTaskByTaskGid(String taskGid) {
+        return this.asanaTasksDao.findByGid(taskGid);
+    }
+
+    public AsanaSection getAsanaSectionBySectionGid(String asanaSectionGid) {
+        return this.asanaSectionDao.findByGid(asanaSectionGid);
+    }
+
+    public JsonElement addTaskToSection(AsanaTaskAndSectionDto asanaTaskAndSectionDto) throws IOException {
+        return this.asanaApiService.addTaskToSection(asanaTaskAndSectionDto);
     }
 }
 

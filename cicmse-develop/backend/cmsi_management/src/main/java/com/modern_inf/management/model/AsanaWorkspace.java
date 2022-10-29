@@ -1,9 +1,5 @@
 package com.modern_inf.management.model;
 
-import com.asana.Client;
-import com.asana.models.Workspace;
-import com.asana.resources.Workspaces;
-import com.asana.resources.gen.WorkspacesBase;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -17,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "asana_workspaces")
-public class AsanaWorkspaces{
+public class AsanaWorkspace {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +31,7 @@ public class AsanaWorkspaces{
 
     @OneToMany(mappedBy = "asanaWorkspaces")
     @JsonIgnore()
-    private List<AsanaProjects> asanaProjects;
+    private List<AsanaProject> asanaProjects;
 
     @ManyToOne()
     @JsonIgnore()

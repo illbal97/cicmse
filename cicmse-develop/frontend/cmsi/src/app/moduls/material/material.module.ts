@@ -19,6 +19,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -46,6 +47,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatIconModule,
     MatDialogModule,
     MatTabsModule,
+    DragDropModule,
     MatAutocompleteModule
   ],
   exports: [
@@ -69,6 +71,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatIconModule,
     MatDialogModule,
     MatTabsModule,
+    DragDropModule,
     MatAutocompleteModule
   ]
 })

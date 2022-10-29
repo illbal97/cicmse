@@ -1,0 +1,22 @@
+div.asana-projects-task-wrapper {
+
+  div.asana-project-header {
+
+    div.project-name-container {
+      border-bottom: 1px solid #3333;
+      p {
+        margin-left: 20px;
+      }
+    }
+  }
+
+}
+
+div.sections-container {
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+  display: flex;
+  justify-content: space-around;
+}

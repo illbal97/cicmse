@@ -1,13 +1,11 @@
 package com.modern_inf.management.repository;
 
-import com.modern_inf.management.model.AsanaWorkspaces;
+import com.modern_inf.management.model.AsanaWorkspace;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface AsanaWorkspacesDao extends JpaRepository<AsanaWorkspaces, Long> {
+public interface AsanaWorkspacesDao extends JpaRepository<AsanaWorkspace, Long> {
 
-    AsanaWorkspaces findByGid(String gid);
+    AsanaWorkspace findByGid(String gid);
 }

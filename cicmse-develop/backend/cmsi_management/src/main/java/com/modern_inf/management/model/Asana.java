@@ -19,7 +19,7 @@ public class Asana {
 
     @OneToMany(mappedBy = "asana")
     @JsonIgnore()
-    private List<AsanaWorkspaces> asanaWorkspaces;
+    private List<AsanaWorkspace> asanaWorkspaces;
 
     private LocalDateTime tokenLastTimeUsed;
 
