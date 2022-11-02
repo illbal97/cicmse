@@ -56,6 +56,10 @@ export class AsanaService extends HeaderService {
     return this.http.post<any>(API_URL + "/createSection", { user, projectGid }, { headers: this.getHeader() })
   }
 
+  getAsanaTask(user: User, asanaSectionGid: String, asanaTaskGid: String) {
+    return this.http.post<any>(API_URL + "/task", {user, asanaSectionGid, asanaTaskGid}, { headers: this.getHeader() })
+  }
+
   addAsanaTaskToSection(user: User, asanaSectionGid: String, asanaTaskGid: String): Observable<any> {
     return this.http.post<any>(API_URL + "/addTaskToSection", { user, asanaSectionGid, asanaTaskGid }, { headers: this.getHeader() })
   }

@@ -234,7 +234,7 @@ public class AsanaController {
                             this.asanaService.saveAsanaSection(asanaSection1);
                         }
                     }
-                    this.asanaService.updateAsanaTokenExpirationTime(asana);
+                    //this.asanaService.updateAsanaTokenExpirationTime(asana);
 
                     return ResponseEntity.ok(sections);
                 } catch (ConnectTimeoutException e) {
@@ -309,6 +309,24 @@ public class AsanaController {
             var section = this.asanaService.getAsanaSectionBySectionGid(dto.getAsanaSectionGid());
             task.setAsanaSection(section);
             this.asanaService.saveAsanaTask(task);
+            return ResponseEntity.ok(task);
+        } catch (ConnectTimeoutException e) {
+            LOGGER.error(e.getMessage());
+            error.add("Connection timeout");
+            return ResponseEntity.ok(error);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            error.add(e.getMessage());
+            return ResponseEntity.ok(error);
+        }
+    }
+
+    @PostMapping("task")
+    public ResponseEntity getTask(@RequestBody AsanaTaskAndSectionDto dto) {
+        error.clear();
+        try {
+            var task = this.asanaService.getTask(dto);
+
             return ResponseEntity.ok(task);
         } catch (ConnectTimeoutException e) {
             LOGGER.error(e.getMessage());

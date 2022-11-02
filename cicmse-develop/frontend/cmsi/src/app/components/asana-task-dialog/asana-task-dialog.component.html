@@ -1,0 +1,20 @@
+<div class="task-dialog-wrapper">
+  <div class="task-dialog-container">
+    <div class="task-dialog-field">
+      <p>Assigned To:</p>
+      <h4>{{data.task.assignee.name}}</h4>
+    </div>
+    <div class="task-dialog-field">
+      <p>Created:</p>
+      <h4>{{data.task.createdAt.value | dateTime | dateTimeFormatter}}</h4>
+    </div>
+    <div class="task-dialog-field">
+      <p>Due on:</p>
+      <h4>{{data.task.dueOn.value | dateTime | dateTimeFormatter}}</h4>
+    </div>
+    <div class="task-dialog-field">
+      <p>Description:</p>
+      <h4>{{data.task.notes}}</h4>
+    </div>
+  </div>
+</div>

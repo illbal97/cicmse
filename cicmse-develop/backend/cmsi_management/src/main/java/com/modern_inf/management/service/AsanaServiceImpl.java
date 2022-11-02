@@ -125,6 +125,10 @@ public class AsanaServiceImpl implements AsanaService{
 
     }
 
+    public Task getTask(AsanaTaskAndSectionDto asanaTaskAndSectionDto) throws IOException {
+        return this.asanaApiService.getTask(asanaTaskAndSectionDto);
+    }
+
     public Section createSectionForProject(AsanaUserAndProjectDto asanaUserAndProjectDto, String sectionName) throws IOException {
         return this.asanaApiService.createSectionForProject(asanaUserAndProjectDto, sectionName);
     }

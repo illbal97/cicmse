@@ -4,8 +4,14 @@ div.asana-projects-task-wrapper {
 
     div.project-name-container {
       border-bottom: 1px solid #3333;
+      display: flex;
+      align-items: center;
+
       p {
         margin-left: 20px;
+      }
+      h2 {
+        margin-left:5px
       }
     }
   }

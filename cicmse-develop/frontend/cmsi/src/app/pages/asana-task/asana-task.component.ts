@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
@@ -14,6 +15,7 @@ export class AsanaTaskComponent implements OnInit, OnDestroy {
 
   workspaceGid: String = "";
   projectGid: String = "";
+  projectName: String = "";
   private asanaTasks: Array<any> = []
   private asanaSectionByTasks: Map<String, any[]> | undefined
   asanaSection: Array<any> = [];
@@ -21,12 +23,14 @@ export class AsanaTaskComponent implements OnInit, OnDestroy {
   private userSubscription: Subscription | undefined;
   private routeSubscription: Subscription | undefined;
 
-  constructor(private route: ActivatedRoute, private asanaService: AsanaService, private authenticationService: AuthenticationService) { }
+  constructor(private asanaTaskDialog: MatDialog, private route: ActivatedRoute, private asanaService: AsanaService, private authenticationService: AuthenticationService) { }
 
   async ngOnInit(): Promise<void> {
     this.routeSubscription = this.route.queryParams.subscribe( param => {
       this.workspaceGid = param['workspaceGid'];
       this.projectGid = param['projectGid'];
+      this.projectName = param['projectName'];
+      console.log(this.projectName)
     });
     console.log(this.workspaceGid + "  " + this.projectGid)
     this.userSubscription = this.authenticationService.currentUser.subscribe((data: User) => {
@@ -69,5 +73,6 @@ export class AsanaTaskComponent implements OnInit, OnDestroy {
     });
 
   }
+
 
 }

@@ -37,7 +37,7 @@
           <p class="project-adding-text">Project</p>
         </div>
         <div class="project-container">
-          <div *ngFor="let project of projects" class="project-card" (click)="loadAsanaTasksForProject(project.gid)">
+          <div *ngFor="let project of projects" class="project-card" (click)="loadAsanaTasksForProject(project.gid, project.name)">
             <div>
               <mat-icon class="project-icon">horizontal_split</mat-icon>
             </div>

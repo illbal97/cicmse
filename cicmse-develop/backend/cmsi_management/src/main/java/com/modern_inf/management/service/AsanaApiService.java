@@ -67,6 +67,14 @@ public class AsanaApiService {
 
     }
 
+    public Task getTask(AsanaTaskAndSectionDto asanaTaskAndSectionDto) throws IOException {
+        client = getClient(Optional.ofNullable(asanaTaskAndSectionDto.getUser()));
+        return client.tasks.getTask(asanaTaskAndSectionDto.getAsanaTaskGid() )
+                .option("pretty", true)
+                .execute();
+
+    }
+
     public Section createSectionForProject(AsanaUserAndProjectDto asanaUserAndProjectDto, String sectionName) throws IOException {
         client = getClient(Optional.ofNullable(asanaUserAndProjectDto.getUser()));
         return client.sections.createSectionForProject(asanaUserAndProjectDto.getProjectGid() )
