@@ -1,4 +1,4 @@
-package com.modern_inf.management.service;
+package com.modern_inf.management.service.userService;
 
 import com.modern_inf.management.model.Asana;
 import com.modern_inf.management.model.User;

@@ -6,18 +6,20 @@ import com.asana.models.Task;
 import com.asana.models.Workspace;
 import com.modern_inf.management.helper.SymmetricEncryption;
 import com.modern_inf.management.model.*;
-import com.modern_inf.management.model.Dto.*;
-import com.modern_inf.management.service.AsanaService;
-import com.modern_inf.management.service.AsanaServiceImpl;
-import com.modern_inf.management.service.UserService;
+import com.modern_inf.management.model.Dto.AsanaDto;
+import com.modern_inf.management.service.asana.AsanaService;
+import com.modern_inf.management.service.asana.AsanaServiceImpl;
+import com.modern_inf.management.service.userService.UserService;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,17 +31,16 @@ import java.util.*;
 public class AsanaController {
 
     private final UserService userService;
-    private final AsanaServiceImpl asanaService;
+    private final AsanaService asanaService;
     private final SymmetricEncryption symmetricEncryption;
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    private final  DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private final  List<String> error = new ArrayList<>();
+    private final List<String> error = new ArrayList<>();
 
     private final List<String> ASANA_DEFAULT_SECTION = new ArrayList<>(Arrays.asList("To Do", "In Progress", "Done"));
-
 
 
     @Autowired
@@ -51,17 +52,17 @@ public class AsanaController {
     }
 
     @PostMapping("asanaUser")
-    public ResponseEntity<?> getAsanaUser(@RequestBody UserAndWorkspaceGidDto dto) {
+    public ResponseEntity<?> getAsanaUser(@RequestBody AsanaDto dto) {
         List<com.asana.models.User> asanaUser = new ArrayList<>();
 
         try {
             asanaUser = this.asanaService.getAsanaUsers(dto);
-        }catch (ConnectTimeoutException e) {
+        } catch (ConnectTimeoutException e) {
             LOGGER.error(e.getMessage());
             error.clear();
             error.add("Connection timeout");
-            return  ResponseEntity.ok(error);
-        }catch (Exception e) {
+            return ResponseEntity.ok(error);
+        } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
         return ResponseEntity.ok(asanaUser);
@@ -80,7 +81,7 @@ public class AsanaController {
         // If there are not any Asana account we do not have any Asana workspaces
         var asanaWorkspaces = this.asanaService.getAllAsanaWorkspaces();
         asanaWorkspaces = asanaWorkspaces.stream().filter(
-                a -> Objects.equals(a.getAsana().getId(), asana.getId()))
+                        a -> Objects.equals(a.getAsana().getId(), asana.getId()))
                 .toList();
         if (!asanaWorkspaces.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime())) {
 
@@ -104,7 +105,7 @@ public class AsanaController {
                 LOGGER.error(e.getMessage());
                 error.add("Connection timeout");
                 return ResponseEntity.ok(error);
-            }catch (Exception e) {
+            } catch (Exception e) {
                 LOGGER.error(e.getMessage());
                 error.add("Bad asana personal access token");
                 return ResponseEntity.ok(error);
@@ -113,12 +114,12 @@ public class AsanaController {
     }
 
     @PostMapping("projects")
-    public ResponseEntity<?> getAsanaProjects(@RequestBody UserAndWorkspaceGidDto dto) {
+    public ResponseEntity<?> getAsanaProjects(@RequestBody AsanaDto dto) {
         error.clear();
         var asana = this.asanaService.getAsanaAccountIdByUser(dto.getUser().getId());
         if (asana != null) {
-            var asanaWorkspaces =  asana.getAsanaWorkspaces();
-            var asanaProjects = asanaWorkspaces.stream().filter( a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
+            var asanaWorkspaces = asana.getAsanaWorkspaces();
+            var asanaProjects = asanaWorkspaces.stream().filter(a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
 
             if (!asanaProjects.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime()) && !dto.isImmediate()) {
 
@@ -131,7 +132,7 @@ public class AsanaController {
                     // API
                     List<Project> projects = this.asanaService.getAsanaProjectsByWorkspaces(Optional.of(dto.getUser()), dto.getWorkspaceGid());
                     for (Project project : projects) {
-                        if(project.dueOn != null) {
+                        if (project.dueOn != null) {
                             ld = LocalDate.parse(project.dueDate.toString(), DATE_FORMATTER);
                             ldt = LocalDateTime.of(ld, LocalDateTime.now().toLocalTime());
                         }
@@ -156,18 +157,18 @@ public class AsanaController {
             }
         }
         error.add("Not exist any Asana workspace account for this user: " + dto.getUser().getName());
-        return  ResponseEntity.ok(error);
+        return ResponseEntity.ok(error);
 
     }
 
-   @PostMapping("projectTasksBySection")
-    public ResponseEntity<?> getAsanaTasks(@RequestBody AsanaProjectTaskSectionDto dto) {
+    @PostMapping("projectTasksBySection")
+    public ResponseEntity<?> getAsanaTasks(@RequestBody AsanaDto dto) {
         error.clear();
         var asana = this.asanaService.getAsanaAccountIdByUser(dto.getUser().getId());
 
         if (asana != null) {
-            var asanaWorkspaces =  asana.getAsanaWorkspaces();
-            var asanaProjects = asanaWorkspaces.stream().filter( a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
+            var asanaWorkspaces = asana.getAsanaWorkspaces();
+            var asanaProjects = asanaWorkspaces.stream().filter(a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
             var asanaSection = asanaProjects.stream().filter(a -> a.getGid().equals(dto.getProjectGid())).findFirst().get().getAsanaSections();
             var asanaTasks = asanaSection.stream().filter(a -> a.getGid().equals(dto.getSectionGid())).findFirst().get().getAsanaTasks();
 
@@ -181,8 +182,8 @@ public class AsanaController {
                     LocalDateTime ldt = null;
                     // API
                     List<Task> tasks = this.asanaService.getTasksFromSection(dto);
-                    for (Task task : tasks ) {
-                        if(task.dueOn != null) {
+                    for (Task task : tasks) {
+                        if (task.dueOn != null) {
                             ld = LocalDate.parse(task.dueOn.toString(), DATE_FORMATTER);
                             ldt = LocalDateTime.of(ld, LocalDateTime.now().toLocalTime());
                         }
@@ -205,18 +206,18 @@ public class AsanaController {
             }
         }
         error.add("");
-        return  ResponseEntity.ok(error);
+        return ResponseEntity.ok(error);
     }
 
     @PostMapping("projectSection")
-    public ResponseEntity<?> getAsanaProjectSection(@RequestBody AsanaProjectTasksDto dto) {
+    public ResponseEntity<?> getAsanaProjectSection(@RequestBody AsanaDto dto) {
         error.clear();
         var asana = this.asanaService.getAsanaAccountIdByUser(dto.getUser().getId());
 
         if (asana != null) {
-            var asanaWorkspaces =  asana.getAsanaWorkspaces();
-            var asanaProjects = asanaWorkspaces.stream().filter( a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
-            var asanaSection = asanaProjects.stream().filter( a -> a.getGid().equals(dto.getProjectGid())).findFirst().get().getAsanaSections();
+            var asanaWorkspaces = asana.getAsanaWorkspaces();
+            var asanaProjects = asanaWorkspaces.stream().filter(a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
+            var asanaSection = asanaProjects.stream().filter(a -> a.getGid().equals(dto.getProjectGid())).findFirst().get().getAsanaSections();
 
             if (!asanaSection.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime())) {
 
@@ -227,8 +228,8 @@ public class AsanaController {
                     LocalDate ld = null;
                     LocalDateTime ldt = null;
                     // API
-                    List<Section> sections = this.asanaService.getSectionFromProject(dto).stream().filter( a -> !a.name.equals("Untitled section")).toList();
-                    for (Section section : sections ) {
+                    List<Section> sections = this.asanaService.getSectionFromProject(dto).stream().filter(a -> !a.name.equals("Untitled section")).toList();
+                    for (Section section : sections) {
                         var asanaSection1 = buildAsanaSection(section, dto);
                         if (asanaSection.stream().noneMatch(x -> x.getGid().equals(asanaSection1.getGid()))) {
                             this.asanaService.saveAsanaSection(asanaSection1);
@@ -250,29 +251,31 @@ public class AsanaController {
             }
         }
         error.add("");
-        return  ResponseEntity.ok(error);
+        return ResponseEntity.ok(error);
     }
+
     @PostMapping("add-access-token")
     public ResponseEntity<?> setUserPersonalAccessToken(@RequestBody User u) {
         var user = this.userService.findByUsername(u.getUsername());
         try {
             user.get().setAsanaPersonalAccessToken(this.symmetricEncryption.encrypt(u.getAsanaPersonalAccessToken()));
-        }catch (Exception e) {
+        } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
         var us = this.userService.setPersonalAccessTokenForAsana(user.get());
         this.asanaService.setAsanaAccountForUser(user.get());
         try {
             us.setAsanaPersonalAccessToken(this.symmetricEncryption.decrypt(us.getAsanaPersonalAccessToken()));
-        }catch (Exception e) {
+        } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
         us.setAccessToken(u.getAccessToken());
         us.setRefreshToken(u.getRefreshToken());
-        return  ResponseEntity.ok(us);
+        return ResponseEntity.ok(us);
     }
+
     @PostMapping("createProject")
-    public ResponseEntity createProject(@RequestBody AsanaProjectDto dto) {
+    public ResponseEntity createProject(@RequestBody AsanaDto dto) {
         Project project;
         AsanaProject asanaProject;
         error.clear();
@@ -296,17 +299,17 @@ public class AsanaController {
             LOGGER.error(e.getMessage());
         }
 
-        return  ResponseEntity.status(403).body("This project name is already taken");
+        return ResponseEntity.status(403).body("This project name is already taken");
 
     }
 
     @PostMapping("addTaskToSection")
-    public ResponseEntity addTaskToSection(@RequestBody AsanaTaskAndSectionDto dto) {
+    public ResponseEntity addTaskToSection(@RequestBody AsanaDto dto) {
         error.clear();
         try {
             var json = this.asanaService.addTaskToSection(dto);
-            var task = this.asanaService.getAsanaTaskByTaskGid(dto.getAsanaTaskGid());
-            var section = this.asanaService.getAsanaSectionBySectionGid(dto.getAsanaSectionGid());
+            var task = this.asanaService.getAsanaTaskByTaskGid(dto.getTaskGid());
+            var section = this.asanaService.getAsanaSectionBySectionGid(dto.getSectionGid());
             task.setAsanaSection(section);
             this.asanaService.saveAsanaTask(task);
             return ResponseEntity.ok(task);
@@ -322,7 +325,7 @@ public class AsanaController {
     }
 
     @PostMapping("task")
-    public ResponseEntity getTask(@RequestBody AsanaTaskAndSectionDto dto) {
+    public ResponseEntity getTask(@RequestBody AsanaDto dto) {
         error.clear();
         try {
             var task = this.asanaService.getTask(dto);
@@ -340,16 +343,16 @@ public class AsanaController {
     }
 
     @PostMapping("createSection")
-    public ResponseEntity createSection(@RequestBody AsanaUserAndProjectDto dto) {
+    public ResponseEntity createSection(@RequestBody AsanaDto dto) {
         error.clear();
         var asanaSections = this.asanaService.getAsanaProjectByProjectGid(dto.getProjectGid()).getAsanaSections();
-        if(!asanaSections.isEmpty()) {
+        if (!asanaSections.isEmpty()) {
             return ResponseEntity.ok().body("Already have Sections");
         }
 
         try {
-            for(String section: ASANA_DEFAULT_SECTION) {
-                var asanSection = this.asanaService.createSectionForProject(dto,section);
+            for (String section : ASANA_DEFAULT_SECTION) {
+                var asanSection = this.asanaService.createSectionForProject(dto, section);
                 this.asanaService.saveAsanaSection(buildAsanaSection(asanSection, dto));
             }
             return ResponseEntity.status(201).body("Successful section creation");
@@ -364,15 +367,15 @@ public class AsanaController {
         }
     }
 
-    public AsanaProject buildAsanaProject(Project project, LocalDateTime ldt, String workspaceGid ) {
+    public AsanaProject buildAsanaProject(Project project, LocalDateTime ldt, String workspaceGid) {
         return AsanaProject.builder()
                 .name(project.name)
                 .gid(project.gid)
                 .asanaWorkspaces(this.asanaService.getAsanaWorkspaceByWorkspaceGid(workspaceGid))
-                .owner(project.owner != null ? project.owner.name: null)
+                .owner(project.owner != null ? project.owner.name : null)
                 .resourceType(project.resourceType)
                 .createdAt(project.createdAt != null ? LocalDateTime.ofInstant(Instant.ofEpochMilli(project.createdAt.getValue()),
-                        TimeZone.getDefault().toZoneId()): null)
+                        TimeZone.getDefault().toZoneId()) : null)
                 .dueDate(ldt)
                 .isPublic(project.isPublic)
                 .color(project.color)
@@ -381,7 +384,7 @@ public class AsanaController {
     }
 
     public AsanaWorkspace buildAsanaWorkspace(Workspace workspace, Asana asana) {
-       return AsanaWorkspace.builder()
+        return AsanaWorkspace.builder()
                 .name(workspace.name)
                 .emailDomains(String.valueOf(workspace.emailDomains))
                 .isOrganization(workspace.isOrganization)
@@ -391,37 +394,27 @@ public class AsanaController {
                 .build();
     }
 
-    public AsanaTask buildAsanaTask(Task task, LocalDateTime ldt, AsanaProjectTaskSectionDto dto) {
+    public AsanaTask buildAsanaTask(Task task, LocalDateTime ldt, AsanaDto dto) {
         return AsanaTask.builder()
                 .name(task.name)
                 .asanaSection(this.asanaService.getAsanaSectionBySectionGid(dto.getSectionGid()))
                 .createdAt((task.createdAt != null ? LocalDateTime.ofInstant(Instant.ofEpochMilli(task.createdAt.getValue()),
-                        TimeZone.getDefault().toZoneId()): null))
+                        TimeZone.getDefault().toZoneId()) : null))
                 .dueDate(ldt)
                 .resourceType(task.resourceType)
                 .gid(task.gid)
                 .build();
     }
 
-    public AsanaSection buildAsanaSection(Section section, AsanaProjectTasksDto dto) {
+    public AsanaSection buildAsanaSection(Section section, AsanaDto dto) {
         return AsanaSection.builder()
                 .name(section.name)
                 .asanaProject(this.asanaService.getAsanaProjectByProjectGid(dto.getProjectGid()))
                 .createdAt((section.createdAt != null ? LocalDateTime.ofInstant(Instant.ofEpochMilli(section.createdAt.getValue()),
-                        TimeZone.getDefault().toZoneId()): null))
+                        TimeZone.getDefault().toZoneId()) : null))
                 .resourceType(section.resourceType)
                 .gid(section.gid)
                 .build();
     }
 
-    public AsanaSection buildAsanaSection(Section section, AsanaUserAndProjectDto dto) {
-        return AsanaSection.builder()
-                .name(section.name)
-                .asanaProject(this.asanaService.getAsanaProjectByProjectGid(dto.getProjectGid()))
-                .createdAt((section.createdAt != null ? LocalDateTime.ofInstant(Instant.ofEpochMilli(section.createdAt.getValue()),
-                        TimeZone.getDefault().toZoneId()): null))
-                .resourceType(section.resourceType)
-                .gid(section.gid)
-                .build();
-    }
 }

@@ -2,7 +2,7 @@ package com.modern_inf.management.security;
 
 import com.modern_inf.management.helper.SecurityUtils;
 import com.modern_inf.management.model.User;
-import com.modern_inf.management.service.UserService;
+import com.modern_inf.management.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,7 @@ import java.util.Set;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private  UserService userService;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

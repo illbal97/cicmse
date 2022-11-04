@@ -67,6 +67,11 @@
 			<artifactId>asana</artifactId>
 			<version>1.0.0</version> <!--0.10.4 -->
 		</dependency>
+		<dependency>
+			<groupId>org.gitlab4j</groupId>
+			<artifactId>gitlab4j-api</artifactId>
+			<version>5.0.1</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->
 		<dependency>

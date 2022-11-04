@@ -1,7 +1,9 @@
 package com.modern_inf.management.controller;
 
 import com.modern_inf.management.model.User;
-import com.modern_inf.management.service.*;
+import com.modern_inf.management.service.authentication.AuthenticationService;
+import com.modern_inf.management.service.jasonWebToken.JwtRefreshTokenService;
+import com.modern_inf.management.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class AuthenticationController {
 
     @PostMapping("sign-up")
     public ResponseEntity<?> signUp(@RequestBody User user) {
-        if(userService.findByUsername(user.getUsername()).isPresent()) {
+        if (userService.findByUsername(user.getUsername()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
@@ -39,7 +41,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("refresh-token")
-    public  ResponseEntity<?> generateRefreshToken(@RequestParam String refreshToken) {
+    public ResponseEntity<?> generateRefreshToken(@RequestParam String refreshToken) {
         return ResponseEntity.ok(refreshTokenService.generateAccessTokenFromRefreshToken(refreshToken));
     }
 }

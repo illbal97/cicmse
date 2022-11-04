@@ -22,13 +22,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class JwtProviderImpl implements  JwtProvider {
+public class JwtProviderImpl implements JwtProvider {
 
     @Value("${app.jwt.secret.key}")
     private String JWT_SECRET_KEY;
 
     @Value("${app.jwt.expiration-in-ms}")
-    private Long JWT_EXPIRATION_TIME_IN_MS ;
+    private Long JWT_EXPIRATION_TIME_IN_MS;
 
     @Override
     public String generateToken(UserPrincipal userAuth) {
@@ -52,7 +52,7 @@ public class JwtProviderImpl implements  JwtProvider {
     public Authentication getAuthentication(HttpServletRequest request) {
         Claims claims = extractClaims(request);
 
-        if(claims == null) {
+        if (claims == null) {
             return null;
         }
         String username = claims.getSubject();
@@ -79,24 +79,17 @@ public class JwtProviderImpl implements  JwtProvider {
     public boolean isTokenValid(HttpServletRequest request) {
         Claims claims = extractClaims(request);
 
-        if (claims == null)
-        {
+        if (claims == null) {
             return false;
         }
 
-        if (claims.getExpiration().before(new Date()))
-        {
-            return false;
-        }
-        return true;
+        return !claims.getExpiration().before(new Date());
     }
 
-    private Claims extractClaims(HttpServletRequest request)
-    {
+    private Claims extractClaims(HttpServletRequest request) {
         String token = SecurityUtils.extractAuthTokenFromRequest(request);
 
-        if (token == null)
-        {
+        if (token == null) {
             return null;
         }
 

@@ -5,7 +5,7 @@ import { User } from '../model/user.model';
 import { Observable } from 'rxjs';
 import { HeaderService } from './base-header.service';
 import { AuthenticationService } from './authentication.service';
-import { asanaProject } from '../model/asana-project';
+import { asanaProject } from '../model/asana/asana-project';
 
 const API_URL = environment.ROOT_URL + "/api/v1/asana"
 
@@ -56,12 +56,12 @@ export class AsanaService extends HeaderService {
     return this.http.post<any>(API_URL + "/createSection", { user, projectGid }, { headers: this.getHeader() })
   }
 
-  getAsanaTask(user: User, asanaSectionGid: String, asanaTaskGid: String) {
-    return this.http.post<any>(API_URL + "/task", {user, asanaSectionGid, asanaTaskGid}, { headers: this.getHeader() })
+  getAsanaTask(user: User, sectionGid: String, taskGid: String) {
+    return this.http.post<any>(API_URL + "/task", {user, sectionGid, taskGid}, { headers: this.getHeader() })
   }
 
-  addAsanaTaskToSection(user: User, asanaSectionGid: String, asanaTaskGid: String): Observable<any> {
-    return this.http.post<any>(API_URL + "/addTaskToSection", { user, asanaSectionGid, asanaTaskGid }, { headers: this.getHeader() })
+  addAsanaTaskToSection(user: User, sectionGid: String, taskGid: String): Observable<any> {
+    return this.http.post<any>(API_URL + "/addTaskToSection", { user, sectionGid, taskGid }, { headers: this.getHeader() })
   }
 
 }

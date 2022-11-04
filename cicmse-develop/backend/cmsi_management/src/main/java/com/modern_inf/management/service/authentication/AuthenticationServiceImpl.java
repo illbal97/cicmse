@@ -1,10 +1,11 @@
-package com.modern_inf.management.service;
+package com.modern_inf.management.service.authentication;
 
 import com.modern_inf.management.helper.SymmetricEncryption;
 import com.modern_inf.management.model.JwtRefreshToken;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.security.UserPrincipal;
 import com.modern_inf.management.security.jwt.JwtProviderImpl;
+import com.modern_inf.management.service.jasonWebToken.JwtRefreshTokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,10 +48,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String refreshTokenId = "";
         if (jwtRefreshTokens == null || jwtRefreshTokens.isEmpty()) { // User doesn't have refresh token
             refreshTokenId = jwtRefreshTokenService.createRefreshToken(signUser.getId()).getTokenId();
-        }else if(!invalidRefreshTokenIds.isEmpty()) { // User already has refresh token, and delete invalid refresh tokens if we have
-           jwtRefreshTokenService.deleteInvalidRefreshTokens(invalidRefreshTokenIds);
-           refreshTokenId = jwtRefreshTokenService.createRefreshToken(signUser.getId()).getTokenId();
-        }else if(!validRefreshTokenIds.isEmpty()) { // User has valid refresh token
+        } else if (!invalidRefreshTokenIds.isEmpty()) { // User already has refresh token, and delete invalid refresh tokens if we have
+            jwtRefreshTokenService.deleteInvalidRefreshTokens(invalidRefreshTokenIds);
+            refreshTokenId = jwtRefreshTokenService.createRefreshToken(signUser.getId()).getTokenId();
+        } else if (!validRefreshTokenIds.isEmpty()) { // User has valid refresh token
             refreshTokenId = validRefreshTokenIds.get(0);
         }
 
@@ -58,7 +59,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (!Objects.equals(signUser.getAsanaPersonalAccessToken(), "") && signUser.getAsanaPersonalAccessToken() != null) {
             try {
                 signUser.setAsanaPersonalAccessToken(this.symmetricEncryption.decrypt(signUser.getAsanaPersonalAccessToken()));
-            }catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }

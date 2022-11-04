@@ -1,8 +1,9 @@
-package com.modern_inf.management.service;
+package com.modern_inf.management.service.userService;
 
 import com.modern_inf.management.model.Asana;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.repository.UserDao;
+import com.modern_inf.management.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,15 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
     @Autowired
-    private  PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl( PasswordEncoder passwordEncoder, UserDao userDao)
-    {
-        this. userDao = userDao;
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UserDao userDao) {
+        this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -34,10 +34,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User setPersonalAccessTokenForAsana(User user) {
-      var u = this.userDao.findById(user.getId());
-      u.get().setAsanaPersonalAccessToken(user.getAsanaPersonalAccessToken());
+        var u = this.userDao.findById(user.getId());
+        u.get().setAsanaPersonalAccessToken(user.getAsanaPersonalAccessToken());
 
-      return userDao.save(u.get());
+        return userDao.save(u.get());
     }
 
     @Override

@@ -18,12 +18,10 @@ public class SecurityUtils {
         return new SimpleGrantedAuthority(formattedRole);
     }
 
-    public static String extractAuthTokenFromRequest(HttpServletRequest request)
-    {
+    public static String extractAuthTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTH_HEADER);
 
-        if (StringUtils.hasLength(bearerToken) && bearerToken.startsWith(AUTH_TOKEN_PREFIX))
-        {
+        if (StringUtils.hasLength(bearerToken) && bearerToken.startsWith(AUTH_TOKEN_PREFIX)) {
             return bearerToken.substring(7);
         }
         return null;

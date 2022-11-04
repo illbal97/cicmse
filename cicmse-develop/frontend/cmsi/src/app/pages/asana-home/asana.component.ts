@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { MatDialog } from '@angular/material/dialog';
-import { AsanaProjectDialogComponent } from 'src/app/components/asana-project-dialog/asana-project-dialog.component';
-import { asanaProject } from 'src/app/model/asana-project';
+import { AsanaProjectDialogComponent } from 'src/app/components/asana/asana-project-dialog/asana-project-dialog.component';
+import { asanaProject } from 'src/app/model/asana/asana-project';
 import { lastValueFrom } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { AsanaService } from 'src/app/services/asana.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-asana',

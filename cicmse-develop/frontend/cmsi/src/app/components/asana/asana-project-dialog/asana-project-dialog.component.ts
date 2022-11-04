@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { asanaProject } from 'src/app/model/asana-project';
+import { asanaProject } from 'src/app/model/asana/asana-project';
 import { User } from 'src/app/model/user.model';
-import { AsanaComponent } from 'src/app/pages/asana/asana.component';
+import { AsanaComponent } from 'src/app/pages/asana-home/asana.component';
 import { AsanaService } from 'src/app/services/asana.service';
 
 @Component({

@@ -1,4 +1,4 @@
-package com.modern_inf.management.service;
+package com.modern_inf.management.service.jasonWebToken;
 
 import com.modern_inf.management.helper.SecurityUtils;
 import com.modern_inf.management.helper.SymmetricEncryption;
@@ -8,15 +8,17 @@ import com.modern_inf.management.repository.JwtRefreshTokenDao;
 import com.modern_inf.management.repository.UserDao;
 import com.modern_inf.management.security.UserPrincipal;
 import com.modern_inf.management.security.jwt.JwtProviderImpl;
+import com.modern_inf.management.service.jasonWebToken.JwtRefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
-public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService{
+public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService {
 
     private final JwtRefreshTokenDao jwtRefreshTokenDao;
     private final UserDao userDao;
@@ -24,7 +26,7 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService{
     private final SymmetricEncryption symmetricEncryption;
 
     @Value("${app.jwt.refresh-expiration-in-ms}")
-    private  Long REFRESH_TOKEN_EXPIRATION_TIME_IN_MS;
+    private Long REFRESH_TOKEN_EXPIRATION_TIME_IN_MS;
 
     @Autowired
     public JwtRefreshTokenServiceImpl(JwtRefreshTokenDao jwtRefreshTokenDao, UserDao userDao, JwtProviderImpl jwtProvider, SymmetricEncryption symmetricEncryption) {
@@ -65,7 +67,7 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService{
         if (!Objects.equals(user.getAsanaPersonalAccessToken(), "") && user.getAsanaPersonalAccessToken() != null) {
             try {
                 user.setAsanaPersonalAccessToken(this.symmetricEncryption.decrypt(user.getAsanaPersonalAccessToken()));
-            }catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -79,7 +81,7 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService{
 
     @Override
     public List<JwtRefreshToken> getRefreshTokens(Long id) {
-         return jwtRefreshTokenDao.findByUserId(id).orElseThrow();
+        return jwtRefreshTokenDao.findByUserId(id).orElseThrow();
     }
 
     @Override
@@ -88,7 +90,7 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService{
             return null;
         }
         List<String> inValidRefreshToken = new ArrayList<>();
-        for (JwtRefreshToken refreshToken: refreshTokens) {
+        for (JwtRefreshToken refreshToken : refreshTokens) {
             if (refreshToken.getExpirationDate().isBefore(LocalDateTime.now())) {
                 inValidRefreshToken.add(refreshToken.getTokenId());
             }
@@ -103,7 +105,7 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService{
             return null;
         }
         List<String> validRefreshToken = new ArrayList<>();
-        for (JwtRefreshToken refreshToken: refreshTokens) {
+        for (JwtRefreshToken refreshToken : refreshTokens) {
             if (!refreshToken.getExpirationDate().isBefore(LocalDateTime.now())) {
                 validRefreshToken.add(refreshToken.getTokenId());
             }

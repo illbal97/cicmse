@@ -25,7 +25,7 @@ public class Asana {
 
     private LocalDateTime tokenExpirationTime;
 
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore()
     private User user;
 

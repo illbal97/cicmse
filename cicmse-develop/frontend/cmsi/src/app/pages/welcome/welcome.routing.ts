@@ -11,7 +11,7 @@ const routes: Routes = [
 
   {
     path: 'home/asana',
-    loadChildren: () => import('../asana/asana.module').then(m => m.AsanaModule)
+    loadChildren: () => import('../asana-home/asana.module').then(m => m.AsanaModule)
   }
 
 ];
