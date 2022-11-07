@@ -1,4 +1,4 @@
-package com.modern_inf.management.controller;
+package com.modern_inf.management.controller.asana;
 
 import com.asana.models.Project;
 import com.asana.models.Section;
@@ -6,7 +6,8 @@ import com.asana.models.Task;
 import com.asana.models.Workspace;
 import com.modern_inf.management.helper.SymmetricEncryption;
 import com.modern_inf.management.model.*;
-import com.modern_inf.management.model.Dto.AsanaDto;
+import com.modern_inf.management.model.Dto.asana.AsanaDto;
+import com.modern_inf.management.model.asana.*;
 import com.modern_inf.management.service.asana.AsanaService;
 import com.modern_inf.management.service.asana.AsanaServiceImpl;
 import com.modern_inf.management.service.userService.UserService;

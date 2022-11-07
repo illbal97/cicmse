@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AsanaTaskComponent } from 'src/app/pages/asana-task/asana-task.component';
+import { AsanaTaskComponent } from 'src/app/pages/asana/asana-task/asana-task.component';
 
 @Component({
   selector: 'app-asana-task',

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { lastValueFrom } from 'rxjs';
 import { User } from 'src/app/model/user.model';
-import { AsanaService } from 'src/app/services/asana.service';
+import { AsanaService } from 'src/app/services/asana/asana.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AsanaTaskDialogComponent } from '../asana-task-dialog/asana-task-dialog.component';
 

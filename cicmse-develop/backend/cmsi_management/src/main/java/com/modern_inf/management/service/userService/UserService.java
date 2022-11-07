@@ -1,6 +1,6 @@
 package com.modern_inf.management.service.userService;
 
-import com.modern_inf.management.model.Asana;
+import com.modern_inf.management.model.asana.Asana;
 import com.modern_inf.management.model.User;
 
 import java.util.List;

@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { User } from '../model/user.model';
+import { User } from '../../model/user.model';
 import { Observable } from 'rxjs';
-import { HeaderService } from './base-header.service';
-import { AuthenticationService } from './authentication.service';
-import { asanaProject } from '../model/asana/asana-project';
+import { HeaderService } from '../base-header.service';
+import { AuthenticationService } from '../authentication.service';
+import { asanaProject } from '../../model/asana/asana-project';
 
 const API_URL = environment.ROOT_URL + "/api/v1/asana"
 

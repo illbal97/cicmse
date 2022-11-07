@@ -1,6 +1,8 @@
-package com.modern_inf.management.model;
+package com.modern_inf.management.model.asana;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.modern_inf.management.model.asana.Asana;
+import com.modern_inf.management.model.asana.AsanaProject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

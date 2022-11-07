@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
-import { AsanaService } from 'src/app/services/asana.service';
+import { AsanaService } from 'src/app/services/asana/asana.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({

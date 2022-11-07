@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AsanaTaskComponent } from 'src/app/pages/asana-task/asana-task.component';
+import { AsanaTaskComponent } from 'src/app/pages/asana/asana-task/asana-task.component';
 
 import { AsanaTaskDialogComponent } from './asana-task-dialog.component';
 

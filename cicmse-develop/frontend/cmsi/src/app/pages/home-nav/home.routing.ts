@@ -9,11 +9,11 @@ const routes: Routes = [
     component: HomeComponent, children: [
       {
         path:'asana',
-        loadChildren: () => import("../asana-home/asana.module").then(m => m.AsanaModule)
+        loadChildren: () => import("../asana/asana-home/asana.module").then(m => m.AsanaModule)
       },
       {
         path:'asanaTask',
-        loadChildren: () => import("../asana-task/asana-task.module").then(m => m.AsanaTaskModule)
+        loadChildren: () => import("../asana/asana-task/asana-task.module").then(m => m.AsanaTaskModule)
       }
     ]
   }

@@ -1,9 +1,8 @@
 package com.modern_inf.management.service.userService;
 
-import com.modern_inf.management.model.Asana;
+import com.modern_inf.management.model.asana.Asana;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.repository.UserDao;
-import com.modern_inf.management.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

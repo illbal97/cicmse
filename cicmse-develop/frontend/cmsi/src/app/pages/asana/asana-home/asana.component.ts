@@ -4,10 +4,11 @@ import { AsanaProjectDialogComponent } from 'src/app/components/asana/asana-proj
 import { asanaProject } from 'src/app/model/asana/asana-project';
 import { lastValueFrom } from 'rxjs';
 import { User } from 'src/app/model/user.model';
-import { AsanaService } from 'src/app/services/asana.service';
+import { AsanaService } from 'src/app/services/asana/asana.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { GitlabService } from 'src/app/services/gitlab/gitlab.service';
 
 @Component({
   selector: 'app-asana',
@@ -30,6 +31,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
     private router:Router,
     private asanaProjecCreationDialog: MatDialog,
     private authenticationService: AuthenticationService,
+    private gitlabService: GitlabService,
     private asanaService: AsanaService) {
       this.project = new asanaProject();
 
@@ -45,6 +47,10 @@ export class AsanaComponent implements OnInit, OnDestroy {
     this.isLoading = false;
     this.subscriptionUser = this.authenticationService.currentUser.subscribe((data: User) => {
       this.user = data;
+    });
+
+    this.gitlabService.getGitlabProject(this.user).subscribe(x => {
+      console.log(x)
     });
 
     this.subscriptionWorkspaces = this.asanaService.getAsanaWorkspaces(this.user).subscribe({

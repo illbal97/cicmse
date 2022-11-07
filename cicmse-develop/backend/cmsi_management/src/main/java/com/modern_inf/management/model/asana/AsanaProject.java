@@ -1,4 +1,4 @@
-package com.modern_inf.management.model;
+package com.modern_inf.management.model.asana;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

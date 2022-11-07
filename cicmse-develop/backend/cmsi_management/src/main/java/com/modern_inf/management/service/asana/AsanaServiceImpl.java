@@ -6,10 +6,9 @@ import com.asana.models.Task;
 import com.asana.models.Workspace;
 import com.google.gson.JsonElement;
 import com.modern_inf.management.model.*;
-import com.modern_inf.management.model.Dto.AsanaDto;
-import com.modern_inf.management.repository.*;
-import com.modern_inf.management.service.asana.AsanaApiService;
-import com.modern_inf.management.service.asana.AsanaService;
+import com.modern_inf.management.model.Dto.asana.AsanaDto;
+import com.modern_inf.management.model.asana.*;
+import com.modern_inf.management.repository.asana.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ import java.util.Optional;
 
 @Service
 public class AsanaServiceImpl implements AsanaService {
-    private final static ZoneOffset zoneOffset = ZoneId.systemDefault().getRules().getOffset(Instant.now());
+    private final  ZoneOffset zoneOffset = ZoneId.systemDefault().getRules().getOffset(Instant.now());
     private final AsanaApiService asanaApiService;
     private final AsanaDao asanaDao;
     private final AsanaProjectsDao asanaProjectsDao;

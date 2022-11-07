@@ -1,6 +1,9 @@
 package com.modern_inf.management.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.modern_inf.management.model.asana.Asana;
+import com.modern_inf.management.model.gitlab.GitlabAccount;
+import com.modern_inf.management.model.gitlab.GitlabProject;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -30,8 +33,16 @@ public class User {
     @JsonIgnore()
     private Asana asanaAccount;
 
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore()
+    private GitlabAccount gitlabAccount;
+
     @Column(columnDefinition = "varchar(255)")
     private String asanaPersonalAccessToken;
+
+    @Column(columnDefinition = "varchar(255)")
+    private String gitlabPersonalAccessToken;
 
     @Transient
     private String accessToken;

@@ -6,7 +6,8 @@ import com.asana.models.Task;
 import com.asana.models.Workspace;
 import com.google.gson.JsonElement;
 import com.modern_inf.management.model.*;
-import com.modern_inf.management.model.Dto.AsanaDto;
+import com.modern_inf.management.model.Dto.asana.AsanaDto;
+import com.modern_inf.management.model.asana.*;
 
 import java.io.IOException;
 import java.util.List;
