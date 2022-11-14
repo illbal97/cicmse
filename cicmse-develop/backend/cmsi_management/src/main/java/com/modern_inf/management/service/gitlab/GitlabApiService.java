@@ -1,31 +1,51 @@
 package com.modern_inf.management.service.gitlab;
 
-import com.modern_inf.management.model.Dto.gitlab.GitlabDto;
+import com.modern_inf.management.helper.SymmetricEncryption;
+import com.modern_inf.management.model.dto.gitlab.GitlabDto;
 import com.modern_inf.management.model.gitlab.GitlabProject;
-import org.gitlab4j.api.GitLabApi;
-import org.gitlab4j.api.GitLabApiException;
-import org.gitlab4j.api.Pager;
-import org.gitlab4j.api.models.Project;
+import com.modern_inf.management.model.postData.GitlabProjectCreation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 
 @Service
 public class GitlabApiService {
     // glpat-q7fBukD8uxvfP-ivh9yK
     private final String GITLAB_PROJECT_URL = "https://gitlab.com/api/v4/projects?visibility=private&simple=true";
 
+    private final String GITLAB_PROJECT_CREATION_URL = "https://gitlab.com/api/v4/projects";
 
-    public ResponseEntity<GitlabProject[]> getGitlabProjects(GitlabDto dto) throws GitLabApiException {
-        HttpHeaders headers = new HttpHeaders();
+    private HttpHeaders headers;
 
-        headers.set("Authorization", "Bearer " + "glpat-VMycG2JNKL37YzEBVzpZ"); //accessToken can be the secret key you generate.
-        headers.setContentType(MediaType.APPLICATION_JSON);
+    @Autowired
+    private SymmetricEncryption symmetricEncryption;
+
+
+    public ResponseEntity<GitlabProject[]> getGitlabProjects(GitlabDto dto) throws Exception {
+        headers = setHttpHeader(dto);
         HttpEntity<String> entity = new HttpEntity <> (headers);
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(GITLAB_PROJECT_URL, HttpMethod.GET, entity, GitlabProject[].class);
+    }
+
+
+    public ResponseEntity<GitlabProject> createGitlabProject(GitlabDto dto) throws Exception {
+        headers = setHttpHeader(dto);
+        HttpEntity<String> entity = new HttpEntity <> (dto.getGitlabProjectCreation().toString(),headers);
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.exchange(GITLAB_PROJECT_URL, HttpMethod.POST, entity, GitlabProject.class);
+
+    }
+
+    private HttpHeaders setHttpHeader(GitlabDto dto) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.set("Authorization", "Bearer " + this.symmetricEncryption.decrypt(dto.getUser().getGitlabPersonalAccessToken()) ); //accessToken can be the secret key you generate.
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return headers;
     }
 
 

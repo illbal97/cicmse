@@ -2,7 +2,7 @@ package com.modern_inf.management.controller;
 
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.service.authentication.AuthenticationService;
-import com.modern_inf.management.service.jasonWebToken.JwtRefreshTokenService;
+import com.modern_inf.management.service.jsonWebToken.JwtRefreshTokenService;
 import com.modern_inf.management.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

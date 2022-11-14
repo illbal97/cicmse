@@ -39,7 +39,7 @@
         <div class="project-container">
           <div *ngFor="let project of projects" class="project-card" (click)="loadAsanaTasksForProject(project.gid, project.name)">
             <div>
-              <mat-icon class="project-icon">horizontal_split</mat-icon>
+             <img src="../../../../assets/images/asana.png" alt="asana-icon">
             </div>
             <div class="project-name">
               <span>{{ project.name }}</span>

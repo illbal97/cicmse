@@ -5,7 +5,7 @@ import com.modern_inf.management.model.JwtRefreshToken;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.security.UserPrincipal;
 import com.modern_inf.management.security.jwt.JwtProviderImpl;
-import com.modern_inf.management.service.jasonWebToken.JwtRefreshTokenServiceImpl;
+import com.modern_inf.management.service.jsonWebToken.JwtRefreshTokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

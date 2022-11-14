@@ -9,4 +9,5 @@ export class User {
   refreshToken: string = "";
   role: Role = Role.ADMIN;
   asanaPersonalAccessToken: String | null = "";
+  gitlabPersonalAccessToken: String | null = "";
 }

@@ -40,6 +40,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User setPersonalAccessTokenForGitlab(User user) {
+        var u = this.userDao.findById(user.getId());
+        u.get().setGitlabPersonalAccessToken(user.getGitlabPersonalAccessToken());
+
+        return userDao.save(u.get());
+    }
+
+    @Override
     public Optional<User> findByUsername(String username) {
 
         return userDao.findByUsername(username);

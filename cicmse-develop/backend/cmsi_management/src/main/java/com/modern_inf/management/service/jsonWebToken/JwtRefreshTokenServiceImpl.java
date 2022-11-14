@@ -1,4 +1,4 @@
-package com.modern_inf.management.service.jasonWebToken;
+package com.modern_inf.management.service.jsonWebToken;
 
 import com.modern_inf.management.helper.SecurityUtils;
 import com.modern_inf.management.helper.SymmetricEncryption;
@@ -8,7 +8,6 @@ import com.modern_inf.management.repository.JwtRefreshTokenDao;
 import com.modern_inf.management.repository.UserDao;
 import com.modern_inf.management.security.UserPrincipal;
 import com.modern_inf.management.security.jwt.JwtProviderImpl;
-import com.modern_inf.management.service.jasonWebToken.JwtRefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

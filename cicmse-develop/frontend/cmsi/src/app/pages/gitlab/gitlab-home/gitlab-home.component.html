@@ -1,0 +1,40 @@
+<div class="gitlab-page-wrapper" [ngSwitch]="gitlabStatus">
+  <div *ngSwitchCase="'Bad gitlab personal access token'">
+    <app-adding-gitlab-personal-access-token
+      (addingAsanaPersonalAccessTokenEvent)="addPersonalAccessToken($event)"></app-adding-gitlab-personal-access-token>
+  </div>
+  <div *ngSwitchCase="'GitlabToken is null'">
+    <app-adding-gitlab-personal-access-token
+      (addingAsanaPersonalAccessTokenEvent)="addPersonalAccessToken($event)"></app-adding-gitlab-personal-access-token>
+  </div>
+  <div class="projects">
+    <mat-spinner *ngIf="!isLoading; else project1"></mat-spinner>
+  </div>
+  <ng-template #project1>
+    <div *ngSwitchCase="'Gitlab account is active'">
+      <div class="gitlab-project-wrapper">
+        <div class="gitlab-project-nav">
+          <div>
+            <p class="gitlab-project-label">Gitlab projects:</p>
+          </div>
+          <div class="gitlab-project-adding-container">
+            <mat-icon (click)="openGitlabProjectCreationDialog()"
+              class="project-adding-icon">add_box</mat-icon>
+            <p class="project-adding-text">Project</p>
+          </div>
+        </div>
+        <div class="project-container">
+          <div *ngFor="let project of projects" class="project-card">
+            <div>
+             <img src="../../../../assets/images/gitlab.png" alt="gitlab-icon">
+            </div>
+            <div class="project-name">
+              <span>{{ project.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+

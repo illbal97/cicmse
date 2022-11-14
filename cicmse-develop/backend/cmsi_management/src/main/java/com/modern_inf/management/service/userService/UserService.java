@@ -12,6 +12,8 @@ public interface UserService {
 
     User setPersonalAccessTokenForAsana(User user);
 
+    User setPersonalAccessTokenForGitlab(User user);
+
     Optional<User> findByUsername(String username);
 
     List<User> findAllUser();

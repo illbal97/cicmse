@@ -14,7 +14,11 @@ const routes: Routes = [
       {
         path:'asanaTask',
         loadChildren: () => import("../asana/asana-task/asana-task.module").then(m => m.AsanaTaskModule)
-      }
+      },
+      {
+        path:'gitlab',
+        loadChildren: () => import("../gitlab/gitlab-home/gitlab-home.module").then(m => m.GitlabHomeModule)
+      },
     ]
   }
 ];

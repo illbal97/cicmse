@@ -6,7 +6,7 @@ import com.asana.models.Task;
 import com.asana.models.Workspace;
 import com.modern_inf.management.helper.SymmetricEncryption;
 import com.modern_inf.management.model.*;
-import com.modern_inf.management.model.Dto.asana.AsanaDto;
+import com.modern_inf.management.model.dto.asana.AsanaDto;
 import com.modern_inf.management.model.asana.*;
 import com.modern_inf.management.service.asana.AsanaService;
 import com.modern_inf.management.service.asana.AsanaServiceImpl;

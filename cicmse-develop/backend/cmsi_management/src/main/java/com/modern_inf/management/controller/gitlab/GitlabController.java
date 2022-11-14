@@ -1,7 +1,7 @@
 package com.modern_inf.management.controller.gitlab;
 
 import com.modern_inf.management.helper.SymmetricEncryption;
-import com.modern_inf.management.model.Dto.gitlab.GitlabDto;
+import com.modern_inf.management.model.dto.gitlab.GitlabDto;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.model.gitlab.GitlabProject;
 import com.modern_inf.management.service.gitlab.GitlabService;
@@ -51,40 +51,44 @@ public class GitlabController {
         var gitlabAccount = user.get().getGitlabAccount();
         List<GitlabProject> existGitlabProjects = this.gitlabService.getAllGitlabProjects();
         ResponseEntity<GitlabProject[]> gitlabProjects = null;
-
-        if(!existGitlabProjects.isEmpty() && LocalDateTime.now().isBefore(gitlabAccount.getTokenExpirationTime())) {
-            return ResponseEntity.ok(this.gitlabService.getAllGitlabProjects());
-        }
-        try {
-            gitlabProjects = this.gitlabService.getGitlabProjects(dto);
-            for(GitlabProject gitlabProject: Objects.requireNonNull(gitlabProjects.getBody())) {
-                if(existGitlabProjects.stream().noneMatch( g -> Objects.equals(g.getId(), gitlabProject.getId()))) {
-                    this.gitlabService.saveGitlabProject(gitlabProject);
-                }
+        if(gitlabAccount != null) {
+            if(!existGitlabProjects.isEmpty() && LocalDateTime.now().isBefore(gitlabAccount.getTokenExpirationTime())) {
+                return ResponseEntity.ok(this.gitlabService.getAllGitlabProjects());
             }
+            try {
+                gitlabProjects = this.gitlabService.getGitlabProjects(dto);
+                for(GitlabProject gitlabProject: Objects.requireNonNull(gitlabProjects.getBody())) {
+                    if(existGitlabProjects.stream().noneMatch( g -> Objects.equals(g.getId(), gitlabProject.getId()))) {
+                        this.gitlabService.saveGitlabProject(gitlabProject);
+                    }
+                }
 
-            this.gitlabService.updateGitlabTokenExpirationTime(gitlabAccount);
-
-            return ResponseEntity.ok(gitlabProjects.getBody());
-        } catch (Exception e) {
-           LOGGER.error(e.getMessage());
-           error.add(e.getMessage());
-           return ResponseEntity.ok(error);
+                this.gitlabService.updateGitlabTokenExpirationTime(gitlabAccount);
+                //glpat-T36zohuDBybqE-7Qu9wi
+                return ResponseEntity.ok(gitlabProjects.getBody());
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
+                error.add("Bad gitlab personal access token");
+                return ResponseEntity.ok(error);
+            }
         }
+        error.add("Bad gitlab personal access token");
+        return ResponseEntity.ok(error);
+
     }
 
     @PostMapping("add-access-token")
     public ResponseEntity<?> setUserPersonalAccessToken(@RequestBody User u) {
         var user = this.userService.findByUsername(u.getUsername());
         try {
-            user.get().setAsanaPersonalAccessToken(this.symmetricEncryption.encrypt(u.getAsanaPersonalAccessToken()));
+            user.get().setGitlabPersonalAccessToken(this.symmetricEncryption.encrypt(u.getGitlabPersonalAccessToken()));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
-        var us = this.userService.setPersonalAccessTokenForAsana(user.get());
+        var us = this.userService.setPersonalAccessTokenForGitlab(user.get());
         this.gitlabService.setGitLabAccountForUser(user.get());
         try {
-            us.setAsanaPersonalAccessToken(this.symmetricEncryption.decrypt(us.getAsanaPersonalAccessToken()));
+            us.setGitlabPersonalAccessToken(this.symmetricEncryption.decrypt(us.getGitlabPersonalAccessToken()));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }

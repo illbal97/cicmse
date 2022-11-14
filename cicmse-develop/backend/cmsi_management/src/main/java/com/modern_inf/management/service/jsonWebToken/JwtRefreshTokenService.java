@@ -1,4 +1,4 @@
-package com.modern_inf.management.service.jasonWebToken;
+package com.modern_inf.management.service.jsonWebToken;
 
 import com.modern_inf.management.model.JwtRefreshToken;
 import com.modern_inf.management.model.User;

@@ -1,13 +1,11 @@
 package com.modern_inf.management.service.gitlab;
 
-import com.modern_inf.management.model.Dto.gitlab.GitlabDto;
+import com.modern_inf.management.model.dto.gitlab.GitlabDto;
 import com.modern_inf.management.model.User;
-import com.modern_inf.management.model.asana.Asana;
 import com.modern_inf.management.model.gitlab.GitlabAccount;
 import com.modern_inf.management.model.gitlab.GitlabProject;
 import com.modern_inf.management.repository.gitlab.GitlabAccountDao;
 import com.modern_inf.management.repository.gitlab.GitlabProjectDao;
-import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +40,7 @@ public class GitlabServiceImpl implements GitlabService {
     }
 
     @Override
-    public ResponseEntity<GitlabProject[]> getGitlabProjects(GitlabDto dto) throws GitLabApiException {
+    public ResponseEntity<GitlabProject[]> getGitlabProjects(GitlabDto dto) throws Exception {
         return this.gitlabApiService.getGitlabProjects(dto);
     }
 

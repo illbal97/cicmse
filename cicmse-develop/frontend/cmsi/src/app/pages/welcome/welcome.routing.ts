@@ -6,13 +6,19 @@ import { WelcomeComponent } from './welcome.component';
 const routes: Routes = [
   {
     path:'',
-    component: WelcomeComponent,
+    component: WelcomeComponent, children: [
+      {
+        path: 'home/asana',
+        loadChildren: () => import('../asana/asana-home/asana.module').then(m => m.AsanaModule)
+      },
+
+      {
+        path: 'home/gitlab',
+        loadChildren: () => import('../gitlab/gitlab-home/gitlab-home.module').then(m => m.GitlabHomeModule)
+      }
+    ],
   },
 
-  {
-    path: 'home/asana',
-    loadChildren: () => import('../asana/asana-home/asana.module').then(m => m.AsanaModule)
-  }
 
 ];
 @NgModule({

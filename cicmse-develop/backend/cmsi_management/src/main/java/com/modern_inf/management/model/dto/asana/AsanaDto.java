@@ -1,4 +1,4 @@
-package com.modern_inf.management.model.Dto.asana;
+package com.modern_inf.management.model.dto.asana;
 
 import com.modern_inf.management.model.User;
 import lombok.AllArgsConstructor;

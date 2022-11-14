@@ -9,7 +9,6 @@ import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Entity
@@ -20,9 +19,7 @@ import java.util.Date;
 public class GitlabProject {
 
     @javax.persistence.Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     private String name;
 
