@@ -343,6 +343,24 @@ public class AsanaController {
         }
     }
 
+    @PostMapping("task-by-project")
+    public ResponseEntity getTaskByWorkspace(@RequestBody AsanaDto dto) {
+        error.clear();
+        try {
+            var tasks = this.asanaService.getTaskByWorkspace(dto);
+
+            return ResponseEntity.ok(tasks);
+        } catch (ConnectTimeoutException e) {
+            LOGGER.error(e.getMessage());
+            error.add("Connection timeout");
+            return ResponseEntity.ok(error);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            error.add(e.getMessage());
+            return ResponseEntity.ok(error);
+        }
+    }
+
     @PostMapping("createSection")
     public ResponseEntity createSection(@RequestBody AsanaDto dto) {
         error.clear();

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GitlabBranchCreationData } from 'src/app/model/gitlab/gitlab-branch-creation';
+import { GitlabCreationData } from 'src/app/model/gitlab/gitlab-creation-data';
 import { User } from 'src/app/model/user.model';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../authentication.service';
@@ -17,9 +19,19 @@ export class GitlabService extends HeaderService {
     super(http, authenticationService);
    }
 
-   getGitlabProject(user: User): Observable<any> {
+   getGitlabProject(user: User, isImmediate: boolean): Observable<any> {
     let userId = user.id?.toString()
-    return this.http.post<any>(API_URL + "/projects", {userId}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/projects", {userId, isImmediate}, { headers: this.getHeader() })
+  }
+
+  createProject(user: User, data: GitlabCreationData) {
+    let userId = user.id?.toString();
+    return this.http.post<any>(API_URL + "/project-creation", {userId, data}, { headers: this.getHeader() })
+  }
+
+  createBranch(user: User, project_id: number, data_branch: GitlabBranchCreationData) {
+    let userId = user.id?.toString();
+    return this.http.post<any>(API_URL + "/branch-creation", {userId, project_id, data_branch}, { headers: this.getHeader() })
   }
 
   setPersonalAccessTokenForUser(user: User, token: String): Observable<any> {

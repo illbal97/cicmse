@@ -8,12 +8,12 @@ public class GitlabProjectCreation {
 
     private String name;
 
-    private String path;
+    private String visibility;
 
     @JsonProperty("default_branch")
     private String defaultBranch;
-
-    private String visibility;
+    @JsonProperty("initialize_with_readme")
+    private String initializeWithReadme;
 
     private String description;
 }

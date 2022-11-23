@@ -110,6 +110,11 @@ public class AsanaServiceImpl implements AsanaService {
     }
 
     @Override
+    public List<Task> getTaskByWorkspace(AsanaDto dto) throws IOException {
+        return this.asanaApiService.getTaskByWorkspace(dto);
+    }
+
+    @Override
     public void updateAsanaTokenExpirationTime(Asana a) {
         a.setTokenLastTimeUsed(LocalDateTime.now());
         long milliseconds = convertLocalDateTimeToMilliSecond(a.getTokenLastTimeUsed());

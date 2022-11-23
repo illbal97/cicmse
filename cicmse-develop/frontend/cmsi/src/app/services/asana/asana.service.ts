@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { HeaderService } from '../base-header.service';
 import { AuthenticationService } from '../authentication.service';
 import { asanaProject } from '../../model/asana/asana-project';
+import { AsanaTask } from 'src/app/model/asana/asana-task';
 
 const API_URL = environment.ROOT_URL + "/api/v1/asana"
 
@@ -59,6 +60,11 @@ export class AsanaService extends HeaderService {
   getAsanaTask(user: User, sectionGid: String, taskGid: String) {
     return this.http.post<any>(API_URL + "/task", {user, sectionGid, taskGid}, { headers: this.getHeader() })
   }
+
+  getAsanaTaskByProject(user: User, projectGid: String): Observable<AsanaTask[]> {
+    return this.http.post<any>(API_URL + "/task-by-project", {user, projectGid}, { headers: this.getHeader() })
+  }
+
 
   addAsanaTaskToSection(user: User, sectionGid: String, taskGid: String): Observable<any> {
     return this.http.post<any>(API_URL + "/addTaskToSection", { user, sectionGid, taskGid }, { headers: this.getHeader() })

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class AsanaDto {
     private User user;
     private String workspaceGid;
+    private String userGid;
     private TempAsanaProject asanaProject;
     private String projectGid;
     private String sectionGid;

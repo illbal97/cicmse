@@ -9,6 +9,7 @@ import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -31,6 +32,10 @@ public class GitlabProject {
     @JsonIgnore
     @ManyToOne
     private GitlabAccount gitlab;
+
+    @OneToMany(mappedBy = "gitlabProject")
+    @JsonIgnore
+    private List<GitlabBranch> gitlabBranches;
 
 
 

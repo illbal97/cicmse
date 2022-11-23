@@ -1,0 +1,41 @@
+
+div.projec-creation-form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 352px);
+  justify-content: space-evenly;
+}
+
+div.project-creation-title-container {
+  display: grid;
+  grid-template-columns: repeat(2, 352px);
+  justify-content: space-evenly;
+}
+
+h2.project-creation-title {
+  font:350 20px/32px Roboto, "Helvetica Neue", sans-serif
+
+}
+
+div.project-container {
+  display: grid;
+  grid-template-columns: repeat(4, 162px);
+  width: 648px;
+}
+
+div.project-label-container {
+  display: flex;
+}
+
+mat-form-field.project-mat-form-container {
+  margin-left: 20px;
+}
+
+::ng-deep .mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] svg {
+  height: 50px !important;
+  width: 50px !important;
+}
+
+div.project-creation-submit-container {
+  text-align: end;
+  margin-top: 20px;
+}

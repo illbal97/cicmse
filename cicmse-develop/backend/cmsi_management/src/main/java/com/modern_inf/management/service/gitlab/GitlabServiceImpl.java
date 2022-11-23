@@ -3,8 +3,10 @@ package com.modern_inf.management.service.gitlab;
 import com.modern_inf.management.model.dto.gitlab.GitlabDto;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.model.gitlab.GitlabAccount;
+import com.modern_inf.management.model.gitlab.GitlabBranch;
 import com.modern_inf.management.model.gitlab.GitlabProject;
 import com.modern_inf.management.repository.gitlab.GitlabAccountDao;
+import com.modern_inf.management.repository.gitlab.GitlabBranchDao;
 import com.modern_inf.management.repository.gitlab.GitlabProjectDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +19,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class GitlabServiceImpl implements GitlabService {
@@ -24,6 +27,7 @@ public class GitlabServiceImpl implements GitlabService {
 
     private final GitlabApiService gitlabApiService;
     private final GitlabProjectDao gitlabProjectDao;
+    private final GitlabBranchDao gitlabBranchDao;
     private final GitlabAccountDao gitlabAccountDao;
 
     @Value("${app.gitlab.expiration-in-ms}")
@@ -33,9 +37,10 @@ public class GitlabServiceImpl implements GitlabService {
 
 
     @Autowired
-    public GitlabServiceImpl(GitlabApiService gitlabApiService, GitlabProjectDao gitlabProjectDao, GitlabAccountDao gitlabAccountDao) {
+    public GitlabServiceImpl(GitlabApiService gitlabApiService, GitlabProjectDao gitlabProjectDao, GitlabBranchDao gitlabBranchDao, GitlabAccountDao gitlabAccountDao) {
         this.gitlabApiService = gitlabApiService;
         this.gitlabProjectDao = gitlabProjectDao;
+        this.gitlabBranchDao = gitlabBranchDao;
         this.gitlabAccountDao = gitlabAccountDao;
     }
 
@@ -65,6 +70,26 @@ public class GitlabServiceImpl implements GitlabService {
             gitlabAccount.setTokenExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
             this.gitlabAccountDao.save(gitlabAccount);
         }
+    }
+
+    @Override
+    public void saveGitlabBranch(GitlabBranch branch) {
+        this.gitlabBranchDao.save(branch);
+    }
+
+    @Override
+    public Optional<GitlabProject> getGitlabProjectById(Long projectId) {
+        return this.gitlabProjectDao.findById(projectId);
+    }
+
+    @Override
+    public ResponseEntity<GitlabProject> gitlabProjectCreation(GitlabDto dto) throws Exception {
+        return this.gitlabApiService.createGitlabProject(dto);
+    }
+
+    @Override
+    public ResponseEntity<GitlabBranch> gitlabBranchCreation(GitlabDto dto) throws Exception {
+        return this.gitlabApiService.createGitlabBranch(dto);
     }
 
     @Override

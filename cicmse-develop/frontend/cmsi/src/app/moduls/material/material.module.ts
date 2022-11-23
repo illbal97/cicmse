@@ -20,6 +20,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -48,9 +50,13 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatDialogModule,
     MatTabsModule,
     DragDropModule,
-    MatAutocompleteModule
+    MatTreeModule,
+    MatAutocompleteModule,
+    MatCheckboxModule
   ],
   exports: [
+    MatTreeModule,
+    MatCheckboxModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatButtonModule,

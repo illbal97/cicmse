@@ -3,6 +3,7 @@ package com.modern_inf.management.controller.gitlab;
 import com.modern_inf.management.helper.SymmetricEncryption;
 import com.modern_inf.management.model.dto.gitlab.GitlabDto;
 import com.modern_inf.management.model.User;
+import com.modern_inf.management.model.gitlab.GitlabBranch;
 import com.modern_inf.management.model.gitlab.GitlabProject;
 import com.modern_inf.management.service.gitlab.GitlabService;
 import com.modern_inf.management.service.userService.UserService;
@@ -52,7 +53,7 @@ public class GitlabController {
         List<GitlabProject> existGitlabProjects = this.gitlabService.getAllGitlabProjects();
         ResponseEntity<GitlabProject[]> gitlabProjects = null;
         if(gitlabAccount != null) {
-            if(!existGitlabProjects.isEmpty() && LocalDateTime.now().isBefore(gitlabAccount.getTokenExpirationTime())) {
+            if(!existGitlabProjects.isEmpty() && LocalDateTime.now().isBefore(gitlabAccount.getTokenExpirationTime())  && !dto.isImmediate()) {
                 return ResponseEntity.ok(this.gitlabService.getAllGitlabProjects());
             }
             try {
@@ -64,7 +65,6 @@ public class GitlabController {
                 }
 
                 this.gitlabService.updateGitlabTokenExpirationTime(gitlabAccount);
-                //glpat-T36zohuDBybqE-7Qu9wi
                 return ResponseEntity.ok(gitlabProjects.getBody());
             } catch (Exception e) {
                 LOGGER.error(e.getMessage());
@@ -74,6 +74,45 @@ public class GitlabController {
         }
         error.add("Bad gitlab personal access token");
         return ResponseEntity.ok(error);
+
+    }
+
+    @PostMapping("project-creation")
+    public ResponseEntity<?> projectCreation(@RequestBody GitlabDto dto) {
+        error.clear();
+        var user = userService.findUserById(Long.parseLong(dto.getUserId()));
+        dto.setUser(user.get());
+        try {
+            var project = this.gitlabService.gitlabProjectCreation(dto).getBody();
+            project.setGitlab(user.get().getGitlabAccount());
+            this.gitlabService.saveGitlabProject(project);
+            return ResponseEntity.ok(project);
+        }catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ResponseEntity.ok(error);
+
+        }
+
+    }
+
+    @PostMapping("branch-creation")
+    public ResponseEntity<?> branchCreation(@RequestBody GitlabDto dto) {
+        error.clear();
+        var user = userService.findUserById(Long.parseLong(dto.getUserId()));
+        dto.setUser(user.get());
+        try {
+            GitlabBranch gitlabBranch;
+            gitlabBranch = this.gitlabService.gitlabBranchCreation(dto).getBody();
+            var gitlabProject = this.gitlabService.getGitlabProjectById(dto.getGitlabProjectId());
+            assert gitlabBranch != null;
+            gitlabBranch.setGitlabProject(gitlabProject.get());
+            this.gitlabService.saveGitlabBranch(gitlabBranch);
+            return ResponseEntity.ok(gitlabBranch);
+        }catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return ResponseEntity.ok(error);
+
+        }
 
     }
 

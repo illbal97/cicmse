@@ -34,6 +34,8 @@ public interface AsanaService {
 
     List<Task> getTasksFromSection(AsanaDto asanaDto) throws IOException;
 
+    List<Task> getTaskByWorkspace(AsanaDto dto) throws IOException;
+
     void updateAsanaTokenExpirationTime(Asana a);
 
     void saveAsanaWorkspace(AsanaWorkspace asanaWorkspace);

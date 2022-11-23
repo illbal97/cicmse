@@ -77,6 +77,15 @@ public class AsanaApiService {
 
     }
 
+    public List<Task> getTaskByWorkspace(AsanaDto dto) throws IOException {
+        client = getClient(Optional.ofNullable(dto.getUser()));
+
+        return  client.tasks.getTasks(null, null, null, null, dto.getProjectGid(), null)
+                .option("pretty", true)
+                .execute();
+
+    }
+
     public Project getProject(AsanaDto dto) throws IOException {
         client = getClient(Optional.ofNullable(dto.getUser()));
         return client.projects.getProject(dto.getProjectGid())
