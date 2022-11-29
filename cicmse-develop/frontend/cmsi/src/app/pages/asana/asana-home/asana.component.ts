@@ -9,6 +9,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GitlabService } from 'src/app/services/gitlab/gitlab.service';
+import { AwsService } from 'src/app/services/aws/aws.service';
 
 @Component({
   selector: 'app-asana',
@@ -32,6 +33,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
     private asanaProjecCreationDialog: MatDialog,
     private authenticationService: AuthenticationService,
     private gitlabService: GitlabService,
+    private awsService: AwsService,
     private asanaService: AsanaService) {
       this.project = new asanaProject();
 
@@ -96,6 +98,9 @@ export class AsanaComponent implements OnInit, OnDestroy {
   loadAsanaProjects(gid: any, isImmideatly = false) {
     this.asanaService.getAsanaProjectbyWorkspace(this.user, gid, isImmideatly).subscribe(p => {
       this.projects = p;
+    })
+    this.awsService.getEC2Instances(this.user).subscribe(a => {
+      console.log(a)
     })
   }
 

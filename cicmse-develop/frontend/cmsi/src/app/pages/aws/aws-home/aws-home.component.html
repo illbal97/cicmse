@@ -1,0 +1,41 @@
+<div class="aws-page-wrapper" [ngSwitch]="awsStatus">
+  <div *ngSwitchCase="'Bad AWS access keys'">
+    <app-aws-access-keys-adding>
+      (addingAwsAccessKey)="addAccessKeys($event)"></app-aws-access-keys-adding>
+  </div>
+  <div *ngSwitchCase="'There are not any AWS account'">
+    <app-aws-access-keys-adding>
+      (addingAwsAccessKey)="addAccessKey($event, $event1)></app-aws-access-keys-adding>
+  </div>
+  <div class="projects">
+    <mat-spinner *ngIf="!isLoading; else instance1"></mat-spinner>
+  </div>
+  <ng-template #instance1>
+    <div *ngSwitchCase="'Aws account is active'">
+      <div class="aws-project-wrapper">
+        <div class="aws-project-nav">
+          <div>
+            <p class="aws-project-label">AWS EC2 instances:</p>
+          </div>
+          <div class="aws-project-adding-container">
+            <mat-icon (click)="openEC2ProjectCreationDialog()"
+              class="aws-adding-icon">add_box</mat-icon>
+            <p class="aws-adding-text">Project</p>
+          </div>
+        </div>
+        <div class="instance-container">
+          <div *ngFor="let instance of awsEC2Instances" class="instance-card">
+            <div>
+             <img src="../../../../assets/images/aws.png" alt="aws-icon">
+            </div>
+            <div class="instance-name">
+              <span>{{ instance.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+

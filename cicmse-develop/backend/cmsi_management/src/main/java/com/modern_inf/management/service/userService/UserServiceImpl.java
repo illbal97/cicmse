@@ -70,4 +70,15 @@ public class UserServiceImpl implements UserService {
         return user.map(User::getAsanaAccount).orElse(null);
     }
 
+    @Override
+    public User setAccessKeyAndSecretAccessKeyForAws(User user) {
+        var u = this.userDao.findById(user.getId());
+        u.get().setAwsAccessSecretKey(user.getAwsAccessSecretKey());
+        u.get().setAwsAccessSecretKey(user.getAwsAccessSecretKey());
+
+        return userDao.save(u.get());
+    }
+
+
+
 }

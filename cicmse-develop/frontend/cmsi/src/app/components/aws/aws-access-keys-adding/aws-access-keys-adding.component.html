@@ -1,0 +1,25 @@
+<div style="text-align: center" class="warning-access-token">
+  <h1>Please add your personal access token for Asana</h1>
+</div>
+<div class="access-keys-adding-container">
+  <form [formGroup]="addingAccessKeys" (ngSubmit)="addPersonalAccessToken()">
+    <mat-form-field class="access-key-field">
+      <mat-label style="font-size: 16px">AWS Access Key:</mat-label>
+      <input formControlName="accessKey" style="font-size: 16px" matInput
+        required type="text" />
+    </mat-form-field>
+    <mat-form-field class="access-key-field">
+      <mat-label style="font-size: 16px">AWS Secret Access Key:</mat-label>
+      <input formControlName="accessSecretKey" style="font-size: 16px" matInput
+        required type="text" />
+    </mat-form-field>
+    <button type="submit" [disabled]="addingAccessKeys.invalid" mat-raised-button>Adding</button>
+  </form>
+</div>
+<div style="margin-top: 50px">
+  <p style="text-align: center">
+    <a target="_blank" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html">First,
+      you have to add access keys to your AWS IAM user, and after you can add these keys here, this link will help you</a>
+  </p>
+</div>
+

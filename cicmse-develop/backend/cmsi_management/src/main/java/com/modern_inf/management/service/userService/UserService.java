@@ -21,4 +21,6 @@ public interface UserService {
     Optional<User> findUserById(Long userId);
 
     Asana findAsanaAccountByUser(Long userId);
+
+    User setAccessKeyAndSecretAccessKeyForAws(User user);
 }

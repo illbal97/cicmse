@@ -108,3 +108,9 @@ h1 {
     width: 540px !important;
   }
 }
+
+@media (min-height: 850px) {
+  div.welcome-background {
+    height: 500px !important;
+  }
+}

@@ -11,6 +11,10 @@ const routes: Routes = [
         path: 'home/asana',
         loadChildren: () => import('../asana/asana-home/asana.module').then(m => m.AsanaModule)
       },
+      {
+        path: 'home/aws',
+        loadChildren: () => import('../aws/aws-home/aws-home.module').then(m => m.AwsHomeModule)
+      },
 
       {
         path: 'home/gitlab',

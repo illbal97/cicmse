@@ -1,5 +1,12 @@
 package com.modern_inf.management.controller.gitlab;
 
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
+import com.amazonaws.services.ec2.model.*;
 import com.modern_inf.management.helper.SymmetricEncryption;
 import com.modern_inf.management.model.dto.gitlab.GitlabDto;
 import com.modern_inf.management.model.User;
