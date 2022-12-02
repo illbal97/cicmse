@@ -1,17 +1,17 @@
 <div class="aws-page-wrapper" [ngSwitch]="awsStatus">
   <div *ngSwitchCase="'Bad AWS access keys'">
-    <app-aws-access-keys-adding>
-      (addingAwsAccessKey)="addAccessKeys($event)"></app-aws-access-keys-adding>
+    <app-aws-access-keys-adding
+      (addingAwsAccessKeyEvent)="addAccessKeys($event)"></app-aws-access-keys-adding>
   </div>
   <div *ngSwitchCase="'There are not any AWS account'">
-    <app-aws-access-keys-adding>
-      (addingAwsAccessKey)="addAccessKey($event, $event1)></app-aws-access-keys-adding>
+    <app-aws-access-keys-adding
+      (addingAwsAccessKeyEvent)="addAccessKeys($event)"></app-aws-access-keys-adding>
   </div>
-  <div class="projects">
+  <div class="instance">
     <mat-spinner *ngIf="!isLoading; else instance1"></mat-spinner>
   </div>
   <ng-template #instance1>
-    <div *ngSwitchCase="'Aws account is active'">
+    <div *ngSwitchCase="'AWS account is active'">
       <div class="aws-project-wrapper">
         <div class="aws-project-nav">
           <div>
@@ -20,16 +20,38 @@
           <div class="aws-project-adding-container">
             <mat-icon (click)="openEC2ProjectCreationDialog()"
               class="aws-adding-icon">add_box</mat-icon>
-            <p class="aws-adding-text">Project</p>
+            <p class="aws-adding-text">Instance</p>
           </div>
         </div>
-        <div class="instance-container">
-          <div *ngFor="let instance of awsEC2Instances" class="instance-card">
+        <p>Running Instances:</p>
+        <div class="instance-container"
+          (cdkDropListDropped)="drop($event)"
+          cdkDropListConnectedTo="inactive-instance"
+          [cdkDropListData]="awsEC2InstancesActive" cdkDropList id=active-instance
+          cdkDropList>
+          <div *ngFor="let instance of awsEC2InstancesActive" [cdkDragData]="instance"
+            cdkDrag class="instance-card example-box">
             <div>
-             <img src="../../../../assets/images/aws.png" alt="aws-icon">
+              <img src="../../../../assets/images/aws.png" alt="aws-icon">
             </div>
             <div class="instance-name">
-              <span>{{ instance.name }}</span>
+              <span>{{instance.tagName}}</span>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:10px;">Stopped Instances:</p>
+        <div class="instance-container"
+          (cdkDropListDropped)="drop($event)"
+          cdkDropListConnectedTo="active-instance"
+          [cdkDropListData]="awsEC2InstancesInactive" cdkDropList id="inactive-instance"
+          cdkDropList>
+          <div *ngFor="let instance of awsEC2InstancesInactive" [cdkDragData]="instance"
+            cdkDrag class="instance-card example-box">
+            <div>
+              <img src="../../../../assets/images/aws.png" alt="aws-icon">
+            </div>
+            <div class="instance-name">
+              <span>{{instance.tagName}}</span>
             </div>
           </div>
         </div>
@@ -37,5 +59,3 @@
     </div>
   </ng-template>
 </div>
-
-

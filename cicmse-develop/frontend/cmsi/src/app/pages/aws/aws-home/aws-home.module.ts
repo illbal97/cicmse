@@ -5,7 +5,7 @@ import { AwsHomeRoutingModule } from './aws-home-routing.module';
 import { AwsHomeComponent } from './aws-home.component';
 import { MaterialModule } from 'src/app/moduls/material/material.module';
 import { AwsAccessKeysAddingComponent } from 'src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AwsHomeRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AwsHomeModule { }

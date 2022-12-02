@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "aws")
@@ -22,6 +23,10 @@ public class AwsAccount {
     private User user;
 
     private LocalDateTime tokenLastTimeUsed;
+
+    @OneToMany(mappedBy = "awsAccount")
+    @JsonIgnore()
+    private List<EC2instance> ec2instance;
 
     private LocalDateTime tokenExpirationTime;
 

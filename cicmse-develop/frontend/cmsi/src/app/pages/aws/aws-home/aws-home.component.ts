@@ -1,5 +1,6 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { filter, lastValueFrom, pipe, Subscription, toArray } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AwsService } from 'src/app/services/aws/aws.service';
@@ -13,7 +14,8 @@ export class AwsHomeComponent implements OnInit {
 
   awsStatus: String = "";
   isLoading: boolean = false;
-  awsEC2Instances: any = [];
+  awsEC2InstancesActive: any = [];
+  awsEC2InstancesInactive: any = [];
   user = new User();
   subscriptionUser: Subscription | undefined;
   subscriptionAwsEC2Instances: Subscription | undefined;
@@ -26,39 +28,72 @@ export class AwsHomeComponent implements OnInit {
 
     });
 
-    this.subscriptionAwsEC2Instances = this.awsService.getEC2Instances(this.user).subscribe({
-      next: (instance: any) => {
-        switch (instance.toString()) {
-          case "Bad AWS access keys": {
-            this.awsStatus = "Bad AWS access keys"
-            break;
-          }
-          case "There are not any AWS account": {
-            this.awsStatus = "There are not any AWS account";
-            break;
-          }
-          default: {
-            this.awsStatus = "AWS account is active";
-            this.awsEC2Instances = instance;
-            break;
-          }
+    this.subscriptionAwsEC2Instances = this.loadEC2instances()
+  }
+
+  async addAccessKeys(keys: Array<String>) {
+   await lastValueFrom(this.awsService.setAWSAccessKeysForUser(this.user, keys )).then( u => {
+      this.authenticationService.setCurrentUser(u);
+    }).catch(error => {
+      console.log(error)
+    })
+    this.isLoading = false;
+    this.ngOnInit()
+
+  }
+
+loadEC2instances(statusChanged = false) {
+  return this.awsService.getEC2Instances(this.user, statusChanged).subscribe({
+    next: (instance: any) => {
+      switch (instance.toString()) {
+        case "Bad AWS access keys": {
+          this.awsStatus = "Bad AWS access keys"
+          break;
         }
-      },
-      error: (err: string) => {
-        console.error(err);
-        this.isLoading = true;
-      },
-      complete: () => { this.isLoading = true; console.log(this.awsEC2Instances)}
-    });
-  }
+        case "There are not any AWS account": {
+          this.awsStatus = "There are not any AWS account";
+          break;
+        }
+        default: {
+          this.awsStatus = "AWS account is active";
+          console.log(instance)
+          this.awsEC2InstancesActive = instance.filter((i: any) => i.state == "running" || i.state == "pending");
+          this.awsEC2InstancesInactive = instance.filter((i: any) => i.state == "stopped" || i.state == "stopping");
+          break;
+        }
+      }
+    },
+    error: (err: string) => {
+      console.error(err);
+      this.isLoading = true;
+    },
+    complete: () => { this.isLoading = true;}
+  });
+}
 
-  addAccessKeys($event: Array<String>) {
-    console.log($event);
-  }
+ async drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 
-  addAwsSecretAccessKey($event: String) {
+
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+
+        if(event.item.data.state == "running" || event.item.data.state == "pending") {
+          await lastValueFrom(this.awsService.stopEC2Instance(this.user, event.item.data.instanceId)).then(message => {}).catch(error => {console.log(error)})
+          this.loadEC2instances(true)
+        }else if(event.item.data.state == "stopped" || event.item.data.state == "stopping") {
+          await lastValueFrom(this.awsService.startEC2Instance(this.user, event.item.data.instanceId)).then(message => {}).catch(error => {console.log(error)})
+          this.loadEC2instances(true)
+        }
 
   }
+}
 
   openEC2ProjectCreationDialog() {}
 

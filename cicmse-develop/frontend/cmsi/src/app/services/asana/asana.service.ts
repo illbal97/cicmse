@@ -20,7 +20,6 @@ export class AsanaService extends HeaderService {
   }
 
   setPersonalAccessTokenForUser(user: User, token: String): Observable<any> {
-    console.log()
     if (token != null && token != "") {
       user.asanaPersonalAccessToken = token;
     }

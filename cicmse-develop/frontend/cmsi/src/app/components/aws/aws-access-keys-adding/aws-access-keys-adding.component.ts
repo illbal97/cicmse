@@ -8,14 +8,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./aws-access-keys-adding.component.scss']
 })
 export class AwsAccessKeysAddingComponent implements OnInit {
-
+  addingAccessKeys: FormGroup;
+  @Output() addingAwsAccessKeyEvent = new EventEmitter<String[]>();
+  private keys: String[] = []
 
   ngOnInit(): void {
   }
-  addingAccessKeys: FormGroup;
-  @Output() addingAwsAccessKey = new EventEmitter<String[]>();
-  @Output() addingAwsSecretAccessKey = new EventEmitter<String>();
-
 
   constructor(formBuilder: FormBuilder) {
     this.addingAccessKeys = formBuilder.group({
@@ -24,10 +22,9 @@ export class AwsAccessKeysAddingComponent implements OnInit {
     })
   }
 
-  addPersonalAccessToken() {
-    let keys: Array<String> = [];
-    keys.push(this.addingAccessKeys.value.accessKey, this.addingAccessKeys.value.accessSecretKey)
-    this.addingAwsAccessKey.emit()
+  emitAccessKeys() {
+    this.keys.push(this.addingAccessKeys.value.accessKey, this.addingAccessKeys.value.accessSecretKey) ;
+    this.addingAwsAccessKeyEvent.emit(this.keys);
 
   }
 

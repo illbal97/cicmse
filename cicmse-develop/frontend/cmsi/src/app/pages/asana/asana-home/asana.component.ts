@@ -99,9 +99,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
     this.asanaService.getAsanaProjectbyWorkspace(this.user, gid, isImmideatly).subscribe(p => {
       this.projects = p;
     })
-    this.awsService.getEC2Instances(this.user).subscribe(a => {
-      console.log(a)
-    })
+
   }
 
   loadAsanaTasksForProject(projectGid: String, projectName: String) {

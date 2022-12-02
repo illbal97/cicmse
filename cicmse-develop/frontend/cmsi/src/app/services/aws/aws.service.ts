@@ -17,9 +17,28 @@ export class AwsService extends HeaderService {
     super(http, authenticationService);
    }
 
-   getEC2Instances(user: User): Observable<any> {
+   setAWSAccessKeysForUser(user: User, keys: Array<String>): Observable<any> {
+    if (keys.length != 0 || keys != null) {
+      user.awsAccessKey = keys[0];
+      user.awsAccessSecretKey = keys[1];
+    }
 
-    return this.http.post<any>(API_URL + "/ec2-instance", {user}, { headers: this.getHeader() })
+    return this.http.post<User>(API_URL + "/add-access-token", {user}, { headers: this.getHeader() });
+  }
+
+   getEC2Instances(user: User, statusChanged: boolean): Observable<any> {
+
+    return this.http.post<any>(API_URL + "/ec2-instance", {user, statusChanged}, { headers: this.getHeader() })
+  }
+
+  startEC2Instance(user: User, instanceId: String): Observable<any> {
+
+    return this.http.post<any>(API_URL + "/ec2-instance-start", {user, instanceId}, { headers: this.getHeader() })
+  }
+
+  stopEC2Instance(user: User, instanceId: String): Observable<any> {
+
+    return this.http.post<any>(API_URL + "/ec2-instance-stop", {user, instanceId}, { headers: this.getHeader() })
   }
 
 

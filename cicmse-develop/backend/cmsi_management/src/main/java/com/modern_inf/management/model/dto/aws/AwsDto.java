@@ -9,6 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AwsDto {
-    User user;
+    private User user;
+
+    private String keyName;
+
+    private String instanceId;
+
+    private boolean statusChanged;
+
 
 }

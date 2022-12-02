@@ -4,7 +4,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import com.modern_inf.management.model.User;
 import com.modern_inf.management.model.aws.AwsAccount;
 import com.modern_inf.management.model.aws.EC2instance;
-import com.modern_inf.management.model.gitlab.GitlabAccount;
+import com.modern_inf.management.model.dto.aws.AwsDto;
 import com.modern_inf.management.repository.aws.AwsAccountDao;
 import com.modern_inf.management.repository.aws.EC2InstanceDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +41,8 @@ public class AwsServiceImpl implements AwsService{
 
 
     @Override
-    public List<Instance> getEC2Instances() {
-        return awsApiService.getEC2Instances();
+    public List<Instance> getEC2Instances(AwsDto awsDto) throws Exception {
+        return awsApiService.getEC2Instances(awsDto);
     }
 
     @Override
@@ -79,6 +79,24 @@ public class AwsServiceImpl implements AwsService{
             long milliseconds = convertLocalDateTimeToMilliSecond(awsAccount.getTokenLastTimeUsed());
             awsAccount.setTokenExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
             this.awsAccountDao.save(awsAccount);
+        }
+    }
+
+    @Override
+    public void startEC2Instance(AwsDto awsDto) throws Exception {
+        this.awsApiService.startEC2Instance(awsDto);
+    }
+
+    @Override
+    public void stopEC2Instance(AwsDto awsDto) throws Exception {
+        this.awsApiService.stopEC2Instance(awsDto);
+    }
+
+    @Override
+    public void updateEC2InstanceState(List<EC2instance> ec2instances, Instance instance) {
+        for(EC2instance ec2instance: ec2instances) {
+            ec2instance.setState(instance.getState().getName());
+            this.saveEC2Instance(ec2instance);
         }
     }
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -26,9 +27,14 @@ public class EC2instance {
 
     private String instanceType;
 
-    private String publicIpAddress;
-
     private String securityGroupName;
 
     private String securityGroupId;
+
+    @ManyToOne
+    @JoinColumn(name = "aws_account_id")
+    @JsonIgnore()
+    private AwsAccount awsAccount;
+
+    private String state;
 }

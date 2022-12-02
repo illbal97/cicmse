@@ -51,10 +51,9 @@ export class AsanaSectionComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex,
       );
-      console.log(event.previousContainer.data)
-    this.asanaService.addAsanaTaskToSection(this.user, this.section.gid, event.item.data.gid).subscribe(x => {
+   // this.asanaService.addAsanaTaskToSection(this.user, this.section.gid, event.item.data.gid).subscribe(x => {
       //console.log(x);
-   })
+  //s })
 
 
     }

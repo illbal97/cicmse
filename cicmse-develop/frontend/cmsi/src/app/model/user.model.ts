@@ -8,6 +8,8 @@ export class User {
   accessToken: string = "";
   refreshToken: string = "";
   role: Role = Role.ADMIN;
-  asanaPersonalAccessToken: String | null = "";
-  gitlabPersonalAccessToken: String | null = "";
+  asanaPersonalAccessToken: String = "";
+  gitlabPersonalAccessToken: String  = "";
+  awsAccessKey: String = "";
+  awsAccessSecretKey: String = ""
 }
