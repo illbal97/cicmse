@@ -93,6 +93,11 @@ public class AwsServiceImpl implements AwsService{
     }
 
     @Override
+    public Instance createEC2Instance(AwsDto awsDto) throws Exception {
+        return this.awsApiService.createEC2Instance(awsDto);
+    }
+
+    @Override
     public void updateEC2InstanceState(List<EC2instance> ec2instances, Instance instance) {
         for(EC2instance ec2instance: ec2instances) {
             ec2instance.setState(instance.getState().getName());

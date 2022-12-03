@@ -34,7 +34,7 @@ div.aws-project-wrapper {
     grid-auto-rows: 60px;
     justify-content: center;
     justify-items: center;
-    margin-top:40px;
+
     height: 300px;
     border-radius: 5px;
     border: 1px solid #3333;
@@ -175,4 +175,7 @@ p.project-title {
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.aws-adding-icon {
+  font-size: 35px;
 }

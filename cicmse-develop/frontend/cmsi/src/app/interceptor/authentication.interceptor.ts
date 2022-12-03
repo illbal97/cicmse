@@ -10,6 +10,7 @@ import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
+import { MatDialog } from '@angular/material/dialog';
 
 const HEADER_AUTHORIZATION = "authorization";
 

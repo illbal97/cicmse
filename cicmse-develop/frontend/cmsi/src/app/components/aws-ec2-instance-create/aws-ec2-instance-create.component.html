@@ -1,0 +1,64 @@
+<div class="ec2-creation-dialog-wrapper">
+  <div class="ec2-creation-title">
+    <h2>EC2 instance creation</h2>
+  </div>
+  <div class="ec2-creation-form-container">
+    <form [formGroup]="ec2CreationDialog" (ngSubmit)="createEC2Instance()">
+      <div class="form-fields-container">
+        <div>
+          <mat-form-field>
+            <mat-label>EC2 tag name</mat-label>
+            <input formControlName="tagName" required type="text" matInput>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>EC2 key name</mat-label>
+            <input formControlName="keyName" required type="text" matInput>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>EC2 instance OS</mat-label>
+            <mat-select formControlName="imageIds" required>
+              <mat-option *ngFor="let image of images"
+                [value]="image.id">
+                {{ image.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="instance-description-container">
+        <mat-card class="instance-card">
+          <mat-card-header>
+            <mat-card-title>Security Group</mat-card-title>
+            <mat-card-subtitle>Rules</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              The security groups is default, that means every EC2 instance will be created the same group and they can communicate each other and every protocol is enable.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="instance-description-container">
+        <mat-card class="instance-card">
+          <mat-card-header>
+            <mat-card-title>Instance Type</mat-card-title>
+            <mat-card-subtitle>Rules</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              Only enable tc.micro beacause this is only one which is free tier.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="project-creation-submit-container">
+        <button [disabled]="!ec2CreationDialog.valid" type="submit"
+          color="primary" mat-raised-button>Create</button>
+      </div>
+    </form>
+  </div>
+</div>

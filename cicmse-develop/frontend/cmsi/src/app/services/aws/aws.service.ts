@@ -36,6 +36,11 @@ export class AwsService extends HeaderService {
     return this.http.post<any>(API_URL + "/ec2-instance-start", {user, instanceId}, { headers: this.getHeader() })
   }
 
+  createEC2Instance(user: User, imageId: String, keyName: String, tagName: String): Observable<any> {
+
+    return this.http.post<any>(API_URL + "/ec2-instance-creation", {user, imageId, keyName, tagName}, { headers: this.getHeader() })
+  }
+
   stopEC2Instance(user: User, instanceId: String): Observable<any> {
 
     return this.http.post<any>(API_URL + "/ec2-instance-stop", {user, instanceId}, { headers: this.getHeader() })

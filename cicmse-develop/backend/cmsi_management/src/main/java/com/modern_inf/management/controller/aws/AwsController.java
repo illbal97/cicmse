@@ -110,6 +110,22 @@ public class AwsController {
 
     }
 
+    @PostMapping("ec2-instance-creation")
+    public ResponseEntity<?> createEC2Instance(@RequestBody AwsDto awsDto) {
+        errors.clear();
+        var awsAccount = this.awsService.getAwsAccountByUser(awsDto.getUser().getId());
+        try{
+            var instance = this.awsService.createEC2Instance(awsDto);
+            var dbInstance = EC2InstanceBuilder(instance, awsAccount);
+            this.awsService.saveEC2Instance(dbInstance);
+            return ResponseEntity.ok(dbInstance);
+        }catch (Exception e) {
+            errors.add(e.getMessage());
+            LOGGER.error(errors.get(0));
+            return ResponseEntity.ok(errors);
+        }
+    }
+
     @PostMapping("add-access-token")
     public ResponseEntity<?> setUserPersonalAccessToken(@RequestBody AwsDto dto) {
         var user = this.userService.findByUsername(dto.getUser().getUsername());
@@ -135,6 +151,7 @@ public class AwsController {
     public EC2instance EC2InstanceBuilder(Instance instance, AwsAccount awsAccount) {
         return EC2instance.builder()
                 .awsAccount(awsAccount)
+                .keyName(instance.getKeyName())
                 .instanceId(instance.getInstanceId())
                 .tagName(instance.getTags().get(0).getValue())
                 .instanceType(instance.getInstanceType())

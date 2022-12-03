@@ -25,5 +25,7 @@ public interface AwsService {
 
     void stopEC2Instance(AwsDto awsDto) throws Exception;
 
+    Instance createEC2Instance(AwsDto awsDto) throws Exception;
+
     void updateEC2InstanceState(List<EC2instance> ec2instances, Instance instance);
 }

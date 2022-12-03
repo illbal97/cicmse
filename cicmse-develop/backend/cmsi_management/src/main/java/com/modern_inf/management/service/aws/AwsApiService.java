@@ -7,6 +7,12 @@ import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2AsyncClientBuilder;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.amazonaws.services.ec2.model.*;
+import com.amazonaws.services.rds.AmazonRDS;
+import com.amazonaws.services.rds.AmazonRDSClientBuilder;
+import com.amazonaws.services.rds.model.CreateDBInstanceRequest;
+import com.amazonaws.services.rds.model.DBInstance;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.modern_inf.management.helper.SymmetricEncryption;
 import com.modern_inf.management.model.dto.aws.AwsDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +20,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -37,7 +42,10 @@ public class AwsApiService {
 
             for(Reservation reservation : response.getReservations()) {
                 for(Instance instance : reservation.getInstances()) {
-                    instances.add(instance);
+                    if(!instance.getState().getName().equals("terminated") ) {
+                        instances.add(instance);
+                    }
+
                 }
             }
 
@@ -91,7 +99,7 @@ public class AwsApiService {
         }while(response.getReservations().get(0).getInstances().get(0).getState().getName().equals("stopped"));
     }
 
-    public List<String> createEC2Instance(AwsDto awsDto) throws Exception {
+    public Instance createEC2Instance(AwsDto awsDto) throws Exception {
         AmazonEC2 ec2Client = AmazonEC2ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(createAWSCredential(awsDto)))
@@ -114,10 +122,11 @@ public class AwsApiService {
                 .withKeyName(awsDto.getKeyName());
         CreateKeyPairResult createKeyPairResult = ec2Client.createKeyPair(createKeyPairRequest);
         createKeyPairResult.getKeyPair().getKeyMaterial();
-
+        Tag tag = new Tag("Name", awsDto.getTagName());
+        TagSpecification tagSpecification =  new TagSpecification().withResourceType(ResourceType.Instance);
         RunInstancesRequest runInstancesRequest = new RunInstancesRequest()
-                .withTagSpecifications()
-                .withImageId("ami-076309742d466ad69")
+                .withTagSpecifications(tagSpecification.withTags(tag))
+                .withImageId("ami-076309742d466ad69") // ami-076309742d466ad69 Amazon , ami-0caef02b518350c8b Ubuntu ami-05a60358d5cda31c5
                 .withInstanceType("t2.micro")
                 .withKeyName(awsDto.getKeyName())
                 .withMinCount(1)
@@ -125,15 +134,44 @@ public class AwsApiService {
                 .withSecurityGroups("default");
 
         var response = ec2Client.runInstances(runInstancesRequest);
-        List<String> instanceId = Collections.singletonList(response.getReservation().getInstances().get(0).getInstanceId());
-        List<Tag> t = (List<Tag>) new Tag("key", "value");
 
-        CreateTagsRequest tagsRequest = new CreateTagsRequest(instanceId, t);
-        ec2Client.createTags(tagsRequest);
-
-        return instanceId;
+        return response.getReservation().getInstances().get(0);
 
     }
+
+    public void createS3(AwsDto dto) throws Exception {
+        AmazonS3 s3client = AmazonS3ClientBuilder
+                .standard()
+                .withCredentials(new AWSStaticCredentialsProvider(createAWSCredential(dto)))
+                .withRegion(Regions.EU_CENTRAL_1)
+                .build();
+
+        s3client.createBucket(dto.getBucketName());
+
+    }
+
+    public DBInstance createRDS(AwsDto dto) throws Exception {
+        AmazonRDS amazonRDS = AmazonRDSClientBuilder
+                .standard()
+                .withCredentials(new AWSStaticCredentialsProvider(createAWSCredential(dto)))
+                .withRegion(Regions.EU_CENTRAL_1)
+                .build();
+
+        CreateDBInstanceRequest request = new CreateDBInstanceRequest();
+        request.setDBInstanceIdentifier(dto.getRdsConfig().getDbIdentifier());
+        request.setDBInstanceClass(dto.getRdsConfig().getDbInstanceType());
+        request.setEngine(dto.getRdsConfig().getEngine());
+        request.setMasterUsername(dto.getRdsConfig().getUsername());
+        request.setMasterUserPassword(dto.getRdsConfig().getPassword());
+        request.setDBName(dto.getRdsConfig().getDbName());
+        request.setStorageType("gp2");
+        request.setAllocatedStorage(dto.getRdsConfig().getAllocatedStorage());
+
+       return amazonRDS.createDBInstance(request);
+
+    }
+
+
 
     private BasicAWSCredentials createAWSCredential(AwsDto awsDto) throws Exception {
         return new BasicAWSCredentials(this.symmetricEncryption.decrypt(awsDto.getUser().getAwsAccessKey()) , this.symmetricEncryption.decrypt(awsDto.getUser().getAwsAccessSecretKey()) );

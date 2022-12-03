@@ -6,10 +6,11 @@ import { AwsHomeComponent } from './aws-home.component';
 import { MaterialModule } from 'src/app/moduls/material/material.module';
 import { AwsAccessKeysAddingComponent } from 'src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AwsEc2InstanceCreateComponent } from 'src/app/components/aws-ec2-instance-create/aws-ec2-instance-create.component';
 
 
 @NgModule({
-  declarations: [AwsHomeComponent, AwsAccessKeysAddingComponent],
+  declarations: [AwsHomeComponent, AwsAccessKeysAddingComponent, AwsEc2InstanceCreateComponent],
   imports: [
     CommonModule,
     AwsHomeRoutingModule,
