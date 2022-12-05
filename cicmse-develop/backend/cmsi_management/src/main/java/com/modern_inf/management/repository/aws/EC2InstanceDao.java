@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EC2InstanceDao extends JpaRepository<EC2instance, Long> {
+    EC2instance findByInstanceId(String instanceId);
 }

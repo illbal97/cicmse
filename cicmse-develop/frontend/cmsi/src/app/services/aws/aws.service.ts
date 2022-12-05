@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { RDSConfig } from 'src/app/model/aws/rds-config';
 import { User } from 'src/app/model/user.model';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../authentication.service';
@@ -44,6 +45,16 @@ export class AwsService extends HeaderService {
   stopEC2Instance(user: User, instanceId: String): Observable<any> {
 
     return this.http.post<any>(API_URL + "/ec2-instance-stop", {user, instanceId}, { headers: this.getHeader() })
+  }
+
+  createS3(user: User, bucketName: String) {
+    return this.http.post<any>(API_URL + "/S3-creation", {user, bucketName}, { headers: this.getHeader() })
+
+  }
+
+  createRDS(user: User, rdsConfig: RDSConfig) {
+    return this.http.post<any>(API_URL + "/RDS-creation", {user, rdsConfig}, { headers: this.getHeader() })
+
   }
 
 

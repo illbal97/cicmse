@@ -28,4 +28,10 @@ public interface AwsService {
     Instance createEC2Instance(AwsDto awsDto) throws Exception;
 
     void updateEC2InstanceState(List<EC2instance> ec2instances, Instance instance);
+
+    void createS3(AwsDto awsDto) throws Exception;
+
+    void RDSCreation(AwsDto awsDto) throws Exception;
+
+    void deleteEC2Instance(AwsDto awsDto);
 }

@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DateTimeFormatterPipe implements PipeTransform {
 
   transform(value: Date, ...args: unknown[]): String {
-    console.log(value.getDate());
     const day = value.getDate() < 10? "0"+ value.getDate(): value.getDate();
 
     return value.getFullYear() + "-" + (value.getMonth() + 1) + "-" + day;

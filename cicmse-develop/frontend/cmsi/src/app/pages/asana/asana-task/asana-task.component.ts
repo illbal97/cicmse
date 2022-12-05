@@ -17,7 +17,6 @@ export class AsanaTaskComponent implements OnInit, OnDestroy {
   projectGid: String = "";
   projectName: String = "";
   private asanaTasks: Array<any> = []
-  private asanaSectionByTasks: Map<String, any[]> | undefined
   asanaSection: Array<any> = [];
   user: User = new User();
   private userSubscription: Subscription | undefined;
@@ -30,9 +29,7 @@ export class AsanaTaskComponent implements OnInit, OnDestroy {
       this.workspaceGid = param['workspaceGid'];
       this.projectGid = param['projectGid'];
       this.projectName = param['projectName'];
-      console.log(this.projectName)
     });
-    console.log(this.workspaceGid + "  " + this.projectGid)
     this.userSubscription = this.authenticationService.currentUser.subscribe((data: User) => {
       this.user = data;
     });
@@ -49,7 +46,6 @@ export class AsanaTaskComponent implements OnInit, OnDestroy {
  async loadAsanaSection() {
     await lastValueFrom(this.asanaService.getAsanaSectionsByProject(this.user, this.workspaceGid, this.projectGid)).then(t => {
       this.asanaSection = t;
-      console.log(this.asanaSection)
     }).catch(err => {
       console.log(err)
     });
@@ -58,7 +54,7 @@ export class AsanaTaskComponent implements OnInit, OnDestroy {
 
   async createDefaultSection() {
     await lastValueFrom(this.asanaService.createAsanaDefaultSectionbyProject(this.user, this.projectGid)).then(t => {
-      console.log(t)
+
     }).catch(err => {
       console.log(err)
     });

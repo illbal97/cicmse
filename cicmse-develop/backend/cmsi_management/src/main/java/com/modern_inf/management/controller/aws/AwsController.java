@@ -1,5 +1,6 @@
 package com.modern_inf.management.controller.aws;
 
+import com.amazonaws.services.ec2.model.AmazonEC2Exception;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.modern_inf.management.helper.SymmetricEncryption;
@@ -74,11 +75,40 @@ public class AwsController {
                 return ResponseEntity.ok(awsAccount.getEc2instance());
             }
 
-        }catch (Exception e) {
+        }
+        catch (Exception e) {
             LOGGER.error(e.getMessage());
             errors.add("Bad AWS access keys");
             return ResponseEntity.ok(errors);
         }
+
+    }
+
+    @PostMapping("S3-creation")
+    public ResponseEntity<?> creationS3(@RequestBody AwsDto awsDto) {
+        errors.clear();
+        try{
+            this.awsService.createS3(awsDto);
+        }catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            errors.add(e.getMessage());
+            return ResponseEntity.ok(errors);
+        }
+        return ResponseEntity.ok(Arrays.asList("Successfully S3 creation"));
+
+    }
+
+    @PostMapping("RDS-creation")
+    public ResponseEntity<?> RDSCreation(@RequestBody AwsDto awsDto) {
+        errors.clear();
+        try{
+            this.awsService.RDSCreation(awsDto);
+        }catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            errors.add(e.getMessage());
+            return ResponseEntity.ok(errors);
+        }
+        return ResponseEntity.ok(Arrays.asList("Successfully RDS creation"));
 
     }
 
@@ -88,7 +118,16 @@ public class AwsController {
             this.awsService.startEC2Instance(dto);
 
             return ResponseEntity.ok(Arrays.asList("Start was Successfully"));
-        }catch (Exception e) {
+        }catch (AmazonEC2Exception e){
+            if(e.getStatusCode() == 400 || e.getMessage().equals("InvalidInstanceID.NotFound")) {
+                this.awsService.deleteEC2Instance(dto);
+                return ResponseEntity.ok(Arrays.asList("Terminated instance deleted from database Successfully"));
+            }
+            errors.add(e.getMessage());
+
+            return ResponseEntity.ok(errors);
+        }
+        catch (Exception e) {
             LOGGER.error(e.getMessage());
 
             return ResponseEntity.ok(Arrays.asList(e.getMessage()));
@@ -98,16 +137,24 @@ public class AwsController {
 
     @PostMapping("ec2-instance-stop")
     public ResponseEntity<?> stopEC2Instance(@RequestBody AwsDto dto) {
+        errors.clear();
         try{
             this.awsService.stopEC2Instance(dto);
 
             return ResponseEntity.ok(Arrays.asList("Stop was Successfully"));
+        }catch (AmazonEC2Exception e){
+            if(e.getStatusCode() == 400 || e.getMessage().equals("InvalidInstanceID.NotFound")) {
+                this.awsService.deleteEC2Instance(dto);
+                return ResponseEntity.ok(Arrays.asList("Terminated instance deleted from database Successfully"));
+            }
+            errors.add(e.getMessage());
+
+            return ResponseEntity.ok(errors);
         }catch (Exception e) {
             LOGGER.error(e.getMessage());
 
             return ResponseEntity.ok(Arrays.asList(e.getMessage()));
         }
-
     }
 
     @PostMapping("ec2-instance-creation")

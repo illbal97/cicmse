@@ -1,8 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, lastValueFrom, pipe, Subscription, toArray } from 'rxjs';
-import { AwsEc2InstanceCreateComponent } from 'src/app/components/aws-ec2-instance-create/aws-ec2-instance-create.component';
+import { lastValueFrom, Subscription } from 'rxjs';
+import { AwsEc2InstanceCreateComponent } from 'src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component';
+import { AwsS3RdsCreationComponent } from 'src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component';
 import { User } from 'src/app/model/user.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AwsService } from 'src/app/services/aws/aws.service';
@@ -21,7 +22,7 @@ export class AwsHomeComponent implements OnInit {
   user = new User();
   subscriptionUser: Subscription | undefined;
   subscriptionAwsEC2Instances: Subscription | undefined;
-  constructor(private authenticationService: AuthenticationService, private awsService: AwsService,  private awsEC2CreationDialog: MatDialog ) { }
+  constructor(private authenticationService: AuthenticationService, private awsService: AwsService,  private awsEC2CreationDialog: MatDialog,  private awsRDSAndS3CreationDialog: MatDialog ) { }
 
   ngOnInit(): void {
     this.isLoading = false;
@@ -100,6 +101,23 @@ loadEC2instances(statusChanged = false) {
     const dialogRef = this.awsEC2CreationDialog.open(AwsEc2InstanceCreateComponent, {
       width: "600px",
       height: "600px",
+      panelClass: "custom-modalbox",
+      data: {user: this.user}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed' + result);
+      if (result != undefined) {
+        console.log(result)
+        this.loadEC2instances(true);
+        }
+    });
+  }
+
+  openS3AndRDSCreationDialog() {
+    const dialogRef = this.awsRDSAndS3CreationDialog.open(AwsS3RdsCreationComponent, {
+      width: "600px",
+      height: "700px",
       panelClass: "custom-modalbox",
       data: {user: this.user}
     });

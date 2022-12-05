@@ -19,7 +19,9 @@ public class AwsDto {
     private String imageIds;
 
     private String instanceId;
+
     private String bucketName;
+
     private RDSConfig rdsConfig;
 
     private boolean statusChanged;

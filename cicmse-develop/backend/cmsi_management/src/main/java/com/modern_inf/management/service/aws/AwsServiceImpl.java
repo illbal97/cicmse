@@ -105,6 +105,22 @@ public class AwsServiceImpl implements AwsService{
         }
     }
 
+    @Override
+    public void createS3(AwsDto awsDto) throws Exception {
+        this.awsApiService.createS3(awsDto);
+    }
+
+    @Override
+    public void RDSCreation(AwsDto awsDto) throws Exception {
+        this.awsApiService.createRDS(awsDto);
+    }
+
+    @Override
+    public void deleteEC2Instance(AwsDto awsDto) {
+        var instance =this.ec2InstanceDao.findByInstanceId(awsDto.getInstanceId());
+        this.ec2InstanceDao.deleteById(instance.getId());
+    }
+
     private LocalDateTime convertMilliSecondToLocalDateTime(long milliSecond) {
         return Instant.ofEpochMilli(milliSecond).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }

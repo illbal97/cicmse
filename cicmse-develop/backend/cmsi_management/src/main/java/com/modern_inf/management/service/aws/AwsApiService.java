@@ -162,6 +162,7 @@ public class AwsApiService {
         request.setDBInstanceClass(dto.getRdsConfig().getDbInstanceType());
         request.setEngine(dto.getRdsConfig().getEngine());
         request.setMasterUsername(dto.getRdsConfig().getUsername());
+        request.setMultiAZ(false);
         request.setMasterUserPassword(dto.getRdsConfig().getPassword());
         request.setDBName(dto.getRdsConfig().getDbName());
         request.setStorageType("gp2");

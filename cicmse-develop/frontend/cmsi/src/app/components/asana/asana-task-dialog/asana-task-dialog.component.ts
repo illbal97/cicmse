@@ -9,11 +9,14 @@ import { AsanaTaskComponent } from 'src/app/pages/asana/asana-task/asana-task.co
 })
 export class AsanaTaskDialogComponent implements OnInit {
 
-  public dialogRef: MatDialogRef<AsanaTaskComponent> | undefined
 
-  constructor(private asanaTaskDialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data:{task: any}) { }
+
+  warning:String = "Currently there aren't any value"
+
+  constructor(private asanaTaskDialog: MatDialog, public dialogRef: MatDialogRef<AsanaTaskComponent>, @Inject(MAT_DIALOG_DATA) public data:{task: any}) { }
 
   ngOnInit(): void {
+
   }
 
 

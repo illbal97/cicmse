@@ -33,7 +33,7 @@ export class AsanaProjectDialogComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.data.asanaUsers)
+
   }
 
   createAsanaProject() {
@@ -44,7 +44,7 @@ export class AsanaProjectDialogComponent implements OnInit {
     this.data.project.notes = this.creationAsanaProject.value.notes;
     let dueOn: Date =  this.creationAsanaProject.value.due_on;
     this.data.project.dueOn = this.dateFormatter(dueOn.getFullYear(), dueOn.getMonth() + 1, dueOn.getDate());
-    // service
+
     this.asanaService.createAsanaProjectbyWorkspace(this.data.user, this.data.gid, this.data.project).subscribe(
       {
         next: (value) => {

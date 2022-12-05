@@ -2,15 +2,15 @@
   <div class="task-dialog-container">
     <div class="task-dialog-field">
       <p>Assigned To:</p>
-      <h4>{{data.task.assignee.name}}</h4>
+      <h4>{{ (data.task.assignee != null) ? (data.task.assignee.name): (warning)}}</h4>
     </div>
     <div class="task-dialog-field">
       <p>Created:</p>
-      <h4>{{data.task.createdAt.value | dateTime | dateTimeFormatter}}</h4>
+      <h4>{{(data.task.createdAt != null)? (data.task.createdAt.value | dateTime | dateTimeFormatter): (warning)}}</h4>
     </div>
     <div class="task-dialog-field">
       <p>Due on:</p>
-      <h4>{{data.task.dueOn.value | dateTime | dateTimeFormatter}}</h4>
+      <h4>{{(data.task.dueOn != null)? (data.task.dueOn.value | dateTime | dateTimeFormatter): (warning)}}</h4>
     </div>
     <div class="task-dialog-field">
       <p>Description:</p>

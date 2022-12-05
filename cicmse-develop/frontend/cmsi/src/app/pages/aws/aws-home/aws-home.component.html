@@ -18,6 +18,11 @@
             <p class="aws-project-label">AWS EC2 instances:</p>
           </div>
           <div class="aws-project-adding-container">
+            <mat-icon (click)="openS3AndRDSCreationDialog()"
+              class="aws-adding-icon">add_box</mat-icon>
+            <p class="aws-adding-text">S3 and RDS</p>
+          </div>
+          <div class="aws-project-adding-container">
             <mat-icon (click)="openEC2ProjectCreationDialog()"
               class="aws-adding-icon">add_box</mat-icon>
             <p class="aws-adding-text">Instance</p>

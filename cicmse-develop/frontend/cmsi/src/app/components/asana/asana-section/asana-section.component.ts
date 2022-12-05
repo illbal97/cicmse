@@ -51,9 +51,7 @@ export class AsanaSectionComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex,
       );
-   // this.asanaService.addAsanaTaskToSection(this.user, this.section.gid, event.item.data.gid).subscribe(x => {
-      //console.log(x);
-  //s })
+
 
 
     }
@@ -61,7 +59,6 @@ export class AsanaSectionComponent implements OnInit, OnDestroy {
   async openTaskDialog(asanaTask:any) {
    await lastValueFrom(this.asanaService.getAsanaTask(this.user, this.section.gid, asanaTask.gid )).then(t => {
       this.asanaTaskDetails = t;
-      console.log(this.asanaTaskDetails)
      })
     const dialogRef = this.asanaTaskDialog.open(AsanaTaskDialogComponent, {
       width: "648px",

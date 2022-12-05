@@ -112,7 +112,6 @@ export class AsanaComponent implements OnInit, OnDestroy {
     if (this.selectedWorkspaceGid !== "") {
      await lastValueFrom(this.asanaService.getAsanaUser(this.user, this.selectedWorkspaceGid)).then(users => {
         this.asanaUser = users;
-        console.log(this.asanaUser)
       }).catch( errr => {
         console.log(errr);
       });
