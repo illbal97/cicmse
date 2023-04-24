@@ -21,17 +21,17 @@ export class GitlabService extends HeaderService {
 
    getGitlabProject(user: User, isImmediate: boolean): Observable<any> {
     let userId = user.id?.toString()
-    return this.http.post<any>(API_URL + "/projects", {userId, isImmediate}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/projects", {userId, isImmediate}, { headers: this.getHeader(), withCredentials:true })
   }
 
   createProject(user: User, data: GitlabCreationData) {
     let userId = user.id?.toString();
-    return this.http.post<any>(API_URL + "/project-creation", {userId, data}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/project-creation", {userId, data}, { headers: this.getHeader(), withCredentials:true })
   }
 
   createBranch(user: User, project_id: number, data_branch: GitlabBranchCreationData) {
     let userId = user.id?.toString();
-    return this.http.post<any>(API_URL + "/branch-creation", {userId, project_id, data_branch}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/branch-creation", {userId, project_id, data_branch}, { headers: this.getHeader(), withCredentials:true })
   }
 
   setPersonalAccessTokenForUser(user: User, token: String): Observable<any> {
@@ -39,6 +39,6 @@ export class GitlabService extends HeaderService {
       user.gitlabPersonalAccessToken = token;
     }
 
-    return this.http.post<User>(API_URL + "/add-access-token", user, { headers: this.getHeader() });
+    return this.http.post<User>(API_URL + "/add-access-token", user, { headers: this.getHeader(), withCredentials:true });
   }
 }

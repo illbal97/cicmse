@@ -5,6 +5,7 @@ import com.modern_inf.management.model.User;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,8 +19,7 @@ public class Asana {
     private Long Id;
 
 
-    @OneToMany(mappedBy = "asana")
-    @JsonIgnore()
+    @OneToMany(mappedBy = "asana", cascade = CascadeType.ALL)
     private List<AsanaWorkspace> asanaWorkspaces;
 
     private LocalDateTime tokenLastTimeUsed;
@@ -27,7 +27,7 @@ public class Asana {
     private LocalDateTime tokenExpirationTime;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JsonIgnore()
+    @JsonIgnore
     private User user;
 
 }

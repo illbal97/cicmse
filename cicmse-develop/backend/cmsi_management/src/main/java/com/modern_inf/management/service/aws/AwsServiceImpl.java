@@ -61,7 +61,7 @@ public class AwsServiceImpl implements AwsService{
     }
 
     @Override
-    public void updateAsanaTokenExpirationTime(AwsAccount a) {
+    public void updateAwsUserTokenExpirationTime(AwsAccount a) {
         a.setTokenLastTimeUsed(LocalDateTime.now());
         long milliseconds = convertLocalDateTimeToMilliSecond(a.getTokenLastTimeUsed());
         a.setTokenExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));

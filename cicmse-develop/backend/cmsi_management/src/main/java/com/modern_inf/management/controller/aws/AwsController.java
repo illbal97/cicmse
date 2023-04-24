@@ -71,7 +71,7 @@ public class AwsController {
                         this.awsService.saveEC2Instance(EC2InstanceBuilder(instance, awsAccount));
                     }
                 }
-                this.awsService.updateAsanaTokenExpirationTime(awsAccount);
+                this.awsService.updateAwsUserTokenExpirationTime(awsAccount);
                 return ResponseEntity.ok(awsAccount.getEc2instance());
             }
 
@@ -180,18 +180,13 @@ public class AwsController {
             user.get().setAwsAccessKey(this.symmetricEncryption.encrypt(dto.getUser().getAwsAccessKey()));
             user.get().setAwsAccessSecretKey(this.symmetricEncryption.encrypt(dto.getUser().getAwsAccessSecretKey()));
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("AAA" + e.getMessage());
         }
         var us = this.userService.setAccessKeyAndSecretAccessKeyForAws(user.get());
         this.awsService.setAwsAccountForUser(user.get());
-        try {
-            us.setAwsAccessKey(this.symmetricEncryption.decrypt(us.getAwsAccessKey()));
-            us.setAwsAccessSecretKey(this.symmetricEncryption.decrypt(us.getAwsAccessSecretKey()));
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-        us.setAccessToken(dto.getUser().getAccessToken());
-        us.setRefreshToken(dto.getUser().getRefreshToken());
+
+//        us.setAccessToken(dto.getUser().getAccessToken());
+//        us.setRefreshToken(dto.getUser().getRefreshToken());
         return ResponseEntity.ok(us);
     }
 

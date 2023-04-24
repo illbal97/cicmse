@@ -19,10 +19,13 @@ public class UserPrincipal implements UserDetails {
 
     private Long id;
     private String username;
-    transient private String password;
-    transient private User user;
+    private String password;
+    private User user;
     private Set<GrantedAuthority> authorities;
 
+    public User getUser() {
+        return user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

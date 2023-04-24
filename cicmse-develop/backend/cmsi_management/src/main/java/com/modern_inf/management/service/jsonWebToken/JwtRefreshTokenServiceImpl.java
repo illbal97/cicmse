@@ -63,16 +63,10 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService {
                 .password(user.getPassword())
                 .authorities(Set.of(SecurityUtils.convertToAuthority(user.getRole().name())))
                 .build();
-        if (!Objects.equals(user.getAsanaPersonalAccessToken(), "") && user.getAsanaPersonalAccessToken() != null) {
-            try {
-                user.setAsanaPersonalAccessToken(this.symmetricEncryption.decrypt(user.getAsanaPersonalAccessToken()));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+
         String accessToken = jwtProvider.generateToken(userPrincipal);
-        user.setAccessToken(accessToken);
-        user.setRefreshToken(refreshTokenId);
+//        user.setAccessToken(accessToken);
+//        user.setRefreshToken(refreshTokenId);
 
         return user;
 

@@ -1,12 +1,14 @@
 package com.modern_inf.management.model.asana;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -42,11 +44,11 @@ public class AsanaProject {
     private String name;
 
     @ManyToOne()
-    @JsonIgnore()
+    @JsonIgnore
     private AsanaWorkspace asanaWorkspaces;
 
 
     @OneToMany(mappedBy = "asanaProject")
-    @JsonIgnore()
+    @JsonIgnore
     private List<AsanaSection> asanaSections;
 }

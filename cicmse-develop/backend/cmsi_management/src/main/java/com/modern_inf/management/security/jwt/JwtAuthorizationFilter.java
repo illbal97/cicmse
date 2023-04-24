@@ -8,9 +8,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
@@ -19,11 +22,27 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        Authentication authentication = jwtProvider.getAuthentication(request);
 
-        if (authentication != null && jwtProvider.isTokenValid(request)) {
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
+            if (request.getCookies() != null) {
+                System.out.println("Here");
+                var jwt = Arrays.stream(request.getCookies())
+                        .filter(cookie -> "jwt_token".equals(cookie.getName()))
+                        .map(Cookie::getValue)
+                        .findAny();
+                var rf_token = Arrays.stream(request.getCookies())
+                        .filter(cookie -> "rf_token".equals(cookie.getName()))
+                        .map(Cookie::getValue)
+                        .findAny();
+                if (jwt.isPresent()) {
+                    Authentication authentication = jwtProvider.getAuthentication(jwt.get());
+                    if (authentication != null && jwtProvider.isTokenValid(jwt.get())) {
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
+                }else if (rf_token.isPresent()) {
+                  response.setHeader("Refresh-Token-needed", "true");
+                }
+
+            }
 
         filterChain.doFilter(request, response);
     }

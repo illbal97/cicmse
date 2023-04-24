@@ -1,6 +1,5 @@
 package com.modern_inf.management.service.gitlab;
 
-import com.google.api.client.json.Json;
 import com.modern_inf.management.helper.SymmetricEncryption;
 import com.modern_inf.management.model.dto.gitlab.GitlabDto;
 import com.modern_inf.management.model.gitlab.GitlabBranch;
@@ -10,8 +9,6 @@ import com.modern_inf.management.model.postData.GitlabProjectCreation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 

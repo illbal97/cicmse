@@ -62,11 +62,11 @@ public class AsanaController {
             LOGGER.error(e.getMessage());
             error.clear();
             error.add("Connection timeout");
-            return ResponseEntity.ok(error);
+            return ResponseEntity.ok().body(error);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
-        return ResponseEntity.ok(asanaUser);
+        return  ResponseEntity.ok().body(asanaUser);
     }
 
     @PostMapping("workspaces")
@@ -265,13 +265,9 @@ public class AsanaController {
         }
         var us = this.userService.setPersonalAccessTokenForAsana(user.get());
         this.asanaService.setAsanaAccountForUser(user.get());
-        try {
-            us.setAsanaPersonalAccessToken(this.symmetricEncryption.decrypt(us.getAsanaPersonalAccessToken()));
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-        us.setAccessToken(u.getAccessToken());
-        us.setRefreshToken(u.getRefreshToken());
+
+//        us.setAccessToken(u.getAccessToken());
+//        us.setRefreshToken(u.getRefreshToken());
         return ResponseEntity.ok(us);
     }
 
@@ -362,7 +358,7 @@ public class AsanaController {
     }
 
     @PostMapping("createSection")
-    public ResponseEntity createSection(@RequestBody AsanaDto dto) {
+    public ResponseEntity<?> createSection(@RequestBody AsanaDto dto) {
         error.clear();
         var asanaSections = this.asanaService.getAsanaProjectByProjectGid(dto.getProjectGid()).getAsanaSections();
         if (!asanaSections.isEmpty()) {

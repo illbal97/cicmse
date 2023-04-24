@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User setAccessKeyAndSecretAccessKeyForAws(User user) {
         var u = this.userDao.findById(user.getId());
-        u.get().setAwsAccessSecretKey(user.getAwsAccessSecretKey());
+        u.get().setAwsAccessKey(user.getAwsAccessKey());
         u.get().setAwsAccessSecretKey(user.getAwsAccessSecretKey());
 
         return userDao.save(u.get());

@@ -5,9 +5,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Base64;
 
 @Component
@@ -17,24 +21,38 @@ public class SymmetricEncryption {
     private String SYMMETRIC_KEY;
 
     public String encrypt(String plainText) throws Exception {
-        SecretKey secretKey = new SecretKeySpec(SYMMETRIC_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+        byte[] encryptedBytes = Base64.getDecoder().decode(SYMMETRIC_KEY);
+        SecretKey secretKey = new SecretKeySpec(Arrays.copyOf(encryptedBytes, 16), "AES");
 
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-        byte[] encryptedBytes = cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8));
+        byte[] cipherText  = cipher.doFinal(plainText.getBytes());
 
-        return Base64.getEncoder().encodeToString(encryptedBytes);
+        return Base64.getEncoder().encodeToString(cipherText);
     }
 
     public String decrypt(String encrypted) throws Exception {
-        byte[] encryptedBytes = Base64.getDecoder().decode(encrypted);
-        SecretKey secretKey = new SecretKeySpec(SYMMETRIC_KEY.getBytes(StandardCharsets.UTF_8), "AES");
+        byte[] encryptedBytes = Base64.getDecoder().decode(SYMMETRIC_KEY);
+        SecretKey secretKey = new SecretKeySpec(Arrays.copyOf(encryptedBytes, 16), "AES");
 
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
-        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+        byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encrypted.getBytes()));
 
-        return new String(decryptedBytes, StandardCharsets.UTF_8);
+        return new String(decryptedBytes);
+    }
+
+
+    private String getSecretKey() throws NoSuchAlgorithmException {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+
+        SecureRandom secureRandom = new SecureRandom();
+        int keyBitSize = 256;
+        keyGenerator.init(keyBitSize, secureRandom);
+
+        SecretKey secretKey = keyGenerator.generateKey();
+
+        return Base64.getEncoder().encodeToString(secretKey.getEncoded());
     }
 
 }

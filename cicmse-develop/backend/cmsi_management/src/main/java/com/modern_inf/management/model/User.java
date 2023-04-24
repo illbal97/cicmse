@@ -54,10 +54,5 @@ public class User {
     @Column(name="aws_access_secret_key", columnDefinition = "varchar(255)")
     private String awsAccessSecretKey;
 
-    @Transient
-    private String accessToken;
-
-    @Transient
-    private String refreshToken;
 
 }

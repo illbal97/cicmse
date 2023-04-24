@@ -34,7 +34,7 @@ export class AuthenticationService {
    }
 
    signIn(user: User): Observable<User> {
-     return this.http.post<User>(API_URL + '/sign-in', user).pipe(
+     return this.http.post<User>(API_URL + '/sign-in', user, { withCredentials: true }).pipe(
        map((response: User) => {
          if(response) {
             this.setCurrentUser(response);
@@ -51,7 +51,7 @@ export class AuthenticationService {
 
    refreshToken(): Observable<any> {
      return this.http.post(API_URL + '/refresh-token?refreshToken='
-      + this.currentUserValue?.refreshToken, {});
+      + 'dc', {withCredentials: true}, );
    }
 
    logOut() {

@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="login-wrapper">
-    <h2>Welcome</h2>
+    <h2>Welcome to the Complex Infrastructure Manager App</h2>
     <div class="login-container">
       <form [formGroup]="SignIn">
         <div class="login-card" >
@@ -16,7 +16,6 @@
         <button id='sign-in-button'[disabled]='!SignIn.valid' (click)='login()' mat-raised-button
         [ngStyle]="{'background-color':!SignIn.valid? '#3333' : '#333' }">Sign In</button>
       </form>
-
     </div>
   </div>
 </div>

@@ -45,7 +45,7 @@ public class AsanaServiceImpl implements AsanaService {
     }
 
     @Override
-    public List<Workspace> getAsanaWorkspaces(Optional<User> user) throws IOException {
+    public List<Workspace> getAsanaWorkspaces(Optional<User> user) throws Exception {
 
         return this.asanaApiService.getWorkspaces(user);
 
@@ -68,14 +68,14 @@ public class AsanaServiceImpl implements AsanaService {
     }
 
     @Override
-    public List<Project> getAsanaProjectsByWorkspaces(Optional<User> user, String gid) throws IOException {
+    public List<Project> getAsanaProjectsByWorkspaces(Optional<User> user, String gid) throws Exception {
 
         return this.asanaApiService.getProjectsByWorkspace(user, gid, false);
 
     }
 
     @Override
-    public List<Section> getSectionFromProject(AsanaDto dto) throws IOException {
+    public List<Section> getSectionFromProject(AsanaDto dto) throws Exception {
         return this.asanaApiService.getSectionFromProject(dto);
     }
 
@@ -105,12 +105,12 @@ public class AsanaServiceImpl implements AsanaService {
     }
 
     @Override
-    public List<Task> getTasksFromSection(AsanaDto asanaDto) throws IOException {
+    public List<Task> getTasksFromSection(AsanaDto asanaDto) throws Exception {
         return this.asanaApiService.getTasksFromSection(asanaDto);
     }
 
     @Override
-    public List<Task> getTaskByWorkspace(AsanaDto dto) throws IOException {
+    public List<Task> getTaskByWorkspace(AsanaDto dto) throws Exception {
         return this.asanaApiService.getTaskByWorkspace(dto);
     }
 
@@ -141,23 +141,23 @@ public class AsanaServiceImpl implements AsanaService {
     }
 
     @Override
-    public Project createAsanaProject(AsanaDto dto) throws IOException {
+    public Project createAsanaProject(AsanaDto dto) throws Exception {
         return this.asanaApiService.createProjectForWorkspace(dto);
 
     }
 
     @Override
-    public Task getTask(AsanaDto asanaDto) throws IOException {
+    public Task getTask(AsanaDto asanaDto) throws Exception {
         return this.asanaApiService.getTask(asanaDto);
     }
 
     @Override
-    public Project getProject(AsanaDto dto) throws IOException {
+    public Project getProject(AsanaDto dto) throws Exception {
         return this.asanaApiService.getProject(dto);
     }
 
     @Override
-    public Section createSectionForProject(AsanaDto asanaDto, String sectionName) throws IOException {
+    public Section createSectionForProject(AsanaDto asanaDto, String sectionName) throws Exception {
         return this.asanaApiService.createSectionForProject(asanaDto, sectionName);
     }
 
@@ -167,7 +167,7 @@ public class AsanaServiceImpl implements AsanaService {
     }
 
     @Override
-    public List<com.asana.models.User> getAsanaUsers(AsanaDto asanaDto) throws IOException {
+    public List<com.asana.models.User> getAsanaUsers(AsanaDto asanaDto) throws Exception {
         return this.asanaApiService.getAsanaUsers(asanaDto);
     }
 
@@ -187,7 +187,7 @@ public class AsanaServiceImpl implements AsanaService {
     }
 
     @Override
-    public JsonElement addTaskToSection(AsanaDto asanaDto) throws IOException {
+    public JsonElement addTaskToSection(AsanaDto asanaDto) throws Exception {
         return this.asanaApiService.addTaskToSection(asanaDto);
     }
 }

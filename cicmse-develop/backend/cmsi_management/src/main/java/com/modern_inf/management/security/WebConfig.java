@@ -9,10 +9,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
+    private final String FRONTEND_ORIGIN = "http://localhost:4200";
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins(FRONTEND_ORIGIN)
+                .allowCredentials(true)
+                .allowedHeaders("*")
                 .allowedMethods("*");
     }
 }

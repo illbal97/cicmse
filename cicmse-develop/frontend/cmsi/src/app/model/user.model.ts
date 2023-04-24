@@ -5,8 +5,6 @@ export class User {
   username: string = "";
   password: string = "";
   name: string = "";
-  accessToken: string = "";
-  refreshToken: string = "";
   role: Role = Role.ADMIN;
   asanaPersonalAccessToken: String = "";
   gitlabPersonalAccessToken: String  = "";

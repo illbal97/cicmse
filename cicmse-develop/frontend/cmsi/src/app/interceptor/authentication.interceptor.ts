@@ -10,7 +10,7 @@ import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
-import { MatDialog } from '@angular/material/dialog';
+import { RefreshTokenInvalidComponent } from '../components/refresh-token-invalid/refresh-token-invalid.component';
 
 const HEADER_AUTHORIZATION = "authorization";
 
@@ -29,12 +29,12 @@ export class AuthenInterceptor implements HttpInterceptor {
   }
 
   private handleToken(request: HttpRequest<unknown>, next: HttpHandler) {
-    this.jwt = jwtDecode(this.authenticationService.currentUserValue.accessToken);
+    //this.jwt = jwtDecode(this.authenticationService.currentUserValue.accessToken);
 
     const nowSecs = Date.now() / 1000;
-    const exp = this.jwt.exp || 0;
+    //const exp = this.jwt.exp || 0;
 
-    if (exp > nowSecs) {
+    if (true) {
 
       return next.handle(request);
     }else {
@@ -42,15 +42,13 @@ export class AuthenInterceptor implements HttpInterceptor {
         switchMap((response: User) => {
           this.authenticationService.setCurrentUser(response);
 
-          const cloned = request.clone({
-            headers: request.headers.set(HEADER_AUTHORIZATION, 'Bearer ' + response.accessToken)
-          });
-
-          return next.handle(cloned);
+          return next.handle(request);
         }),
         catchError( err => {
           this.authenticationService.logOut();
+
           this.router.navigate(['/login']);
+
 
           return throwError(() => new Error(err));
         })

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -16,6 +17,7 @@ export class AsanaProjectDialogComponent implements OnInit {
   asanaProject: asanaProject = new asanaProject();
 
   constructor(
+    private datePipe: DatePipe,
     private asanaService: AsanaService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AsanaComponent>,
@@ -43,7 +45,7 @@ export class AsanaProjectDialogComponent implements OnInit {
     this.data.project.color = this.creationAsanaProject.value.color;
     this.data.project.notes = this.creationAsanaProject.value.notes;
     let dueOn: Date =  this.creationAsanaProject.value.due_on;
-    this.data.project.dueOn = this.dateFormatter(dueOn.getFullYear(), dueOn.getMonth() + 1, dueOn.getDate());
+    this.data.project.dueOn = this.dateFormatter(dueOn);
 
     this.asanaService.createAsanaProjectbyWorkspace(this.data.user, this.data.gid, this.data.project).subscribe(
       {
@@ -60,8 +62,8 @@ export class AsanaProjectDialogComponent implements OnInit {
     )
   }
 
-  dateFormatter(year: number, month: number, day: number): String {
-    return "" + year + "-" + month + "-" + day;
+  dateFormatter(date:Date): string {
+    return this.datePipe.transform(date, 'yyyy-MM-dd')!;
   }
 
 

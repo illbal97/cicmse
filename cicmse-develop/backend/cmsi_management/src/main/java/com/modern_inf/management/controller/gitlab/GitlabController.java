@@ -55,32 +55,38 @@ public class GitlabController {
     public ResponseEntity<?> getGitlabProjects(@RequestBody GitlabDto dto) {
         error.clear();
         var user = userService.findUserById(Long.parseLong(dto.getUserId()));
-        dto.setUser(user.get());
-        var gitlabAccount = user.get().getGitlabAccount();
-        List<GitlabProject> existGitlabProjects = this.gitlabService.getAllGitlabProjects();
-        ResponseEntity<GitlabProject[]> gitlabProjects = null;
-        if(gitlabAccount != null) {
-            if(!existGitlabProjects.isEmpty() && LocalDateTime.now().isBefore(gitlabAccount.getTokenExpirationTime())  && !dto.isImmediate()) {
-                return ResponseEntity.ok(this.gitlabService.getAllGitlabProjects());
-            }
-            try {
-                gitlabProjects = this.gitlabService.getGitlabProjects(dto);
-                for(GitlabProject gitlabProject: Objects.requireNonNull(gitlabProjects.getBody())) {
-                    if(existGitlabProjects.stream().noneMatch( g -> Objects.equals(g.getId(), gitlabProject.getId()))) {
-                        this.gitlabService.saveGitlabProject(gitlabProject);
-                    }
+        if (user.isPresent()) {
+            dto.setUser(user.get());
+            var gitlabAccount = user.get().getGitlabAccount();
+            List<GitlabProject> existGitlabProjects = this.gitlabService.getAllGitlabProjects();
+            ResponseEntity<GitlabProject[]> gitlabProjects = null;
+            if (gitlabAccount != null) {
+                if (!existGitlabProjects.isEmpty() && LocalDateTime.now().isBefore(gitlabAccount.getTokenExpirationTime()) && !dto.isImmediate()) {
+                    return ResponseEntity.ok().body(existGitlabProjects);
                 }
+                try {
+                    gitlabProjects = this.gitlabService.getGitlabProjects(dto);
+                    for (GitlabProject gitlabProject : Objects.requireNonNull(gitlabProjects.getBody())) {
+                        if (existGitlabProjects.stream().noneMatch(g -> Objects.equals(g.getId(), gitlabProject.getId()))) {
+                            this.gitlabService.saveGitlabProject(gitlabProject);
+                        }
+                    }
 
-                this.gitlabService.updateGitlabTokenExpirationTime(gitlabAccount);
-                return ResponseEntity.ok(gitlabProjects.getBody());
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage());
+                    this.gitlabService.updateGitlabTokenExpirationTime(gitlabAccount);
+                    return ResponseEntity.ok().body(gitlabProjects.getBody());
+                } catch (Exception e) {
+                    LOGGER.error(e.getMessage());
+                    error.add("Bad gitlab personal access token");
+                    return ResponseEntity.ok(error);
+                }
+            }else {
                 error.add("Bad gitlab personal access token");
-                return ResponseEntity.ok(error);
+                return ResponseEntity.ok().body(error);
             }
+        } else {
+            error.add("User account was not found");
+            return ResponseEntity.ok().body(error);
         }
-        error.add("Bad gitlab personal access token");
-        return ResponseEntity.ok(error);
 
     }
 
@@ -133,13 +139,9 @@ public class GitlabController {
         }
         var us = this.userService.setPersonalAccessTokenForGitlab(user.get());
         this.gitlabService.setGitLabAccountForUser(user.get());
-        try {
-            us.setGitlabPersonalAccessToken(this.symmetricEncryption.decrypt(us.getGitlabPersonalAccessToken()));
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-        us.setAccessToken(u.getAccessToken());
-        us.setRefreshToken(u.getRefreshToken());
+
+//        us.setAccessToken(u.getAccessToken());
+//        us.setRefreshToken(u.getRefreshToken());
         return ResponseEntity.ok(us);
     }
 

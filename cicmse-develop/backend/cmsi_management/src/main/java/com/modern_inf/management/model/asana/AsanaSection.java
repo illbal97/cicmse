@@ -1,12 +1,15 @@
 package com.modern_inf.management.model.asana;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,10 +35,10 @@ public class AsanaSection {
     private String name;
 
     @ManyToOne()
-    @JsonIgnore()
+    @JsonIgnore
     private AsanaProject asanaProject;
 
     @OneToMany(mappedBy = "asanaSection")
-    @JsonIgnore()
+    @JsonIgnore
     private List<AsanaTask> asanaTasks;
 }

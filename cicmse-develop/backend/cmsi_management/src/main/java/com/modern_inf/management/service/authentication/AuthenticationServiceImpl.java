@@ -13,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -33,7 +32,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public User signIn(User signRequestUser) {
+    public UserPrincipal signIn(User signRequestUser) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signRequestUser.getUsername(), signRequestUser.getPassword())
         );
@@ -41,31 +40,34 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         User signUser = userPrincipal.getUser();
 
-        List<JwtRefreshToken> jwtRefreshTokens = jwtRefreshTokenService.getRefreshTokens(signUser.getId());
+        if (signUser == null) {
+            return null;
+        }
+
+
+       // String token = jwtProvider.generateToken(userPrincipal);
+//        signUser.setAccessToken(token);
+//        signUser.setRefreshToken(refreshTokenId);
+
+        return userPrincipal;
+    }
+
+    @Override
+    public String setUpRefreshTokenAndReturn(Long userId) {
+        List<JwtRefreshToken> jwtRefreshTokens = jwtRefreshTokenService.getRefreshTokens(userId);
         List<String> invalidRefreshTokenIds = jwtRefreshTokenService.getInvalidRefreshToken(jwtRefreshTokens);
         List<String> validRefreshTokenIds = jwtRefreshTokenService.getValidRefreshToken(jwtRefreshTokens);
 
         String refreshTokenId = "";
         if (jwtRefreshTokens == null || jwtRefreshTokens.isEmpty()) { // User doesn't have refresh token
-            refreshTokenId = jwtRefreshTokenService.createRefreshToken(signUser.getId()).getTokenId();
+            refreshTokenId = jwtRefreshTokenService.createRefreshToken(userId).getTokenId();
         } else if (!invalidRefreshTokenIds.isEmpty()) { // User already has refresh token, and delete invalid refresh tokens if we have
             jwtRefreshTokenService.deleteInvalidRefreshTokens(invalidRefreshTokenIds);
-            refreshTokenId = jwtRefreshTokenService.createRefreshToken(signUser.getId()).getTokenId();
+            refreshTokenId = jwtRefreshTokenService.createRefreshToken(userId).getTokenId();
         } else if (!validRefreshTokenIds.isEmpty()) { // User has valid refresh token
             refreshTokenId = validRefreshTokenIds.get(0);
         }
 
-        String token = jwtProvider.generateToken(userPrincipal);
-        if (!Objects.equals(signUser.getAsanaPersonalAccessToken(), "") && signUser.getAsanaPersonalAccessToken() != null) {
-            try {
-                signUser.setAsanaPersonalAccessToken(this.symmetricEncryption.decrypt(signUser.getAsanaPersonalAccessToken()));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        signUser.setAccessToken(token);
-        signUser.setRefreshToken(refreshTokenId);
-
-        return signUser;
+        return refreshTokenId;
     }
 }

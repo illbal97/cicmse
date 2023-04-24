@@ -17,7 +17,7 @@ public interface AwsService {
 
     AwsAccount getAwsAccountByUser(Long id);
 
-    void updateAsanaTokenExpirationTime(AwsAccount a);
+    void updateAwsUserTokenExpirationTime(AwsAccount a);
 
     void setAwsAccountForUser(User user);
 

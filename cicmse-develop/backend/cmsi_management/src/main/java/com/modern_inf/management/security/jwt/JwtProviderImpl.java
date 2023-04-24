@@ -2,10 +2,12 @@ package com.modern_inf.management.security.jwt;
 
 import com.modern_inf.management.helper.SecurityUtils;
 import com.modern_inf.management.security.UserPrincipal;
+import com.modern_inf.management.service.userService.UserServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,6 +32,9 @@ public class JwtProviderImpl implements JwtProvider {
     @Value("${app.jwt.expiration-in-ms}")
     private Long JWT_EXPIRATION_TIME_IN_MS;
 
+    @Autowired
+    private UserServiceImpl userService;
+
     @Override
     public String generateToken(UserPrincipal userAuth) {
 
@@ -49,22 +54,23 @@ public class JwtProviderImpl implements JwtProvider {
     }
 
     @Override
-    public Authentication getAuthentication(HttpServletRequest request) {
-        Claims claims = extractClaims(request);
+    public Authentication getAuthentication(String token) {
+        Claims claims = extractClaims(token);
 
         if (claims == null) {
             return null;
         }
-        String username = claims.getSubject();
 
-        if (username == null) {
+        String username = claims.getSubject();
+        Long userId = claims.get("userId", Long.class);
+
+        if (username == null || userId == null) {
             return null;
         }
+
         Set<GrantedAuthority> authorities = Arrays.stream(claims.get("roles").toString().split(","))
                 .map(SecurityUtils::convertToAuthority)
                 .collect(Collectors.toSet());
-
-        Long userId = claims.get("userId", Long.class);
 
         UserDetails userDetails = UserPrincipal.builder()
                 .username(username)
@@ -72,12 +78,11 @@ public class JwtProviderImpl implements JwtProvider {
                 .id(userId)
                 .build();
         return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
-
     }
 
     @Override
-    public boolean isTokenValid(HttpServletRequest request) {
-        Claims claims = extractClaims(request);
+    public boolean isTokenValid(String token) {
+        Claims claims = extractClaims(token);
 
         if (claims == null) {
             return false;
@@ -86,8 +91,8 @@ public class JwtProviderImpl implements JwtProvider {
         return !claims.getExpiration().before(new Date());
     }
 
-    private Claims extractClaims(HttpServletRequest request) {
-        String token = SecurityUtils.extractAuthTokenFromRequest(request);
+    private Claims extractClaims(String token) {
+       // String token = SecurityUtils.extractAuthTokenFromRequest(request);
 
         if (token == null) {
             return null;

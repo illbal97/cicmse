@@ -24,36 +24,36 @@ export class AwsService extends HeaderService {
       user.awsAccessSecretKey = keys[1];
     }
 
-    return this.http.post<User>(API_URL + "/add-access-token", {user}, { headers: this.getHeader() });
+    return this.http.post<User>(API_URL + "/add-access-token", {user}, { headers: this.getHeader(), withCredentials: true });
   }
 
    getEC2Instances(user: User, statusChanged: boolean): Observable<any> {
 
-    return this.http.post<any>(API_URL + "/ec2-instance", {user, statusChanged}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/ec2-instance", {user, statusChanged}, { headers: this.getHeader(), withCredentials: true })
   }
 
   startEC2Instance(user: User, instanceId: String): Observable<any> {
 
-    return this.http.post<any>(API_URL + "/ec2-instance-start", {user, instanceId}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/ec2-instance-start", {user, instanceId}, { headers: this.getHeader(), withCredentials: true })
   }
 
   createEC2Instance(user: User, imageId: String, keyName: String, tagName: String): Observable<any> {
 
-    return this.http.post<any>(API_URL + "/ec2-instance-creation", {user, imageId, keyName, tagName}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/ec2-instance-creation", {user, imageId, keyName, tagName}, { headers: this.getHeader(), withCredentials: true })
   }
 
   stopEC2Instance(user: User, instanceId: String): Observable<any> {
 
-    return this.http.post<any>(API_URL + "/ec2-instance-stop", {user, instanceId}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/ec2-instance-stop", {user, instanceId}, { headers: this.getHeader(), withCredentials: true })
   }
 
   createS3(user: User, bucketName: String) {
-    return this.http.post<any>(API_URL + "/S3-creation", {user, bucketName}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/S3-creation", {user, bucketName}, { headers: this.getHeader(), withCredentials: true })
 
   }
 
   createRDS(user: User, rdsConfig: RDSConfig) {
-    return this.http.post<any>(API_URL + "/RDS-creation", {user, rdsConfig}, { headers: this.getHeader() })
+    return this.http.post<any>(API_URL + "/RDS-creation", {user, rdsConfig}, { headers: this.getHeader(), withCredentials: true })
 
   }
 

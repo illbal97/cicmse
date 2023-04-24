@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AsanaService {
-    List<Workspace> getAsanaWorkspaces(Optional<User> user) throws IOException;
+    List<Workspace> getAsanaWorkspaces(Optional<User> user) throws Exception;
 
     List<AsanaProject> getAllAsanaProjects();
 
@@ -22,9 +22,9 @@ public interface AsanaService {
 
     void saveAsanaProject(AsanaProject asanaProjects);
 
-    List<Project> getAsanaProjectsByWorkspaces(Optional<User> user, String gid) throws IOException;
+    List<Project> getAsanaProjectsByWorkspaces(Optional<User> user, String gid) throws Exception;
 
-    List<Section> getSectionFromProject(AsanaDto dto) throws IOException;
+    List<Section> getSectionFromProject(AsanaDto dto) throws Exception;
 
     Asana getAsanaAccountIdByUser(Long userId);
 
@@ -32,9 +32,9 @@ public interface AsanaService {
 
     AsanaWorkspace getAsanaWorkspaceByWorkspaceGid(String gid);
 
-    List<Task> getTasksFromSection(AsanaDto asanaDto) throws IOException;
+    List<Task> getTasksFromSection(AsanaDto asanaDto) throws Exception;
 
-    List<Task> getTaskByWorkspace(AsanaDto dto) throws IOException;
+    List<Task> getTaskByWorkspace(AsanaDto dto) throws Exception;
 
     void updateAsanaTokenExpirationTime(Asana a);
 
@@ -42,17 +42,17 @@ public interface AsanaService {
 
     void saveAsanaTask(AsanaTask asanaTasks);
 
-    Project createAsanaProject(AsanaDto dto) throws IOException;
+    Project createAsanaProject(AsanaDto dto) throws Exception;
 
-    Task getTask(AsanaDto asanaDto) throws IOException;
+    Task getTask(AsanaDto asanaDto) throws Exception;
 
-    Project getProject(AsanaDto dto) throws IOException;
+    Project getProject(AsanaDto dto) throws Exception;
 
-    Section createSectionForProject(AsanaDto asanaDto, String sectionName) throws IOException;
+    Section createSectionForProject(AsanaDto asanaDto, String sectionName) throws Exception;
 
     AsanaProject getAsanaProjectByProjectGid(String projectGid);
 
-    List<com.asana.models.User> getAsanaUsers(AsanaDto asanaDto) throws IOException;
+    List<com.asana.models.User> getAsanaUsers(AsanaDto asanaDto) throws Exception;
 
     void saveAsanaSection(AsanaSection asanaSection);
 
@@ -60,5 +60,5 @@ public interface AsanaService {
 
     AsanaSection getAsanaSectionBySectionGid(String asanaSectionGid);
 
-    JsonElement addTaskToSection(AsanaDto asanaDto) throws IOException;
+    JsonElement addTaskToSection(AsanaDto asanaDto) throws Exception;
 }
