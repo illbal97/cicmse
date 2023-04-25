@@ -35,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors(); // cross-origin-resource-sharing
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
         http.authorizeRequests()
                 .antMatchers("/api/v1/authentication/**").permitAll()//login and register pre-path
                 .anyRequest().authenticated();

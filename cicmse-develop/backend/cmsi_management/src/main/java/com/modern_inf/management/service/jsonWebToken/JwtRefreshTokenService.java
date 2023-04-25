@@ -9,13 +9,11 @@ public interface JwtRefreshTokenService {
 
     JwtRefreshToken createRefreshToken(Long userId);
 
-    User generateAccessTokenFromRefreshToken(String refreshTokenId);
+    JwtRefreshToken getRefreshTokenByUser(Long id);
 
-    List<JwtRefreshToken> getRefreshTokens(Long id);
+    void deleteRefreshToken(JwtRefreshToken refreshTokenId);
 
-    List<String> getInvalidRefreshToken(List<JwtRefreshToken> refreshTokens);
+    String generateAccessTokenFromRefreshToken(Long userId);
 
-    List<String> getValidRefreshToken(List<JwtRefreshToken> refreshTokens);
 
-    void deleteInvalidRefreshTokens(List<String> invalidRefreshTokens);
 }

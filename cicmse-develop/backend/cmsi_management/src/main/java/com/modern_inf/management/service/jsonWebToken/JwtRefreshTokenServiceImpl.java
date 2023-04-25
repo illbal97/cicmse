@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService {
@@ -48,14 +49,14 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService {
     }
 
     @Override
-    public User generateAccessTokenFromRefreshToken(String refreshTokenId) {
-        JwtRefreshToken jwtRefreshToken = jwtRefreshTokenDao.findById(refreshTokenId).orElseThrow();
+    public String generateAccessTokenFromRefreshToken(Long userId) {
+        var jwtRefreshToken = jwtRefreshTokenDao.findByUserId(userId);
 
-        if (jwtRefreshToken.getExpirationDate().isBefore(LocalDateTime.now())) {
+        if (jwtRefreshToken.isPresent() && jwtRefreshToken.get().getExpirationDate().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("The refresh token expiration time was expired, invalid token");
         }
 
-        User user = userDao.findById(jwtRefreshToken.getUserId()).orElseThrow();
+        User user = userDao.findById(userId).orElseThrow();
 
         UserPrincipal userPrincipal = UserPrincipal.builder()
                 .id(user.getId())
@@ -64,51 +65,17 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService {
                 .authorities(Set.of(SecurityUtils.convertToAuthority(user.getRole().name())))
                 .build();
 
-        String accessToken = jwtProvider.generateToken(userPrincipal);
-//        user.setAccessToken(accessToken);
-//        user.setRefreshToken(refreshTokenId);
-
-        return user;
+        return jwtProvider.generateToken(userPrincipal);
 
     }
 
     @Override
-    public List<JwtRefreshToken> getRefreshTokens(Long id) {
-        return jwtRefreshTokenDao.findByUserId(id).orElseThrow();
+    public void deleteRefreshToken(JwtRefreshToken refreshTokenId) {
+        this.jwtRefreshTokenDao.delete(refreshTokenId);
     }
 
     @Override
-    public List<String> getInvalidRefreshToken(List<JwtRefreshToken> refreshTokens) {
-        if (refreshTokens == null) {
-            return null;
-        }
-        List<String> inValidRefreshToken = new ArrayList<>();
-        for (JwtRefreshToken refreshToken : refreshTokens) {
-            if (refreshToken.getExpirationDate().isBefore(LocalDateTime.now())) {
-                inValidRefreshToken.add(refreshToken.getTokenId());
-            }
-        }
-
-        return inValidRefreshToken;
-    }
-
-    @Override
-    public List<String> getValidRefreshToken(List<JwtRefreshToken> refreshTokens) {
-        if (refreshTokens == null) {
-            return null;
-        }
-        List<String> validRefreshToken = new ArrayList<>();
-        for (JwtRefreshToken refreshToken : refreshTokens) {
-            if (!refreshToken.getExpirationDate().isBefore(LocalDateTime.now())) {
-                validRefreshToken.add(refreshToken.getTokenId());
-            }
-        }
-
-        return validRefreshToken;
-    }
-
-    @Override
-    public void deleteInvalidRefreshTokens(List<String> invalidRefreshTokens) {
-        jwtRefreshTokenDao.deleteAllById(invalidRefreshTokens);
+    public JwtRefreshToken getRefreshTokenByUser(Long id) {
+        return this.jwtRefreshTokenDao.findByUserId(id).isPresent() ? this.jwtRefreshTokenDao.findByUserId(id).get(): null;
     }
 }

@@ -103,6 +103,7 @@ export class AsanaComponent implements OnInit, OnDestroy {
   }
 
   loadAsanaTasksForProject(projectGid: String, projectName: String) {
+    console.log(projectGid + ":" + projectName)
     if (this.selectedWorkspaceGid !== "") {
       this.router.navigate(['/home/asanaTask'], {queryParams:{workspaceGid: this.selectedWorkspaceGid, projectGid: projectGid, projectName: projectName}});
     }

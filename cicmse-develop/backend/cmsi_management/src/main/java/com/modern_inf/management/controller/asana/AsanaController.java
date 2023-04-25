@@ -362,7 +362,7 @@ public class AsanaController {
         error.clear();
         var asanaSections = this.asanaService.getAsanaProjectByProjectGid(dto.getProjectGid()).getAsanaSections();
         if (!asanaSections.isEmpty()) {
-            return ResponseEntity.ok().body("Already have Sections");
+            return ResponseEntity.ok().body(List.of("Already have Sections"));
         }
 
         try {
@@ -370,7 +370,7 @@ public class AsanaController {
                 var asanSection = this.asanaService.createSectionForProject(dto, section);
                 this.asanaService.saveAsanaSection(buildAsanaSection(asanSection, dto));
             }
-            return ResponseEntity.status(201).body("Successful section creation");
+            return ResponseEntity.status(200).body(List.of("Successful section creation"));
         } catch (ConnectTimeoutException e) {
             LOGGER.error(e.getMessage());
             error.add("Connection timeout");

@@ -6,6 +6,7 @@ import com.modern_inf.management.model.User;
 import com.modern_inf.management.security.UserPrincipal;
 import com.modern_inf.management.security.jwt.JwtProviderImpl;
 import com.modern_inf.management.service.jsonWebToken.JwtRefreshTokenServiceImpl;
+import com.modern_inf.management.service.userService.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,15 +19,18 @@ import java.util.List;
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JwtProviderImpl jwtProvider;
+
+    private  final UserServiceImpl userService;
     private final JwtRefreshTokenServiceImpl jwtRefreshTokenService;
     private final SymmetricEncryption symmetricEncryption;
 
     @Autowired
     public AuthenticationServiceImpl(AuthenticationManager authenticationManager,
                                      JwtProviderImpl jwtProvider,
-                                     JwtRefreshTokenServiceImpl jwtRefreshTokenService, SymmetricEncryption symmetricEncryption) {
+                                     UserServiceImpl userService, JwtRefreshTokenServiceImpl jwtRefreshTokenService, SymmetricEncryption symmetricEncryption) {
         this.authenticationManager = authenticationManager;
         this.jwtProvider = jwtProvider;
+        this.userService = userService;
         this.jwtRefreshTokenService = jwtRefreshTokenService;
         this.symmetricEncryption = symmetricEncryption;
     }
@@ -43,31 +47,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (signUser == null) {
             return null;
         }
-
-
-       // String token = jwtProvider.generateToken(userPrincipal);
-//        signUser.setAccessToken(token);
-//        signUser.setRefreshToken(refreshTokenId);
-
         return userPrincipal;
     }
 
     @Override
+    public void logOut(User requestUser) {
+         var user = this.userService.findUserById(requestUser.getId());
+         if (user.isPresent()) {
+            var rfToken = this.jwtRefreshTokenService.getRefreshTokenByUser(user.get().getId());
+            this.jwtRefreshTokenService.deleteRefreshToken(rfToken);
+         }
+
+    }
+
+    @Override
     public String setUpRefreshTokenAndReturn(Long userId) {
-        List<JwtRefreshToken> jwtRefreshTokens = jwtRefreshTokenService.getRefreshTokens(userId);
-        List<String> invalidRefreshTokenIds = jwtRefreshTokenService.getInvalidRefreshToken(jwtRefreshTokens);
-        List<String> validRefreshTokenIds = jwtRefreshTokenService.getValidRefreshToken(jwtRefreshTokens);
-
-        String refreshTokenId = "";
-        if (jwtRefreshTokens == null || jwtRefreshTokens.isEmpty()) { // User doesn't have refresh token
-            refreshTokenId = jwtRefreshTokenService.createRefreshToken(userId).getTokenId();
-        } else if (!invalidRefreshTokenIds.isEmpty()) { // User already has refresh token, and delete invalid refresh tokens if we have
-            jwtRefreshTokenService.deleteInvalidRefreshTokens(invalidRefreshTokenIds);
-            refreshTokenId = jwtRefreshTokenService.createRefreshToken(userId).getTokenId();
-        } else if (!validRefreshTokenIds.isEmpty()) { // User has valid refresh token
-            refreshTokenId = validRefreshTokenIds.get(0);
+        JwtRefreshToken jwtRefreshTokens = jwtRefreshTokenService.getRefreshTokenByUser(userId);
+        if (jwtRefreshTokens != null) {
+            var rfToken = this.jwtRefreshTokenService.getRefreshTokenByUser(userId);
+            this.jwtRefreshTokenService.deleteRefreshToken(rfToken);
         }
-
-        return refreshTokenId;
+        var refreshToken = this.jwtRefreshTokenService.createRefreshToken(userId);
+        return refreshToken.getTokenId();
     }
 }

@@ -70,7 +70,22 @@ public class AuthenticationController {
     }
 
     @PostMapping("refresh-token")
-    public ResponseEntity<?> generateRefreshToken(@RequestParam String refreshToken) {
-        return ResponseEntity.ok(refreshTokenService.generateAccessTokenFromRefreshToken(refreshToken));
+    public ResponseEntity<?> generateRefreshToken(@RequestParam Long userId) {
+        var token = refreshTokenService.generateAccessTokenFromRefreshToken(userId);
+        if (!StringUtils.isNullOrEmpty(token)) {
+            var jwtCookie = this.cookieFactory.createJwtTokenCookie(token);
+            return ResponseEntity.status(HttpStatus.OK).header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).build();
+        }
+        return ResponseEntity.ok((List.of("Refresh Token not exist or not valid")));
+    }
+
+    @PostMapping("logOut")
+    public ResponseEntity<?> logOut(@RequestBody User user) {
+        authenticationService.logOut(user);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE, this.cookieFactory.deleteCookie("jwt_token").toString());
+        headers.add(HttpHeaders.SET_COOKIE, this.cookieFactory.deleteCookie("rf_token").toString());
+
+        return ResponseEntity.status(200).headers(headers).body(List.of("User successfully logout"));
     }
 }

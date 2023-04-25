@@ -38,4 +38,17 @@ public class CookieFactory {
 
                 .build();
     }
+
+    public  ResponseCookie deleteCookie(String tokenType) {
+        return  ResponseCookie.from(tokenType, null) // key & value
+                .secure(false)
+                .path("/")
+
+                // path
+                .maxAge(0)
+                .sameSite("Strict")
+                .httpOnly(true)
+
+                .build();
+    }
 }

@@ -7,4 +7,5 @@ public interface AuthenticationService {
 
     UserPrincipal signIn(User signUser);
     String setUpRefreshTokenAndReturn(Long userId);
+    void logOut(User requestUser);
 }

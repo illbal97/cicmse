@@ -22,27 +22,18 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-            if (request.getCookies() != null) {
-                System.out.println("Here");
-                var jwt = Arrays.stream(request.getCookies())
-                        .filter(cookie -> "jwt_token".equals(cookie.getName()))
-                        .map(Cookie::getValue)
-                        .findAny();
-                var rf_token = Arrays.stream(request.getCookies())
-                        .filter(cookie -> "rf_token".equals(cookie.getName()))
-                        .map(Cookie::getValue)
-                        .findAny();
-                if (jwt.isPresent()) {
-                    Authentication authentication = jwtProvider.getAuthentication(jwt.get());
-                    if (authentication != null && jwtProvider.isTokenValid(jwt.get())) {
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
-                    }
-                }else if (rf_token.isPresent()) {
-                  response.setHeader("Refresh-Token-needed", "true");
+        if (request.getCookies() != null) {
+            var jwt = Arrays.stream(request.getCookies())
+                    .filter(cookie -> "jwt_token".equals(cookie.getName()))
+                    .map(Cookie::getValue)
+                    .findAny();
+            if (jwt.isPresent()) {
+                Authentication authentication = jwtProvider.getAuthentication(jwt.get());
+                if (authentication != null && jwtProvider.isTokenValid(jwt.get())) {
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
-
             }
+        }
 
         filterChain.doFilter(request, response);
     }

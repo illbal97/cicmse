@@ -50,12 +50,14 @@ export class AuthenticationService {
    }
 
    refreshToken(): Observable<any> {
-     return this.http.post(API_URL + '/refresh-token?refreshToken='
-      + 'dc', {withCredentials: true}, );
+     return this.http.post(API_URL + '/refresh-token?userId='+ this.currentUserValue.id, {}, {withCredentials: true} );
    }
 
-   logOut() {
-     localStorage.removeItem('currentUser');
-     this.currentUserSubject.next(new User);
+   logOut(user: User) {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(new User);
+
+    return this.http.post(API_URL + '/logOut', user, {withCredentials: true} );
+
    }
 }

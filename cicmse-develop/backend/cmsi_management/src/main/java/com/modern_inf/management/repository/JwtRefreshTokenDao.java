@@ -9,5 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface JwtRefreshTokenDao extends JpaRepository<JwtRefreshToken, String> {
-    Optional<List<JwtRefreshToken>> findByUserId(Long userId);
+    Optional<JwtRefreshToken> findByUserId(Long userId);
+
 }

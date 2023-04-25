@@ -5,54 +5,57 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import jwtDecode, {JwtPayload} from "jwt-decode";
-import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import {JwtPayload} from "jwt-decode";
+import { catchError, map, Observable, switchMap, throwError } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
-import { RefreshTokenInvalidComponent } from '../components/refresh-token-invalid/refresh-token-invalid.component';
 
-const HEADER_AUTHORIZATION = "authorization";
 
 @Injectable()
 export class AuthenInterceptor implements HttpInterceptor {
-
-  private jwt: JwtPayload = {};
-  constructor(private authenticationService: AuthenticationService, private router: Router) {}
+  private user: User = new User();
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
+    this.authenticationService.currentUser.subscribe((user: User) => {
+      this.user = user;
+    })
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (request.headers.has(HEADER_AUTHORIZATION)) {
-      return this.handleToken(request, next);
-    }else {
+    if (request.url.indexOf('refresh-token') > -1) {
       return next.handle(request)
+    }else {
+      return this.handleRequest(request, next)
     }
   }
 
-  private handleToken(request: HttpRequest<unknown>, next: HttpHandler) {
-    //this.jwt = jwtDecode(this.authenticationService.currentUserValue.accessToken);
+  private handleRequest(request: HttpRequest<unknown>, next: HttpHandler) {
+    return next.handle(request).pipe(
+      catchError((error: Response) => {
+        if (error.status == 403) {
+          return this.authenticationService.refreshToken().pipe(
+            switchMap(() => {
+              return next.handle(request);
+            }),
+            catchError( err => {
+              this.authenticationService.logOut(this.user).subscribe(msg => {
+                console.log(msg);
+              });
+              this.router.navigate(['/login']);
 
-    const nowSecs = Date.now() / 1000;
-    //const exp = this.jwt.exp || 0;
-
-    if (true) {
-
-      return next.handle(request);
-    }else {
-      return this.authenticationService.refreshToken().pipe(
-        switchMap((response: User) => {
-          this.authenticationService.setCurrentUser(response);
-
-          return next.handle(request);
-        }),
-        catchError( err => {
-          this.authenticationService.logOut();
-
+              return throwError(() => new Error(err));
+            })
+          );
+        } else {
+          this.authenticationService.logOut(this.user).subscribe(msg => {
+            console.log(msg);
+          });
           this.router.navigate(['/login']);
 
+          return throwError(() => error);
+        }
+      })
+    );
 
-          return throwError(() => new Error(err));
-        })
-      );
-    }
   }
 }

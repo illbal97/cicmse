@@ -18,7 +18,6 @@ constructor(protected http: HttpClient, protected authenticationService: Authent
  protected getHeader(): HttpHeaders{
   return new HttpHeaders(
     {
-      authorization: 'Bearer ' + 'dc',
       "Content-Type": "application/json; charset=UTF-8"
     }
   );
