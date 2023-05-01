@@ -4,14 +4,243 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d32f6d4-2d15-4254-9fa9-87038ca6e5bd" name="Changes" comment="" />
+    <list default="true" id="3d32f6d4-2d15-4254-9fa9-87038ca6e5bd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/controller/mapper/UserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/cicmse-develop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/cim-develop.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/ManagementApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/ManagementApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/controller/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/controller/asana/AsanaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/controller/asana/AsanaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/controller/aws/AwsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/controller/aws/AwsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/controller/gitlab/GitlabController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/controller/gitlab/GitlabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/helper/CookieFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/helper/CookieFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/helper/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/helper/SecurityUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/helper/SymmetricEncryption.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/helper/SymmetricEncryption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/JwtRefreshToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/JwtRefreshToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/asana/Asana.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/asana/Asana.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/asana/AsanaProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/asana/AsanaProject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/asana/AsanaSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/asana/AsanaSection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/asana/AsanaTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/asana/AsanaTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/asana/AsanaWorkspace.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/asana/AsanaWorkspace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/aws/AwsAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/aws/AwsAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/aws/EC2instance.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/aws/EC2instance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/aws/RDSConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/aws/RDSConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/aws/SecurityGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/aws/SecurityGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/dto/asana/AsanaDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/dto/asana/AsanaDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/dto/asana/TempAsanaProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/dto/asana/TempAsanaProject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/dto/aws/AwsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/dto/aws/AwsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/dto/gitlab/GitlabDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/dto/gitlab/GitlabDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/gitlab/GitlabAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/gitlab/GitlabAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/gitlab/GitlabBranch.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/gitlab/GitlabBranch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/gitlab/GitlabCommit.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/gitlab/GitlabCommit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/gitlab/GitlabProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/gitlab/GitlabProject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/postData/GitlabBranchCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/postData/GitlabBranchCreation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/model/postData/GitlabProjectCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/model/postData/GitlabProjectCreation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/JwtRefreshTokenDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/JwtRefreshTokenDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/asana/AsanaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/asana/AsanaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/asana/AsanaProjectsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/asana/AsanaProjectsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/asana/AsanaSectionDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/asana/AsanaSectionDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/asana/AsanaTasksDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/asana/AsanaTasksDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/asana/AsanaWorkspacesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/asana/AsanaWorkspacesDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/aws/AwsAccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/aws/AwsAccountDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/aws/EC2InstanceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/aws/EC2InstanceDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/gitlab/GitlabAccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/gitlab/GitlabAccountDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/gitlab/GitlabBranchDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/gitlab/GitlabBranchDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/repository/gitlab/GitlabProjectDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/repository/gitlab/GitlabProjectDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/security/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/security/CustomUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/security/PasswordEncoderConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/security/PasswordEncoderConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/security/UserPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/security/UserPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/security/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/security/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/security/jwt/JwtAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/security/jwt/JwtAuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/security/jwt/JwtProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/security/jwt/JwtProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/security/jwt/JwtProviderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/security/jwt/JwtProviderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/asana/AsanaApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/asana/AsanaApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/asana/AsanaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/asana/AsanaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/asana/AsanaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/asana/AsanaServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/authentication/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/authentication/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/authentication/AuthenticationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/authentication/AuthenticationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/aws/AwsApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/aws/AwsApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/aws/AwsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/aws/AwsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/aws/AwsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/aws/AwsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/gitlab/GitlabApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/gitlab/GitlabApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/gitlab/GitlabService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/gitlab/GitlabService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/gitlab/GitlabServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/gitlab/GitlabServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/jsonWebToken/JwtRefreshTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/jsonWebToken/JwtRefreshTokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/jsonWebToken/JwtRefreshTokenServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/jsonWebToken/JwtRefreshTokenServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/userService/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/userService/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/main/java/com/modern_inf/management/service/userService/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/main/java/com/modern_inf/management/service/userService/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmsi_management/src/test/java/com/modern_inf/management/ManagementApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/src/test/java/com/modern_inf/management/ManagementApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/.browserslistrc" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/.browserslistrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/.vscode/extensions.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/.vscode/extensions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/.vscode/launch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/.vscode/tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/.vscode/tasks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/karma.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/karma.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/app.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ci_management/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/app.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/authguards/auth.guard.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/authguards/auth.guard.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/authguards/auth.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/authguards/auth.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/adding-asana-personal-access-token/adding-asana-personal-access-token.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/adding-asana-personal-access-token/adding-asana-personal-access-token.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/adding-asana-personal-access-token/adding-asana-personal-access-token.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/adding-asana-personal-access-token/adding-asana-personal-access-token.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/adding-asana-personal-access-token/adding-asana-personal-access-token.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/adding-asana-personal-access-token/adding-asana-personal-access-token.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/adding-asana-personal-access-token/adding-asana-personal-access-token.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/adding-asana-personal-access-token/adding-asana-personal-access-token.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-project-dialog/asana-project-dialog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-project-dialog/asana-project-dialog.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-project-dialog/asana-project-dialog.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-project-dialog/asana-project-dialog.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-project-dialog/asana-project-dialog.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-project-dialog/asana-project-dialog.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-project-dialog/asana-project-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-project-dialog/asana-project-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-section/asana-section.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-section/asana-section.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-section/asana-section.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-section/asana-section.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-section/asana-section.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-section/asana-section.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-section/asana-section.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-section/asana-section.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-task-dialog/asana-task-dialog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-task-dialog/asana-task-dialog.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-task-dialog/asana-task-dialog.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-task-dialog/asana-task-dialog.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-task-dialog/asana-task-dialog.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-task-dialog/asana-task-dialog.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/asana/asana-task-dialog/asana-task-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/asana/asana-task-dialog/asana-task-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-access-keys-adding/aws-access-keys-adding.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/app.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/connection-timeout/connection-timeout.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/connection-timeout/connection-timeout.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/connection-timeout/connection-timeout.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/connection-timeout/connection-timeout.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/connection-timeout/connection-timeout.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/connection-timeout/connection-timeout.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/connection-timeout/connection-timeout.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/connection-timeout/connection-timeout.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/gitlab/adding-gitlab-personal-access-token/adding-gitlab-personal-access-token.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/gitlab/adding-gitlab-personal-access-token/adding-gitlab-personal-access-token.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/gitlab/adding-gitlab-personal-access-token/adding-gitlab-personal-access-token.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/gitlab/adding-gitlab-personal-access-token/adding-gitlab-personal-access-token.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/gitlab/adding-gitlab-personal-access-token/adding-gitlab-personal-access-token.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/gitlab/adding-gitlab-personal-access-token/adding-gitlab-personal-access-token.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/gitlab/adding-gitlab-personal-access-token/adding-gitlab-personal-access-token.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/gitlab/adding-gitlab-personal-access-token/adding-gitlab-personal-access-token.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/gitlab/project-creation-dialog/project-creation-dialog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/gitlab/project-creation-dialog/project-creation-dialog.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/gitlab/project-creation-dialog/project-creation-dialog.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/gitlab/project-creation-dialog/project-creation-dialog.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/gitlab/project-creation-dialog/project-creation-dialog.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/gitlab/project-creation-dialog/project-creation-dialog.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/components/gitlab/project-creation-dialog/project-creation-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/components/gitlab/project-creation-dialog/project-creation-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/interceptor/authentication.interceptor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/interceptor/authentication.interceptor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/model/asana/asana-project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/model/asana/asana-project.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/model/asana/asana-task.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/model/asana/asana-task.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/model/aws/rds-config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/model/aws/rds-config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/model/gitlab/gitlab-branch-creation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/model/gitlab/gitlab-branch-creation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/model/gitlab/gitlab-creation-data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/model/gitlab/gitlab-creation-data.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/model/role.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/model/role.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/model/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/model/user.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/model/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/model/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/moduls/material/material.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/moduls/material/material.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-home/asana.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-home/asana.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-home/asana.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-home/asana.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-home/asana.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-home/asana.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-home/asana.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-home/asana.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-home/asana.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-home/asana.routing.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-task/asana-task-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-task/asana-task-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-task/asana-task.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-task/asana-task.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-task/asana-task.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-task/asana-task.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-task/asana-task.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-task/asana-task.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-task/asana-task.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-task/asana-task.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/asana/asana-task/asana-task.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/asana/asana-task/asana-task.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/aws/aws-home/aws-home-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/aws/aws-home/aws-home-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/aws/aws-home/aws-home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/aws/aws-home/aws-home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/aws/aws-home/aws-home.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/aws/aws-home/aws-home.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/aws/aws-home/aws-home.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/aws/aws-home/aws-home.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/aws/aws-home/aws-home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/aws/aws-home/aws-home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/aws/aws-home/aws-home.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/aws/aws-home/aws-home.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/gitlab/gitlab-home/gitlab-home-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/gitlab/gitlab-home/gitlab-home-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/gitlab/gitlab-home/gitlab-home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/gitlab/gitlab-home/gitlab-home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/gitlab/gitlab-home/gitlab-home.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/gitlab/gitlab-home/gitlab-home.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/gitlab/gitlab-home/gitlab-home.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/gitlab/gitlab-home/gitlab-home.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/gitlab/gitlab-home/gitlab-home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/gitlab/gitlab-home/gitlab-home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/gitlab/gitlab-home/gitlab-home.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/gitlab/gitlab-home/gitlab-home.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/home-nav/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/home-nav/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/home-nav/home.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/home-nav/home.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/home-nav/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/home-nav/home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/home-nav/home.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/home-nav/home.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/home-nav/home.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/home-nav/home.routing.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/login/login.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/login/login.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/login/login.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/login/login.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/login/login.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/login/login.routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/login/login.routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/welcome/welcome.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/welcome/welcome.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/welcome/welcome.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/welcome/welcome.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/welcome/welcome.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/welcome/welcome.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/welcome/welcome.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/welcome/welcome.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pages/welcome/welcome.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pages/welcome/welcome.routing.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pipe/date-time-formatter.pipe.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pipe/date-time-formatter.pipe.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pipe/date-time-formatter.pipe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pipe/date-time-formatter.pipe.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pipe/date-time.pipe.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pipe/date-time.pipe.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/pipe/date-time.pipe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/pipe/date-time.pipe.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/asana/asana.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/asana/asana.service.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/asana/asana.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/asana/asana.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/authentication.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/authentication.service.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/authentication.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/authentication.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/aws/aws.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/aws/aws.service.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/aws/aws.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/aws/aws.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/base-header.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/base-header.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/gitlab/gitlab.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/gitlab/gitlab.service.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/gitlab/gitlab.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/gitlab/gitlab.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/app/services/header.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/app/services/header.service.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/assets/.gitkeep" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/assets/.gitkeep" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/assets/images/Wave-100s-3000px.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/assets/images/Wave-100s-3000px.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/assets/images/Wave_dark.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/assets/images/Wave_dark.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/assets/images/asana.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/assets/images/asana.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/assets/images/aws.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/assets/images/aws.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/assets/images/gitlab.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/assets/images/gitlab.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/assets/images/infrastructure.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/assets/images/infrastructure.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/assets/images/jenkins.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/assets/images/jenkins.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/assets/images/vmware.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/assets/images/vmware.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/environments/environment.prod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/environments/environment.prod.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/environments/environment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/polyfills.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/polyfills.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/src/test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/src/test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/tsconfig.app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/cmsi/tsconfig.spec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/cim/tsconfig.spec.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
@@ -24,6 +253,9 @@
         <entry key="com.haulmont.jpb.jpaStructure" value="true" />
       </map>
     </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -38,12 +270,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-  </component>
-  <component name="RunManager">
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "jdk.selected.JAVA_MODULE": "openjdk-18",
+    "last_opened_file_path": "C:/Users/Balint_Illes/Downloads/cicmse-develop/cicmse-develop/backend",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.ManagementApplication">
+    <configuration name="ManagementApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.modern_inf.management.ManagementApplication" />
+      <module name="backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.modern_inf.management.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ManagementApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="management" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.modern_inf.management.ManagementApplication" />
@@ -51,6 +308,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ManagementApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -66,5 +328,21 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
   </component>
 </project>
