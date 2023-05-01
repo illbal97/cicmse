@@ -5,7 +5,6 @@ import com.modern_inf.management.model.User;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 

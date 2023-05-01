@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.modern_inf.management.model.asana.Asana;
 import com.modern_inf.management.model.aws.AwsAccount;
 import com.modern_inf.management.model.gitlab.GitlabAccount;
-import com.modern_inf.management.model.gitlab.GitlabProject;
 import lombok.Data;
 
 import javax.persistence.*;

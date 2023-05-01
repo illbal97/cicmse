@@ -2,9 +2,7 @@ package com.modern_inf.management.controller.aws;
 
 import com.amazonaws.services.ec2.model.AmazonEC2Exception;
 import com.amazonaws.services.ec2.model.Instance;
-import com.amazonaws.services.ec2.model.RunInstancesRequest;
 import com.modern_inf.management.helper.SymmetricEncryption;
-import com.modern_inf.management.model.User;
 import com.modern_inf.management.model.aws.AwsAccount;
 import com.modern_inf.management.model.aws.EC2instance;
 import com.modern_inf.management.model.dto.aws.AwsDto;
@@ -16,13 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/aws")

@@ -1,15 +1,12 @@
 package com.modern_inf.management.model.asana;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.modern_inf.management.model.asana.Asana;
-import com.modern_inf.management.model.asana.AsanaProject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 
