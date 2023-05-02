@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  mysqldb:
+    image: illbal97/mysql
+    restart: always
+    container_name: mysqldb
+    ports:
+      - '3307:3306'
+    env_file:
+      - ./env/mysql.env
+    volumes:
+      - db:/var/lib/mysql
+  backend:
+    image: illbal97/backend_spring
+    container_name: spring_boot
+    restart: on-failure
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/cicmse
+    ports:
+    - '8080:8080'
+    depends_on:
+      - mysqldb
+  frontend:
+    image: illbal97/frontend
+    container_name: frontend
+    ports:
+      - '4200:4200'
+    depends_on:
+      - backend
+
+volumes:
+  db:

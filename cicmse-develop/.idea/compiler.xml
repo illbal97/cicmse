@@ -8,11 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="management" />
-        <module name="cicmse-develop" />
         <module name="ci_management" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cicmse-develop" target="18" />
       <module name="management" target="17" />
     </bytecodeTargetLevel>
   </component>
