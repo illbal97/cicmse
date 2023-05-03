@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "asana_workspaces")
+@Table(name = "asana_workspace")
 public class AsanaWorkspace {
     @Id
     @Column(nullable = false)
@@ -32,7 +32,7 @@ public class AsanaWorkspace {
 
     private boolean isOrganization;
 
-    @OneToMany(mappedBy = "asanaWorkspaces")
+    @OneToMany(mappedBy = "asanaWorkspace")
     @JsonIgnore()
     private List<AsanaProject> asanaProjects;
 

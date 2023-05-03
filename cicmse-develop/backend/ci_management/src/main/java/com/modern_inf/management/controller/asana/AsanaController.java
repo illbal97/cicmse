@@ -386,7 +386,7 @@ public class AsanaController {
         return AsanaProject.builder()
                 .name(project.name)
                 .gid(project.gid)
-                .asanaWorkspaces(this.asanaService.getAsanaWorkspaceByWorkspaceGid(workspaceGid))
+                .asanaWorkspace(this.asanaService.getAsanaWorkspaceByWorkspaceGid(workspaceGid))
                 .owner(project.owner != null ? project.owner.name : null)
                 .resourceType(project.resourceType)
                 .createdAt(project.createdAt != null ? LocalDateTime.ofInstant(Instant.ofEpochMilli(project.createdAt.getValue()),

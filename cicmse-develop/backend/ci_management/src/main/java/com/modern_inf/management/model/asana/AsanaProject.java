@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "asana_projects")
+@Table(name = "asana_project")
 public class AsanaProject {
     @Id
     @Column(nullable = false)
@@ -43,7 +43,7 @@ public class AsanaProject {
 
     @ManyToOne()
     @JsonIgnore
-    private AsanaWorkspace asanaWorkspaces;
+    private AsanaWorkspace asanaWorkspace;
 
 
     @OneToMany(mappedBy = "asanaProject")

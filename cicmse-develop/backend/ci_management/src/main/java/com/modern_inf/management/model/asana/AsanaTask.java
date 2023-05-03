@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "asana_tasks")
+@Table(name = "asana_task")
 public class AsanaTask {
 
     @Id
