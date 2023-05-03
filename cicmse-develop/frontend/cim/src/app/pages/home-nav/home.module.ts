@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { MaterialModule } from '../../moduls/material/material.module';
-import { HomeRoutes } from './home.routing';
+import { HomeRoutingModule } from './home.routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    HomeRoutes
+    HomeRoutingModule
   ],
   declarations: [HomeComponent]
 })

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { asanaProject } from 'src/app/model/asana/asana-project';
 import { User } from 'src/app/model/user.model';
-import { AsanaComponent } from 'src/app/pages/asana/asana-home/asana.component';
+import { AsanaHomeComponent } from 'src/app/pages/asana/asana-home/asana-home.component';
 import { AsanaService } from 'src/app/services/asana/asana.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class AsanaProjectDialogComponent implements OnInit {
     private datePipe: DatePipe,
     private asanaService: AsanaService,
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AsanaComponent>,
+    public dialogRef: MatDialogRef<AsanaHomeComponent>,
     @Inject(MAT_DIALOG_DATA) public data:{project: asanaProject, gid: String, user: User, asanaUsers: Array<any>}
     ) {
 

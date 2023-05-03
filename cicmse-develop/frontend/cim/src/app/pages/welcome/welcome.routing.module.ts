@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { WelcomeComponent } from './welcome.component';
@@ -9,7 +9,7 @@ const routes: Routes = [
     component: WelcomeComponent, children: [
       {
         path: 'home/asana',
-        loadChildren: () => import('../asana/asana-home/asana.module').then(m => m.AsanaModule)
+        loadChildren: () => import('../asana/asana-home/asana-home.module').then(m => m.AsanaModule)
       },
       {
         path: 'home/aws',

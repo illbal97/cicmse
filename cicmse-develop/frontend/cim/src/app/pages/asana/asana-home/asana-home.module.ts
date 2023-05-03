@@ -6,20 +6,20 @@ import { AsanaProjectDialogComponent } from 'src/app/components/asana/asana-proj
 import { AddingAsanaPersonalAccessTokenComponent } from 'src/app/components/asana/adding-asana-personal-access-token/adding-asana-personal-access-token.component';
 import { ConnectionTimeoutComponent } from 'src/app/components/connection-timeout/connection-timeout.component';
 import { MaterialModule } from 'src/app/moduls/material/material.module';
-import { AsanaComponent } from './asana.component';
-import { AsanaRoutes } from './asana.routing';
+import { AsanaHomeComponent } from './asana-home.component';
+import { AsanaHomeRoutingModule } from './asana-home.routing.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    AsanaRoutes,
+    AsanaHomeRoutingModule,
     ReactiveFormsModule,
 
   ],
   declarations: [
-    AsanaComponent,
+    AsanaHomeComponent,
     AsanaProjectDialogComponent,
     ConnectionTimeoutComponent,
     AddingAsanaPersonalAccessTokenComponent

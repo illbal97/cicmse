@@ -9,7 +9,7 @@ const routes: Routes = [
     component: HomeComponent, children: [
       {
         path:'asana',
-        loadChildren: () => import("../asana/asana-home/asana.module").then(m => m.AsanaModule)
+        loadChildren: () => import("../asana/asana-home/asana-home.module").then(m => m.AsanaModule)
       },
       {
         path:'asanaTask',
@@ -32,4 +32,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class HomeRoutes{}
+export class HomeRoutingModule{}

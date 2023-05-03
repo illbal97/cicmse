@@ -13,10 +13,10 @@ import { AwsService } from 'src/app/services/aws/aws.service';
 
 @Component({
   selector: 'app-asana',
-  templateUrl: './asana.component.html',
-  styleUrls: ['./asana.component.scss']
+  templateUrl: './asana-home.component.html',
+  styleUrls: ['./asana-home.component.scss']
 })
-export class AsanaComponent implements OnInit, OnDestroy {
+export class AsanaHomeComponent implements OnInit, OnDestroy {
   user: User = new User();
   project: asanaProject | undefined;
   workspaces: Array<any> = [];

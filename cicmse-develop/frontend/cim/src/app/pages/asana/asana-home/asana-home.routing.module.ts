@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AsanaComponent } from './asana.component';
+import { AsanaHomeComponent } from './asana-home.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AsanaComponent
+    component: AsanaHomeComponent
    },
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   exports: [RouterModule]
 
 })
-export class AsanaRoutes {}
+export class AsanaHomeRoutingModule {}
