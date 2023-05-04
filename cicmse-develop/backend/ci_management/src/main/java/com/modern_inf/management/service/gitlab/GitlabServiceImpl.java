@@ -65,9 +65,9 @@ public class GitlabServiceImpl implements GitlabService {
         var alreadyExistGitlabAccount = gitlab.stream().filter(as -> Objects.equals(as.getUser().getId(), user.getId())).toList();
         if (alreadyExistGitlabAccount.isEmpty()) {
             gitlabAccount.setUser(user);
-            gitlabAccount.setTokenLastTimeUsed(LocalDateTime.now());
-            long milliseconds = convertLocalDateTimeToMilliSecond(gitlabAccount.getTokenLastTimeUsed());
-            gitlabAccount.setTokenExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
+            gitlabAccount.setLastActivityTime(LocalDateTime.now());
+            long milliseconds = convertLocalDateTimeToMilliSecond(gitlabAccount.getLastActivityTime());
+            gitlabAccount.setCacheExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
             this.gitlabAccountDao.save(gitlabAccount);
         }
     }
@@ -94,9 +94,9 @@ public class GitlabServiceImpl implements GitlabService {
 
     @Override
     public void updateGitlabTokenExpirationTime(GitlabAccount g) {
-        g.setTokenLastTimeUsed(LocalDateTime.now());
-        long milliseconds = convertLocalDateTimeToMilliSecond(g.getTokenLastTimeUsed());
-        g.setTokenExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
+        g.setLastActivityTime(LocalDateTime.now());
+        long milliseconds = convertLocalDateTimeToMilliSecond(g.getLastActivityTime());
+        g.setCacheExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
         this.gitlabAccountDao.save(g);
     }
 

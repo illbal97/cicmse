@@ -21,9 +21,9 @@ public class Asana {
     @OneToMany(mappedBy = "asana", cascade = CascadeType.ALL)
     private List<AsanaWorkspace> asanaWorkspaces;
 
-    private LocalDateTime tokenLastTimeUsed;
+    private LocalDateTime lastActivityTime;
 
-    private LocalDateTime tokenExpirationTime;
+    private LocalDateTime cacheExpirationTime;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore

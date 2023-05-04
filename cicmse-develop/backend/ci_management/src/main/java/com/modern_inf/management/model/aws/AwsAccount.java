@@ -22,13 +22,13 @@ public class AwsAccount {
     @JsonIgnore()
     private User user;
 
-    private LocalDateTime tokenLastTimeUsed;
+    private LocalDateTime lastActivityTime;
 
     @OneToMany(mappedBy = "awsAccount")
     @JsonIgnore()
     private List<EC2instance> ec2instance;
 
-    private LocalDateTime tokenExpirationTime;
+    private LocalDateTime cacheExpirationTime;
 
 
 }

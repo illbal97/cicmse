@@ -84,7 +84,7 @@ public class AsanaController {
         asanaWorkspaces = asanaWorkspaces.stream().filter(
                         a -> Objects.equals(a.getAsana().getId(), asana.getId()))
                 .toList();
-        if (!asanaWorkspaces.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime())) {
+        if (!asanaWorkspaces.isEmpty() && LocalDateTime.now().isBefore(asana.getCacheExpirationTime())) {
 
             // Get data from database cache
             return ResponseEntity.ok(asanaWorkspaces);
@@ -122,7 +122,7 @@ public class AsanaController {
             var asanaWorkspaces = asana.getAsanaWorkspaces();
             var asanaProjects = asanaWorkspaces.stream().filter(a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
 
-            if (!asanaProjects.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime()) && !dto.isImmediate()) {
+            if (!asanaProjects.isEmpty() && LocalDateTime.now().isBefore(asana.getCacheExpirationTime()) && !dto.isImmediate()) {
 
                 // Get data from database cache
                 return ResponseEntity.ok(asanaProjects);
@@ -173,7 +173,7 @@ public class AsanaController {
             var asanaSection = asanaProjects.stream().filter(a -> a.getGid().equals(dto.getProjectGid())).findFirst().get().getAsanaSections();
             var asanaTasks = asanaSection.stream().filter(a -> a.getGid().equals(dto.getSectionGid())).findFirst().get().getAsanaTasks();
 
-            if (!asanaTasks.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime())) {
+            if (!asanaTasks.isEmpty() && LocalDateTime.now().isBefore(asana.getCacheExpirationTime())) {
 
                 // Get data from database cache
                 return ResponseEntity.ok(asanaTasks);
@@ -220,7 +220,7 @@ public class AsanaController {
             var asanaProjects = asanaWorkspaces.stream().filter(a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
             var asanaSection = asanaProjects.stream().filter(a -> a.getGid().equals(dto.getProjectGid())).findFirst().get().getAsanaSections();
 
-            if (!asanaSection.isEmpty() && LocalDateTime.now().isBefore(asana.getTokenExpirationTime())) {
+            if (!asanaSection.isEmpty() && LocalDateTime.now().isBefore(asana.getCacheExpirationTime())) {
 
                 // Get data from database cache
                 return ResponseEntity.ok(asanaSection);
@@ -266,8 +266,6 @@ public class AsanaController {
         var us = this.userService.setPersonalAccessTokenForAsana(user.get());
         this.asanaService.setAsanaAccountForUser(user.get());
 
-//        us.setAccessToken(u.getAccessToken());
-//        us.setRefreshToken(u.getRefreshToken());
         return ResponseEntity.ok(us);
     }
 

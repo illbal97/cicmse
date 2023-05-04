@@ -90,9 +90,9 @@ public class AsanaServiceImpl implements AsanaService {
         var alreadyExistAsanaAccount = asana.stream().filter(as -> Objects.equals(as.getUser().getId(), user.getId())).toList();
         if (alreadyExistAsanaAccount.isEmpty()) {
             a.setUser(user);
-            a.setTokenLastTimeUsed(LocalDateTime.now());
-            long milliseconds = convertLocalDateTimeToMilliSecond(a.getTokenLastTimeUsed());
-            a.setTokenExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
+            a.setLastActivityTime(LocalDateTime.now());
+            long milliseconds = convertLocalDateTimeToMilliSecond(a.getLastActivityTime());
+            a.setCacheExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
             this.asanaDao.save(a);
         }
 
@@ -115,9 +115,9 @@ public class AsanaServiceImpl implements AsanaService {
 
     @Override
     public void updateAsanaTokenExpirationTime(Asana a) {
-        a.setTokenLastTimeUsed(LocalDateTime.now());
-        long milliseconds = convertLocalDateTimeToMilliSecond(a.getTokenLastTimeUsed());
-        a.setTokenExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
+        a.setLastActivityTime(LocalDateTime.now());
+        long milliseconds = convertLocalDateTimeToMilliSecond(a.getLastActivityTime());
+        a.setCacheExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
         this.asanaDao.save(a);
     }
 

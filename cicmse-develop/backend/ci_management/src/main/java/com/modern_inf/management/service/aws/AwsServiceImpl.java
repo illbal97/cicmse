@@ -62,9 +62,9 @@ public class AwsServiceImpl implements AwsService{
 
     @Override
     public void updateAwsUserTokenExpirationTime(AwsAccount a) {
-        a.setTokenLastTimeUsed(LocalDateTime.now());
-        long milliseconds = convertLocalDateTimeToMilliSecond(a.getTokenLastTimeUsed());
-        a.setTokenExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
+        a.setLastActivityTime(LocalDateTime.now());
+        long milliseconds = convertLocalDateTimeToMilliSecond(a.getLastActivityTime());
+        a.setCacheExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
         this.awsAccountDao.save(a);
     }
 
@@ -75,9 +75,9 @@ public class AwsServiceImpl implements AwsService{
         var alreadyExistAwsAccount = awsAccounts.stream().filter(as -> Objects.equals(as.getUser().getId(), user.getId())).toList();
         if (alreadyExistAwsAccount.isEmpty()) {
             awsAccount.setUser(user);
-            awsAccount.setTokenLastTimeUsed(LocalDateTime.now());
-            long milliseconds = convertLocalDateTimeToMilliSecond(awsAccount.getTokenLastTimeUsed());
-            awsAccount.setTokenExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
+            awsAccount.setLastActivityTime(LocalDateTime.now());
+            long milliseconds = convertLocalDateTimeToMilliSecond(awsAccount.getLastActivityTime());
+            awsAccount.setCacheExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));
             this.awsAccountDao.save(awsAccount);
         }
     }

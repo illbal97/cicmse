@@ -23,9 +23,9 @@ public class GitlabAccount {
     @JsonIgnore()
     private List<GitlabProject> gitlabProjects;
 
-    private LocalDateTime tokenLastTimeUsed;
+    private LocalDateTime lastActivityTime;
 
-    private LocalDateTime tokenExpirationTime;
+    private LocalDateTime cacheExpirationTime;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore()

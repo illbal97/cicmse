@@ -52,7 +52,7 @@ public class AwsController {
             return ResponseEntity.ok(errors);
         }
         try{
-            if(!ec2instancesFromDb.isEmpty() && LocalDateTime.now().isBefore(awsAccount.getTokenExpirationTime()) && !awsDto.isStatusChanged()) {
+            if(!ec2instancesFromDb.isEmpty() && LocalDateTime.now().isBefore(awsAccount.getCacheExpirationTime()) && !awsDto.isStatusChanged()) {
                 return ResponseEntity.ok(awsAccount.getEc2instance());
             }else {
                 instances = awsService.getEC2Instances(awsDto);
