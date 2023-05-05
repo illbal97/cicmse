@@ -51,9 +51,9 @@ public class AuthenticationController {
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
-    @PostMapping("sign-in")
-    public ResponseEntity<?> signIn(@RequestBody User user) {
-        var userPrincipal = authenticationService.signIn(user);
+    @PostMapping("login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        var userPrincipal = authenticationService.login(user);
 
         if (userPrincipal != null) {
             var refreshToken = authenticationService.setUpRefreshTokenAndReturn(userPrincipal.getUser().getId());

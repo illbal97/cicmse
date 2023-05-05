@@ -179,7 +179,7 @@ public class AwsController {
             LOGGER.error(e.getMessage());
         }
         var us = this.userService.setAccessKeyAndSecretAccessKeyForAws(user.get());
-        this.awsService.setAwsAccountForUser(user.get());
+        this.awsService.setAwsAccountForUser(us);
 
         return ResponseEntity.ok(us);
     }

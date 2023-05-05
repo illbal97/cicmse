@@ -29,12 +29,8 @@ export class AuthenticationService {
      return this.currentUserSubject.value;
    }
 
-   signUp(user: User): Observable<User> {
-     return this.http.post<User>(API_URL + '/sign-up', user)
-   }
-
    signIn(username: string, password: string): Observable<User> {
-     return this.http.post<User>(API_URL + '/sign-in', {username, password}, { withCredentials: true }).pipe(
+     return this.http.post<User>(API_URL + '/login', {username, password}, { withCredentials: true }).pipe(
        map((response: User) => {
          if(response) {
             this.setCurrentUser(response);

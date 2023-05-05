@@ -30,8 +30,6 @@ public class AsanaTask {
 
     private String resourceType;
 
-    private String resourceSubType;
-
 
     @ManyToOne()
     @JsonIgnore

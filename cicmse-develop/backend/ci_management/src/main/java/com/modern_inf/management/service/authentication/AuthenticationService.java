@@ -5,7 +5,7 @@ import com.modern_inf.management.security.UserPrincipal;
 
 public interface AuthenticationService {
 
-    UserPrincipal signIn(User signUser);
+    UserPrincipal login(User signUser);
     String setUpRefreshTokenAndReturn(Long userId);
     void logOut(User requestUser);
 }

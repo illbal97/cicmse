@@ -34,15 +34,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public UserPrincipal signIn(User signRequestUser) {
+    public UserPrincipal login(User loginRequestUser) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(signRequestUser.getUsername(), signRequestUser.getPassword())
+                new UsernamePasswordAuthenticationToken(loginRequestUser.getUsername(), loginRequestUser.getPassword())
         );
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        User signUser = userPrincipal.getUser();
+        User user = userPrincipal.getUser();
 
-        if (signUser == null) {
+        if (user == null) {
             return null;
         }
         return userPrincipal;
