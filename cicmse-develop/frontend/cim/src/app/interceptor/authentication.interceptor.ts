@@ -38,7 +38,7 @@ export class AuthenInterceptor implements HttpInterceptor {
               return next.handle(request);
             }),
             catchError( err => {
-              this.authenticationService.logOut(this.user).subscribe(msg => {
+              this.authenticationService.logout(this.user).subscribe(msg => {
                 //console.log(msg);
               });
               this.router.navigate(['/login']);
@@ -47,7 +47,7 @@ export class AuthenInterceptor implements HttpInterceptor {
             })
           );
         } else {
-          this.authenticationService.logOut(this.user).subscribe(msg => {
+          this.authenticationService.logout(this.user).subscribe(msg => {
             //console.log(msg);
           });
           this.router.navigate(['/login']);

@@ -29,7 +29,7 @@ export class AuthenticationService {
      return this.currentUserSubject.value;
    }
 
-   signIn(username: string, password: string): Observable<User> {
+   login(username: string, password: string): Observable<User> {
      return this.http.post<User>(API_URL + '/login', {username, password}, { withCredentials: true }).pipe(
        map((response: User) => {
          if(response) {
@@ -49,7 +49,7 @@ export class AuthenticationService {
      return this.http.post(API_URL + '/refresh-token?userId='+ this.currentUserValue.id, {}, {withCredentials: true} );
    }
 
-   logOut(user: User) {
+   logout(user: User) {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(new User);
 

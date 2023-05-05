@@ -11,12 +11,12 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  SignIn: FormGroup;
+  Login: FormGroup;
   user: User = new User();
 
   constructor(private formBuilder: FormBuilder, private router: Router,
      private authenticationService: AuthenticationService) {
-    this.SignIn = formBuilder.group({
+    this.Login = formBuilder.group({
       usernameCtrl: ['', Validators.maxLength(50)],
       passwordCtrl: ['', Validators.maxLength(200)]
     });
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-    this.authenticationService.signIn(this.SignIn.value.usernameCtrl, this.SignIn.value.passwordCtrl).subscribe((data:User) => {
+    this.authenticationService.login(this.Login.value.usernameCtrl, this.Login.value.passwordCtrl).subscribe((data:User) => {
       this.user = data;
       this.router.navigate(["/welcome"]);
     });

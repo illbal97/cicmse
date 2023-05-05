@@ -18,8 +18,8 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  signOut() {
-    this.authenticationService.logOut(this.user).subscribe(msg => {
+  logout() {
+    this.authenticationService.logout(this.user).subscribe(msg => {
       // console.log(msg);
     });
     this.router.navigate(['/login']);
