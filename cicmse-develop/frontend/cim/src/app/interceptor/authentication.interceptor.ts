@@ -22,7 +22,7 @@ export class AuthenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (request.url.indexOf('refresh-token') > -1 || request.url.indexOf('logOut') > -1) {
+    if (request.url.indexOf('refresh-token') > -1 || request.url.indexOf('logout') > -1) {
       return next.handle(request)
     }else {
       return this.handleRequest(request, next)

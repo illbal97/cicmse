@@ -83,7 +83,7 @@ public class AuthenticationController {
         return ResponseEntity.ok((List.of("Refresh Token not exist or not valid")));
     }
 
-    @PostMapping("logOut")
+    @PostMapping("logout")
     public ResponseEntity<?> logOut(@RequestBody User user) {
         authenticationService.logOut(user);
         HttpHeaders headers = new HttpHeaders();

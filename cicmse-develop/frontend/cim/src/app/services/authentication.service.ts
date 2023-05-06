@@ -53,7 +53,7 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(new User);
 
-    return this.http.post(API_URL + '/logOut', user, {withCredentials: true} );
+    return this.http.post(API_URL + '/logout', user, {withCredentials: true} );
 
    }
 }

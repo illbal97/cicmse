@@ -1,6 +1,7 @@
 package com.modern_inf.management.security.jwt;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtProvider jwtProvider;
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (request.getCookies() != null) {
@@ -36,4 +38,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return request.getServletPath().equals("/api/v1/authentication/login") ||
+                request.getServletPath().equals("/api/v1/authentication/logout");
+    }
+
 }
