@@ -27,6 +27,6 @@ public class GitlabDto {
 
     private User user;
 
-    private boolean isImmediate;
+    private boolean isImmediately;
 
 }

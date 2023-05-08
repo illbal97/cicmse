@@ -35,7 +35,7 @@ public interface AsanaService {
 
     List<Task> getTaskByWorkspace(AsanaDto dto) throws Exception;
 
-    void updateAsanaTokenExpirationTime(Asana a);
+    void updateCacheExpirationTime(Asana a);
 
     void saveAsanaWorkspace(AsanaWorkspace asanaWorkspace);
 

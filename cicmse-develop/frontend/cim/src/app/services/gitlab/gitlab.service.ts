@@ -19,9 +19,9 @@ export class GitlabService extends HeaderService {
     super(http, authenticationService);
    }
 
-   getGitlabProject(user: User, isImmediate: boolean): Observable<any> {
+   getGitlabProject(user: User, isImmediately: boolean): Observable<any> {
     let userId = user.id?.toString()
-    return this.http.post<any>(API_URL + "/projects", {userId, isImmediate}, { headers: this.getHeader(), withCredentials:true })
+    return this.http.post<any>(API_URL + "/projects", {userId, isImmediately}, { headers: this.getHeader(), withCredentials:true })
   }
 
   createProject(user: User, data: GitlabCreationData) {

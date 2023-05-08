@@ -13,7 +13,7 @@ import { GitlabService } from 'src/app/services/gitlab/gitlab.service';
 })
 export class GitlabHomeComponent implements OnInit, OnDestroy {
 
-  isLoading: boolean = false;
+  isLoaded: boolean = false;
   gitlabStatus: String = "";
   projects: Array<any> = [];
   subscriptionUser: Subscription | undefined;
@@ -29,7 +29,7 @@ export class GitlabHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isLoading = false;
+    this.isLoaded = false;
     this.subscriptionUser = this.authenticationService.currentUser.subscribe((data: User) => {
       this.user = data;
     });
@@ -56,8 +56,8 @@ export class GitlabHomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadGitlabProjects(isImmediate = false) {
-    this.subscriptionGitlabProjects = this.gitlabService.getGitlabProject(this.user, isImmediate).subscribe({
+  loadGitlabProjects(isImmediately = false) {
+    this.subscriptionGitlabProjects = this.gitlabService.getGitlabProject(this.user, isImmediately).subscribe({
       next: (asanaProject: any) => {
         switch (asanaProject.toString()) {
           case "Bad gitlab personal access token": {
@@ -73,9 +73,9 @@ export class GitlabHomeComponent implements OnInit, OnDestroy {
       },
       error: (err: string) => {
         console.error(err);
-        this.isLoading = true;
+        this.isLoaded = true;
       },
-      complete: () => { this.isLoading = true }
+      complete: () => { this.isLoaded = true }
     });
   }
 
@@ -89,7 +89,7 @@ export class GitlabHomeComponent implements OnInit, OnDestroy {
       console.log(error);
     })
 
-    this.isLoading = false;
+    this.isLoaded = false;
     this.ngOnInit();
   }
 

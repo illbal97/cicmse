@@ -60,7 +60,6 @@ public class JwtRefreshTokenServiceImpl implements JwtRefreshTokenService {
         UserPrincipal userPrincipal = UserPrincipal.builder()
                 .id(user.getId())
                 .username(user.getUsername())
-                .password(user.getPassword())
                 .authorities(Set.of(SecurityUtils.convertToAuthority(user.getRole().name())))
                 .build();
 

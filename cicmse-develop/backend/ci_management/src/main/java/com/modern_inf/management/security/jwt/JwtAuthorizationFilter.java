@@ -22,7 +22,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         if (request.getCookies() != null) {
             var jwt = Arrays.stream(request.getCookies())
                     .filter(cookie -> "jwt_token".equals(cookie.getName()))

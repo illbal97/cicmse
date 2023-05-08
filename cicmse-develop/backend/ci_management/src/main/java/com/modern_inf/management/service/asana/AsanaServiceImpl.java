@@ -114,7 +114,7 @@ public class AsanaServiceImpl implements AsanaService {
     }
 
     @Override
-    public void updateAsanaTokenExpirationTime(Asana a) {
+    public void updateCacheExpirationTime(Asana a) {
         a.setLastActivityTime(LocalDateTime.now());
         long milliseconds = convertLocalDateTimeToMilliSecond(a.getLastActivityTime());
         a.setCacheExpirationTime(convertMilliSecondToLocalDateTime(milliseconds));

@@ -11,7 +11,7 @@
     <app-connection-timeout></app-connection-timeout>
   </div>
   <div class="workspaces" label="Workspaces">
-    <mat-spinner *ngIf="!isLoading; else workspace1"></mat-spinner>
+    <mat-spinner *ngIf="!isLoaded; else workspace1"></mat-spinner>
   </div>
   <ng-template #workspace1>
     <div *ngSwitchCase="'Asana account is active'">

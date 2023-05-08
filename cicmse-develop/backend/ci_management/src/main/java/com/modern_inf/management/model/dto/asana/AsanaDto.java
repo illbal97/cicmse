@@ -18,6 +18,6 @@ public class AsanaDto {
     private String projectGid;
     private String sectionGid;
     private String taskGid;
-    private boolean isImmediate;
+    private boolean isImmediately;
 
 }

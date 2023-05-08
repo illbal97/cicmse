@@ -16,7 +16,7 @@ import { AwsService } from 'src/app/services/aws/aws.service';
 export class AwsHomeComponent implements OnInit {
 
   awsStatus: String = "";
-  isLoading: boolean = false;
+  isLoaded: boolean = false;
   awsEC2InstancesActive: any = [];
   awsEC2InstancesInactive: any = [];
   user = new User();
@@ -25,7 +25,7 @@ export class AwsHomeComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService, private awsService: AwsService,  private awsEC2CreationDialog: MatDialog,  private awsRDSAndS3CreationDialog: MatDialog ) { }
 
   ngOnInit(): void {
-    this.isLoading = false;
+    this.isLoaded = false;
     this.subscriptionUser = this.authenticationService.currentUser.subscribe((data: User) => {
       this.user = data;
 
@@ -40,7 +40,7 @@ export class AwsHomeComponent implements OnInit {
     }).catch(error => {
       console.log(error)
     })
-    this.isLoading = false;
+    this.isLoaded = false;
     this.ngOnInit()
 
   }
@@ -67,9 +67,9 @@ loadEC2instances(statusChanged = false) {
     },
     error: (err: string) => {
       console.error(err);
-      this.isLoading = true;
+      this.isLoaded = true;
     },
-    complete: () => { this.isLoading = true;}
+    complete: () => { this.isLoaded = true;}
   });
 }
 

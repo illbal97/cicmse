@@ -78,20 +78,18 @@ public class AsanaController {
             return ResponseEntity.ok(error);
         }
         var asana = this.asanaService.getAsanaAccountIdByUser(user.getId());
+        var asanaWorkspaces =
+                this.asanaService.getAllAsanaWorkspaces()
+                    .stream()
+                    .filter(a -> a.getId().equals(asana.getId()))
+                    .toList();
 
-        // If there are not any Asana account we do not have any Asana workspaces
-        var asanaWorkspaces = this.asanaService.getAllAsanaWorkspaces();
-        asanaWorkspaces = asanaWorkspaces.stream().filter(
-                        a -> Objects.equals(a.getAsana().getId(), asana.getId()))
-                .toList();
         if (!asanaWorkspaces.isEmpty() && LocalDateTime.now().isBefore(asana.getCacheExpirationTime())) {
 
             // Get data from database cache
             return ResponseEntity.ok(asanaWorkspaces);
         } else {
             try {
-
-                // API
                 List<Workspace> workspaces = this.asanaService.getAsanaWorkspaces(Optional.of(user));
                 for (Workspace workspace : workspaces) {
                     var asanaWorkspace = buildAsanaWorkspace(workspace, asana);
@@ -99,7 +97,7 @@ public class AsanaController {
                         this.asanaService.saveAsanaWorkspace(asanaWorkspace);
                     }
                 }
-                this.asanaService.updateAsanaTokenExpirationTime(asana);
+                this.asanaService.updateCacheExpirationTime(asana);
 
                 return ResponseEntity.ok(workspaces);
             } catch (ConnectTimeoutException e) {
@@ -122,7 +120,7 @@ public class AsanaController {
             var asanaWorkspaces = asana.getAsanaWorkspaces();
             var asanaProjects = asanaWorkspaces.stream().filter(a -> a.getGid().equals(dto.getWorkspaceGid())).findFirst().get().getAsanaProjects();
 
-            if (!asanaProjects.isEmpty() && LocalDateTime.now().isBefore(asana.getCacheExpirationTime()) && !dto.isImmediate()) {
+            if (!asanaProjects.isEmpty() && LocalDateTime.now().isBefore(asana.getCacheExpirationTime()) && !dto.isImmediately()) {
 
                 // Get data from database cache
                 return ResponseEntity.ok(asanaProjects);
@@ -245,7 +243,7 @@ public class AsanaController {
                     return ResponseEntity.ok(error);
                 } catch (Exception e) {
                     LOGGER.error(e.getMessage());
-                    error.add("");
+                    error.add(e.getMessage());
 
                     return ResponseEntity.ok(error);
                 }
@@ -270,7 +268,7 @@ public class AsanaController {
     }
 
     @PostMapping("createProject")
-    public ResponseEntity createProject(@RequestBody AsanaDto dto) {
+    public ResponseEntity<?> createProject(@RequestBody AsanaDto dto) {
         Project project;
         AsanaProject asanaProject;
         error.clear();

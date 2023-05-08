@@ -35,8 +35,8 @@ export class AsanaService extends HeaderService {
     return this.http.post<any>(API_URL + "/workspaces", user, { headers: this.getHeader(), withCredentials: true })
   }
 
-  getAsanaProjectbyWorkspace(user: User, workspaceGid: String, isImmideatly: boolean): Observable<any> {
-    return this.http.post<any>(API_URL + "/projects", { user, workspaceGid, isImmideatly }, { headers: this.getHeader(), withCredentials: true })
+  getAsanaProjectbyWorkspace(user: User, workspaceGid: String, isImmediately: boolean): Observable<any> {
+    return this.http.post<any>(API_URL + "/projects", { user, workspaceGid, isImmediately}, { headers: this.getHeader(), withCredentials: true })
   }
 
   getAsanaTasksbyProjectSection(user: User, workspaceGid: String, projectGid: String, sectionGid: String ): Observable<any> {

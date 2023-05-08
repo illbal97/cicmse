@@ -21,7 +21,7 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
   project: asanaProject | undefined;
   workspaces: Array<any> = [];
   projects: Array<any> = [];
-  isLoading: boolean = false;
+  isLoaded: boolean = false;
   subscriptionWorkspaces: Subscription | undefined;
   subscriptionUser: Subscription | undefined;
   asanaStatus: String = "";
@@ -32,8 +32,6 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
     private router:Router,
     private asanaProjecCreationDialog: MatDialog,
     private authenticationService: AuthenticationService,
-    private gitlabService: GitlabService,
-    private awsService: AwsService,
     private asanaService: AsanaService) {
       this.project = new asanaProject();
 
@@ -46,7 +44,7 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.isLoading = false;
+    this.isLoaded = false;
     this.subscriptionUser = this.authenticationService.currentUser.subscribe((data: User) => {
       this.user = data;
     });
@@ -75,9 +73,9 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
       },
       error: (err: string) => {
         //console.error(err);
-        this.isLoading = true;
+        this.isLoaded = true;
       },
-      complete: () => { this.isLoading = true }
+      complete: () => { this.isLoaded = true }
     });
 
   }
@@ -91,12 +89,12 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
         console.log(error);
       })
 
-      this.isLoading = false;
+      this.isLoaded = false;
       this.ngOnInit();
   }
 
-  loadAsanaProjects(gid: any, isImmideatly = false) {
-    this.asanaService.getAsanaProjectbyWorkspace(this.user, gid, isImmideatly).subscribe(p => {
+  loadAsanaProjects(gid: any, isImmediately = false) {
+    this.asanaService.getAsanaProjectbyWorkspace(this.user, gid, isImmediately).subscribe(p => {
       this.projects = p;
     })
 
@@ -122,7 +120,6 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed' + result);
         if (result != undefined) {
           this.loadAsanaProjects(this.selectedWorkspaceGid, true)
         }

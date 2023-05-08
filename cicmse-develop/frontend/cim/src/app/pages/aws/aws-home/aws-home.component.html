@@ -8,7 +8,7 @@
       (addingAwsAccessKeyEvent)="addAccessKeys($event)"></app-aws-access-keys-adding>
   </div>
   <div class="instance">
-    <mat-spinner *ngIf="!isLoading; else instance1"></mat-spinner>
+    <mat-spinner *ngIf="!isLoaded; else instance1"></mat-spinner>
   </div>
   <ng-template #instance1>
     <div *ngSwitchCase="'AWS account is active'">

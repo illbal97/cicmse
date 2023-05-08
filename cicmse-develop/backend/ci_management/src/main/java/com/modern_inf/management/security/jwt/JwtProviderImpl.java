@@ -44,16 +44,11 @@ public class JwtProviderImpl implements JwtProvider {
     @Override
     public String generateToken(UserPrincipal userAuth) {
 
-        String authorities = userAuth.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
-
         Key key = Keys.hmacShaKeyFor(JWT_SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 
         return Jwts.builder()
                 .setSubject(userAuth.getUsername())
                 .claim("userId", userAuth.getId())
-                .claim("roles", authorities)
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_TIME_IN_MS))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
@@ -75,16 +70,11 @@ public class JwtProviderImpl implements JwtProvider {
             return null;
         }
 
-        Set<GrantedAuthority> authorities = Arrays.stream(claims.get("roles").toString().split(","))
-                .map(SecurityUtils::convertToAuthority)
-                .collect(Collectors.toSet());
-
         UserDetails userDetails = UserPrincipal.builder()
                 .username(username)
-                .authorities(authorities)
                 .id(userId)
                 .build();
-        return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+        return new UsernamePasswordAuthenticationToken(userDetails, null, null);
     }
 
     @Override

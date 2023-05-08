@@ -15,27 +15,19 @@ public class CookieFactory {
 
     public  ResponseCookie createJwtTokenCookie(String token) {
        return  ResponseCookie.from("jwt_token", token) // key & value
-                .secure(false)
                 .path("/")
-
-                // path
                 .maxAge(COOKIE_JWT_TOKEN_EXPIRATION_TIME)
                 .sameSite("Strict")
                 .httpOnly(true)
-
                 .build();
     }
 
     public  ResponseCookie createRefreshTokenCookie(String refreshToken) {
         return  ResponseCookie.from("rf_token", refreshToken) // key & value
-                .secure(false)
                 .path("/")
-
-                // path
                 .maxAge(COOKIE_REFRESH_TOKEN_EXPIRATION_TIME)
                 .sameSite("Strict")
                 .httpOnly(true)
-
                 .build();
     }
 

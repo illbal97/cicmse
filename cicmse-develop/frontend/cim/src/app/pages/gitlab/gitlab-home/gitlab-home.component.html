@@ -8,7 +8,7 @@
       (addingAsanaPersonalAccessTokenEvent)="addPersonalAccessToken($event)"></app-adding-gitlab-personal-access-token>
   </div>
   <div class="projects">
-    <mat-spinner *ngIf="!isLoading; else project1"></mat-spinner>
+    <mat-spinner *ngIf="!isLoaded; else project1"></mat-spinner>
   </div>
   <ng-template #project1>
     <div *ngSwitchCase="'Gitlab account is active'">

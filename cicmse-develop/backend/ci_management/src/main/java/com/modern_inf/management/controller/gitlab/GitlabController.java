@@ -54,7 +54,7 @@ public class GitlabController {
             List<GitlabProject> existGitlabProjects = this.gitlabService.getAllGitlabProjects();
             ResponseEntity<GitlabProject[]> gitlabProjects = null;
             if (gitlabAccount != null) {
-                if (!existGitlabProjects.isEmpty() && LocalDateTime.now().isBefore(gitlabAccount.getCacheExpirationTime()) && !dto.isImmediate()) {
+                if (!existGitlabProjects.isEmpty() && LocalDateTime.now().isBefore(gitlabAccount.getCacheExpirationTime()) && !dto.isImmediately()) {
                     return ResponseEntity.ok().body(existGitlabProjects);
                 }
                 try {
