@@ -86,13 +86,13 @@ loadEC2instances(statusChanged = false) {
         event.currentIndex,
       );
 
-        if(event.item.data.state == "running" || event.item.data.state == "pending") {
-          await lastValueFrom(this.awsService.stopEC2Instance(this.user, event.item.data.instanceId)).then(message => {}).catch(error => {console.log(error)})
-          this.loadEC2instances(true)
-        }else if(event.item.data.state == "stopped" || event.item.data.state == "stopping") {
-          await lastValueFrom(this.awsService.startEC2Instance(this.user, event.item.data.instanceId)).then(message => {}).catch(error => {console.log(error)})
-          this.loadEC2instances(true)
-        }
+      if(event.item.data.state == "running" || event.item.data.state == "pending") {
+        await lastValueFrom(this.awsService.stopEC2Instance(this.user, event.item.data.instanceId)).then(message => {}).catch(error => {console.log(error)})
+        this.loadEC2instances(true)
+      }else if(event.item.data.state == "stopped" || event.item.data.state == "stopping") {
+        await lastValueFrom(this.awsService.startEC2Instance(this.user, event.item.data.instanceId)).then(message => {}).catch(error => {console.log(error)})
+        this.loadEC2instances(true)
+      }
 
   }
 }

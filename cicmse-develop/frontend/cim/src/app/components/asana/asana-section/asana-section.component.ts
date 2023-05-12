@@ -18,13 +18,13 @@ export class AsanaSectionComponent implements OnInit, OnDestroy {
   @Input("workspaceGid") workspaceGid: String = '';
   @Input("projectGid") projectGid: String = '';
 
-  asanaTask: Array<any> = [];
+  asanaTasks: Array<any> = [];
   asanaTaskDetails: any;
   constructor(private asanaService: AsanaService, private asanaTaskDialog: MatDialog) { }
 
   ngOnDestroy(): void {
    this.asanaTaskDialog.closeAll();
-   this.asanaTask = [];
+   this.asanaTasks = [];
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class AsanaSectionComponent implements OnInit, OnDestroy {
 
   async loadAsanaTasksFromSection() {
     await lastValueFrom(this.asanaService.getAsanaTasksbyProjectSection(this.user, this.workspaceGid, this.projectGid, this.section.gid)).then(t => {
-      this.asanaTask = t;
+      this.asanaTasks = t;
     }).catch(err => {
       console.log(err)
     });

@@ -3,8 +3,8 @@
   cdkDropList
   [id]= 'section.name'
  cdkDropList
-  [cdkDropListData]="asanaTask"
+  [cdkDropListData]="asanaTasks"
   class="example-list"
   (cdkDropListDropped)="drop($event)">
-<div class="example-box"  *ngFor="let task of asanaTask" [cdkDragData]="task" (click)="openTaskDialog(task)" cdkDrag>{{task.name}}</div>
+<div class="example-box"  *ngFor="let task of asanaTasks" [cdkDragData]="task" (click)="openTaskDialog(task)" cdkDrag>{{task.name}}</div>
 </div>

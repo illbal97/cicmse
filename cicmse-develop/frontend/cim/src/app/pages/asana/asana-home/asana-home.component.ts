@@ -6,10 +6,8 @@ import { lastValueFrom } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { AsanaService } from 'src/app/services/asana/asana.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GitlabService } from 'src/app/services/gitlab/gitlab.service';
-import { AwsService } from 'src/app/services/aws/aws.service';
 
 @Component({
   selector: 'app-asana',
@@ -72,7 +70,6 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
         }
       },
       error: (err: string) => {
-        //console.error(err);
         this.isLoaded = true;
       },
       complete: () => { this.isLoaded = true }
@@ -86,7 +83,7 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
 
       })
       .catch(error => {
-        console.log(error);
+        //console.log(error);
       })
 
       this.isLoaded = false;
