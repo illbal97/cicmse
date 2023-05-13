@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { ProjectCreationDialogComponent } from 'src/app/components/gitlab/project-creation-dialog/project-creation-dialog.component';
 import { User } from 'src/app/model/user.model';
@@ -21,7 +22,10 @@ export class GitlabHomeComponent implements OnInit, OnDestroy {
   subscriptionGitlabProjects: Subscription | undefined
 
 
-  constructor(private authenticationService: AuthenticationService, private gitlabService: GitlabService,  private gitlabProjectCreationDialog: MatDialog) { }
+  constructor(private authenticationService: AuthenticationService,
+    private gitlabService: GitlabService,
+    private snackBar: MatSnackBar,
+    private gitlabProjectCreationDialog: MatDialog) { }
   ngOnDestroy(): void {
     this.subscriptionGitlabProjects?.unsubscribe;
     this.subscriptionUser?.unsubscribe;
@@ -50,7 +54,9 @@ export class GitlabHomeComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed' + result);
       if (result != undefined) {
-        console.log(result)
+        this.snackBar.open("Gitlab Project was created", "Success", {
+          duration: 5000
+        })
         this.ngOnInit();
         }
     });

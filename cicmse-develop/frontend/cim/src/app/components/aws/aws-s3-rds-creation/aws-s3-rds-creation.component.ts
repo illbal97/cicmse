@@ -15,6 +15,8 @@ import { AwsService } from 'src/app/services/aws/aws.service';
 })
 export class AwsS3RdsCreationComponent implements OnInit {
   S3RDSCreationDialog: FormGroup;
+  isS3Created = false;
+  isRDSCreated = false;
   RDSConfig = new RDSConfig();
   databaseEngines = [
     'postgres', "mysql", "mariadb", "oracle"
@@ -23,22 +25,22 @@ export class AwsS3RdsCreationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private awsService: AwsService,
     public dialogRef: MatDialogRef<AwsHomeComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:{user: User}) {
+    @Inject(MAT_DIALOG_DATA) public data: { user: User }) {
     this.S3RDSCreationDialog = formBuilder.group({
       bucketName: ['', Validators.pattern('^[a-z0-9]*$')],
       dbIdentifier: ['', Validators.pattern('^[a-zA-Z]*$')],
       dbInstanceType: ['db.t3.micro'],
       engine: [this.databaseEngines[1]],
-      password: ['' , Validators.minLength(10)],
+      password: ['', Validators.minLength(10)],
       username: [data.user.username],
       dbName: [''],
-      allocatedStorage: [20, [Validators.min(20), Validators.max(100)] ]
+      allocatedStorage: [20, [Validators.min(20), Validators.max(100)]]
 
 
     })
-   }
+  }
 
-   async createS3AndRDS() {
+  async createS3AndRDS() {
     this.RDSConfig.dbIdentifier = this.S3RDSCreationDialog.value.dbIdentifier;
     this.RDSConfig.dbInstanceType = this.S3RDSCreationDialog.value.dbInstanceType;
     this.RDSConfig.dbName = this.S3RDSCreationDialog.value.dbName;
@@ -47,23 +49,25 @@ export class AwsS3RdsCreationComponent implements OnInit {
     this.RDSConfig.password = this.S3RDSCreationDialog.value.password;
     this.RDSConfig.allocatedStorage = this.S3RDSCreationDialog.value.allocatedStorage;
 
-    await lastValueFrom(this.awsService.createS3(this.data.user,this.S3RDSCreationDialog.value.bucketName)).then(s3 => {
-
+    await lastValueFrom(this.awsService.createS3(this.data.user, this.S3RDSCreationDialog.value.bucketName)).then(s3 => {
+      this.isS3Created = true;
     }).catch(err => {
-      console.log(err)
+      //console.log(err)
     });
 
     await lastValueFrom(this.awsService.createRDS(this.data.user, this.RDSConfig)).then(rds => {
-
+      this.isRDSCreated = true;
     }).catch(err => {
-      console.log(err)
+      //console.log(err)
     });
+    if (this.isRDSCreated && this.isS3Created) {
+      this.dialogRef.close(true);
+    }else {
+      this.dialogRef.close(false);
+    }
 
-    this.dialogRef.close();
 
-
-
-   }
+  }
 
   ngOnInit(): void {
   }

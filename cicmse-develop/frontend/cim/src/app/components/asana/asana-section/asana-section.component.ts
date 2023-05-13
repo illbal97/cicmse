@@ -35,7 +35,7 @@ export class AsanaSectionComponent implements OnInit, OnDestroy {
     await lastValueFrom(this.asanaService.getAsanaTasksbyProjectSection(this.user, this.workspaceGid, this.projectGid, this.section.gid)).then(t => {
       this.asanaTasks = t;
     }).catch(err => {
-      console.log(err)
+      //console.log(err)
     });
 
   }
@@ -66,7 +66,7 @@ export class AsanaSectionComponent implements OnInit, OnDestroy {
       data: { task: this.asanaTaskDetails }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed' + result);
+      //console.log('The dialog was closed' + result);
 
     });
   }

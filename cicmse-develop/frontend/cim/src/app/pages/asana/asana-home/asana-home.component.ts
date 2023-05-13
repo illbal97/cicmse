@@ -8,6 +8,7 @@ import { AsanaService } from 'src/app/services/asana/asana.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import {  Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-asana',
@@ -29,6 +30,7 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
   constructor(
     private router:Router,
     private asanaProjecCreationDialog: MatDialog,
+    private snacbar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private asanaService: AsanaService) {
       this.project = new asanaProject();
@@ -119,6 +121,9 @@ export class AsanaHomeComponent implements OnInit, OnDestroy {
       dialogRef.afterClosed().subscribe(result => {
         if (result != undefined) {
           this.loadAsanaProjects(this.selectedWorkspaceGid, true)
+          this.snacbar.open("Asana Project was created", "Success", {
+            duration:5000
+          });
         }
       });
     }

@@ -128,31 +128,31 @@ export class ProjectCreationDialogComponent implements OnInit, OnDestroy {
     let features_branch = this.taskFormArray.value;
 
     await lastValueFrom(this.gitlabService.createProject(this.data.user, gitlab_data)).then(p => {
-      this.gitlabProject = p;
+      //this.gitlabProject = p;
     }).catch(err => {
-      console.log(err);
+      //console.log(err);
     });
 
     await lastValueFrom(this.gitlabService.createBranch(this.data.user, this.gitlabProject.id,
       this.setGitlabBranchCreationData("release", gitlab_data.default_branch))).then(b => {
-        console.log(b)
+        //console.log(b)
       }).catch(err => {
-        console.log(err);
+        //console.log(err);
       });
 
     await lastValueFrom(this.gitlabService.createBranch(this.data.user, this.gitlabProject.id,
       this.setGitlabBranchCreationData("develop", "release"))).then(b => {
-        console.log(b)
+        //console.log(b)
       }).catch(err => {
-        console.log(err);
+        //console.log(err);
       });
 
     for (var name of features_branch) {
       await lastValueFrom(this.gitlabService.createBranch(this.data.user, this.gitlabProject.id,
         this.setGitlabBranchCreationData(this.formatAsanaTaskToBranch(name), "develop"))).then(b => {
-          console.log(b)
+          //console.log(b)
         }).catch(err => {
-          console.log(err);
+          //console.log(err);
         });
 
     }

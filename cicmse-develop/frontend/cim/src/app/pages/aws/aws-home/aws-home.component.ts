@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { AwsEc2InstanceCreateComponent } from 'src/app/components/aws/aws-ec2-instance-create/aws-ec2-instance-create.component';
 import { AwsS3RdsCreationComponent } from 'src/app/components/aws/aws-s3-rds-creation/aws-s3-rds-creation.component';
@@ -22,7 +23,12 @@ export class AwsHomeComponent implements OnInit {
   user = new User();
   subscriptionUser: Subscription | undefined;
   subscriptionAwsEC2Instances: Subscription | undefined;
-  constructor(private authenticationService: AuthenticationService, private awsService: AwsService,  private awsEC2CreationDialog: MatDialog,  private awsRDSAndS3CreationDialog: MatDialog ) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private awsService: AwsService,
+    private awsEC2CreationDialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private awsRDSAndS3CreationDialog: MatDialog ) { }
 
   ngOnInit(): void {
     this.isLoaded = false;
@@ -38,7 +44,7 @@ export class AwsHomeComponent implements OnInit {
    await lastValueFrom(this.awsService.setAWSAccessKeysForUser(this.user, keys )).then( u => {
       this.authenticationService.setCurrentUser(u);
     }).catch(error => {
-      console.log(error)
+      //console.log(error)
     })
     this.isLoaded = false;
     this.ngOnInit()
@@ -66,7 +72,7 @@ loadEC2instances(statusChanged = false) {
       }
     },
     error: (err: string) => {
-      console.error(err);
+      //console.error(err);
       this.isLoaded = true;
     },
     complete: () => { this.isLoaded = true;}
@@ -108,8 +114,10 @@ loadEC2instances(statusChanged = false) {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed' + result);
       if (result != undefined) {
-        console.log(result)
         this.loadEC2instances(true);
+        this.snackBar.open("EC2 was created", "Success", {
+          duration: 5000
+        })
         }
     });
   }
@@ -121,11 +129,13 @@ loadEC2instances(statusChanged = false) {
       data: {user: this.user}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed' + result);
-      if (result != undefined) {
-        console.log(result)
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      //console.log('The dialog was closed' + result);
+      if (result) {
         this.loadEC2instances(true);
+        this.snackBar.open("S3 and RDS were created", "Success", {
+          duration: 5000
+        })
         }
     });
   }

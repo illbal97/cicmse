@@ -81,7 +81,7 @@ public class AsanaController {
         var asanaWorkspaces =
                 this.asanaService.getAllAsanaWorkspaces()
                     .stream()
-                    .filter(a -> a.getId().equals(asana.getId()))
+                    .filter(a -> a.getAsana().getId().equals(asana.getId()))
                     .toList();
 
         if (!asanaWorkspaces.isEmpty() && LocalDateTime.now().isBefore(asana.getCacheExpirationTime())) {
