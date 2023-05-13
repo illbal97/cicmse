@@ -21,7 +21,7 @@ services:
     depends_on:
       - mysqldb
   frontend:
-    image: illbal97/frontend_v1
+    image: illbal97/frontend_v2
     container_name: frontend
     ports:
       - '4200:4200'
