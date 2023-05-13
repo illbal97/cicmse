@@ -128,7 +128,7 @@ export class ProjectCreationDialogComponent implements OnInit, OnDestroy {
     let features_branch = this.taskFormArray.value;
 
     await lastValueFrom(this.gitlabService.createProject(this.data.user, gitlab_data)).then(p => {
-      //this.gitlabProject = p;
+      this.gitlabProject = p;
     }).catch(err => {
       //console.log(err);
     });
@@ -197,10 +197,10 @@ export class ProjectCreationDialogComponent implements OnInit, OnDestroy {
     this.asanaService.getAsanaTaskByProject(this.data.user, gid).subscribe({
       next: (t) => {
         this.tasks = t;
-        console.log(this.tasks)
+        //console.log(this.tasks)
       },
       error: (error) => {
-        console.log(error)
+       // console.log(error)
       },
       complete: () => {
         this.isLoading = true;
@@ -214,7 +214,7 @@ export class ProjectCreationDialogComponent implements OnInit, OnDestroy {
 
   onChange(name: any, isChecked: boolean, event: any) {
 
-    console.log( this.taskFormArray.controls)
+    //console.log( this.taskFormArray.controls)
     if (isChecked) {
       this.taskFormArray.push(new FormControl(name));
     } else {

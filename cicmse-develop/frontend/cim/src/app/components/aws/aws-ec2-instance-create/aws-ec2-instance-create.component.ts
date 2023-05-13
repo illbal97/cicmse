@@ -63,7 +63,7 @@ export class AwsEc2InstanceCreateComponent implements OnInit, OnDestroy {
                                         this.ec2CreationDialog.value.tagName)).then(i => {
                                             this.instance = i;
                                         }).catch( e => {
-                                          console.log(e)
+                                          //console.log(e)
                                         })
     this.dialogRef.close(this.instance);
   }

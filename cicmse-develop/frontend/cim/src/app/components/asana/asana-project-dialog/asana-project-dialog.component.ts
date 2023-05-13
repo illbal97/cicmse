@@ -53,7 +53,7 @@ export class AsanaProjectDialogComponent implements OnInit {
             this.asanaProject = value;
         },
         error: (err) => {
-          console.log(err)
+          //console.log(err)
         },
         complete: () => {
           this.dialogRef.close(this.asanaProject);

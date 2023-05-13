@@ -19,7 +19,7 @@ export class AwsS3RdsCreationComponent implements OnInit {
   isRDSCreated = false;
   RDSConfig = new RDSConfig();
   databaseEngines = [
-    'postgres', "mysql", "mariadb", "oracle"
+    'postgres', "mysql", "mariadb"
   ]
 
   constructor(private formBuilder: FormBuilder,

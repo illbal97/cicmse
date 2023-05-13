@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   mysqldb:
-    image: illbal97/mysql
+    image: illbal97/mysql_v1
     restart: always
     container_name: mysqldb
     ports:
@@ -11,7 +11,7 @@ services:
     volumes:
       - db:/var/lib/mysql
   backend:
-    image: illbal97/backend_spring
+    image: illbal97/backend_spring_v1
     container_name: spring_boot
     restart: on-failure
     environment:
@@ -21,7 +21,7 @@ services:
     depends_on:
       - mysqldb
   frontend:
-    image: illbal97/frontend
+    image: illbal97/frontend_v1
     container_name: frontend
     ports:
       - '4200:4200'
