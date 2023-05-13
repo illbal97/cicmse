@@ -25,11 +25,11 @@ DROP TABLE IF EXISTS `asana`;
 CREATE TABLE `asana` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `user_id` bigint DEFAULT NULL,
-  `token_expiration_time` datetime(6) DEFAULT NULL,
-  `token_last_time_used` datetime(6) DEFAULT NULL,
+  `cache_expiration_time` datetime(6) DEFAULT NULL,
+  `last_activity_time` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKnjo9y0frxikkehuo90nca6m6t` (`user_id`),
-  CONSTRAINT `FKnjo9y0frxikkehuo90nca6m6t` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `FKnjo9y0frxikkehuo90nca6m6t` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,23 +39,23 @@ CREATE TABLE `asana` (
 
 LOCK TABLES `asana` WRITE;
 /*!40000 ALTER TABLE `asana` DISABLE KEYS */;
-INSERT INTO `asana` VALUES (50,1,'2023-05-01 23:07:25.000000','2023-05-01 23:06:25.624007');
+INSERT INTO `asana` VALUES (50,1,'2023-05-13 02:22:08.000000','2023-05-13 02:21:08.038593');
 /*!40000 ALTER TABLE `asana` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `asana_projects`
+-- Table structure for table `asana_project`
 --
 
-DROP TABLE IF EXISTS `asana_projects`;
+DROP TABLE IF EXISTS `asana_project`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `asana_projects` (
+CREATE TABLE `asana_project` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `gid` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `resource_type` varchar(255) DEFAULT NULL,
-  `asana_workspaces_id` bigint DEFAULT NULL,
+  `asana_workspace_id` bigint DEFAULT NULL,
   `color` varchar(255) DEFAULT NULL,
   `created_at` tinyblob,
   `current_status` varchar(255) DEFAULT NULL,
@@ -64,19 +64,19 @@ CREATE TABLE `asana_projects` (
   `notes` varchar(255) DEFAULT NULL,
   `owner` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK1w3g34alx3ymn3exo6nqewo9b` (`asana_workspaces_id`),
-  CONSTRAINT `FK1w3g34alx3ymn3exo6nqewo9b` FOREIGN KEY (`asana_workspaces_id`) REFERENCES `asana_workspaces` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FK1w3g34alx3ymn3exo6nqewo9b` (`asana_workspace_id`),
+  CONSTRAINT `FK1w3g34alx3ymn3exo6nqewo9b` FOREIGN KEY (`asana_workspace_id`) REFERENCES `asana_workspace` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `asana_projects`
+-- Dumping data for table `asana_project`
 --
 
-LOCK TABLES `asana_projects` WRITE;
-/*!40000 ALTER TABLE `asana_projects` DISABLE KEYS */;
-INSERT INTO `asana_projects` VALUES (58,'1203195684040604','test2','project',107,'light-green',_binary '2022-10-18 23:57:36.794',NULL,_binary '2022-10-31 23:57:42.528565',_binary '','This is a test','illbal97@gmail.com'),(59,'1203195706343440','TESt','project',107,'light-green',_binary '2022-10-19 00:13:38.447',NULL,_binary '2022-10-25 00:13:43.983232',_binary '','sfafasdf','illbal97@gmail.com'),(60,'1203199540228304','asdfsdf','project',107,'light-green',_binary '2022-10-19 14:37:13.562',NULL,_binary '2022-10-31 14:37:13.323873',_binary '','this is a test','illbal97@gmail.com'),(63,'1203198041896395','test55','project',110,'light-blue',_binary '2022-10-19 15:49:46.152',NULL,_binary '2022-10-24 15:49:45.489986',_binary '','On track was deleted','illbal97@gmail.com'),(64,'1203199938461041','test2','project',110,NULL,NULL,NULL,NULL,_binary '\0',NULL,NULL),(65,'1203199544175804','asd','project',107,NULL,NULL,NULL,NULL,_binary '\0',NULL,NULL),(66,'1203207104768833','illbal9test','project',110,'light-blue',_binary '2022-10-20 13:09:34.288',NULL,_binary '2022-10-24 13:09:34.681565',_binary '','On track','illbal97@gmail.com'),(67,'1203282477419148','saw-12','project',110,'light-green',_binary '2022-11-02 03:05:02.931',NULL,_binary '2022-11-23 03:05:02.380256',_binary '','This is important','illbal97@gmail.com'),(68,'1203295677509231','test','project',110,'light-green',_binary '2022-11-03 17:34:28.275',NULL,_binary '2022-11-29 17:34:27.012786',_binary '','test','illbal97@gmail.com'),(69,'1203297642070668','Test 3','project',110,'light-blue',_binary '2022-11-03 22:25:53.355',NULL,_binary '2022-11-30 22:25:51.014615',_binary '','Test 3','illbal97@gmail.com'),(70,'1204428536929471','tert32w','project',110,'light-green',_binary '2023-04-19 03:04:04.516',NULL,_binary '2023-04-13 03:04:04.649461',_binary '','sdfsfs','illbal97@gmail.com'),(71,'1204428825414259','cvdvsvv12','project',110,'light-blue',_binary '2023-04-19 03:29:51.402',NULL,_binary '2023-05-02 03:29:51.459232',_binary '','afsdfsdf','illbal97@gmail.com'),(72,'1204466016785885','CMSI','project',110,'light-blue',_binary '2023-04-25 00:18:38.52',NULL,_binary '2025-07-03 00:18:38.623629',_binary '','Soo good','illbal97@gmail.com'),(73,'1204466022431763','CMSI_Asana','project',107,'light-green',_binary '2023-04-25 00:21:23.866',NULL,_binary '2023-05-20 00:21:23.991798',_binary '','wefeef','illbal97@gmail.com'),(74,'1204465687450183','FLY-SHT','project',110,'light-blue',_binary '2023-04-25 00:23:28.321',NULL,_binary '2023-04-29 00:23:28.427363',_binary '','erterger','illbal97@gmail.com'),(75,'1204501493690882','AWS-T3','project',107,'light-blue',_binary '2023-04-29 21:27:54.039',NULL,_binary '2023-07-10 21:27:53.397042',_binary '','AWS test project','illbal97@gmail.com');
-/*!40000 ALTER TABLE `asana_projects` ENABLE KEYS */;
+LOCK TABLES `asana_project` WRITE;
+/*!40000 ALTER TABLE `asana_project` DISABLE KEYS */;
+INSERT INTO `asana_project` VALUES (58,'1203195684040604','test2','project',107,'light-green',_binary '2022-10-18 23:57:36.794',NULL,_binary '2022-10-31 23:57:42.528565',_binary '','This is a test','illbal97@gmail.com'),(59,'1203195706343440','TESt','project',107,'light-green',_binary '2022-10-19 00:13:38.447',NULL,_binary '2022-10-25 00:13:43.983232',_binary '','sfafasdf','illbal97@gmail.com'),(60,'1203199540228304','asdfsdf','project',107,'light-green',_binary '2022-10-19 14:37:13.562',NULL,_binary '2022-10-31 14:37:13.323873',_binary '','this is a test','illbal97@gmail.com'),(63,'1203198041896395','test55','project',110,'light-blue',_binary '2022-10-19 15:49:46.152',NULL,_binary '2022-10-24 15:49:45.489986',_binary '','On track was deleted','illbal97@gmail.com'),(64,'1203199938461041','test2','project',110,NULL,NULL,NULL,NULL,_binary '\0',NULL,NULL),(65,'1203199544175804','asd','project',107,NULL,NULL,NULL,NULL,_binary '\0',NULL,NULL),(66,'1203207104768833','illbal9test','project',110,'light-blue',_binary '2022-10-20 13:09:34.288',NULL,_binary '2022-10-24 13:09:34.681565',_binary '','On track','illbal97@gmail.com'),(67,'1203282477419148','saw-12','project',110,'light-green',_binary '2022-11-02 03:05:02.931',NULL,_binary '2022-11-23 03:05:02.380256',_binary '','This is important','illbal97@gmail.com'),(68,'1203295677509231','test','project',110,'light-green',_binary '2022-11-03 17:34:28.275',NULL,_binary '2022-11-29 17:34:27.012786',_binary '','test','illbal97@gmail.com'),(69,'1203297642070668','Test 3','project',110,'light-blue',_binary '2022-11-03 22:25:53.355',NULL,_binary '2022-11-30 22:25:51.014615',_binary '','Test 3','illbal97@gmail.com'),(70,'1204428536929471','tert32w','project',110,'light-green',_binary '2023-04-19 03:04:04.516',NULL,_binary '2023-04-13 03:04:04.649461',_binary '','sdfsfs','illbal97@gmail.com'),(71,'1204428825414259','cvdvsvv12','project',110,'light-blue',_binary '2023-04-19 03:29:51.402',NULL,_binary '2023-05-02 03:29:51.459232',_binary '','afsdfsdf','illbal97@gmail.com'),(72,'1204466016785885','CMSI','project',110,'light-blue',_binary '2023-04-25 00:18:38.52',NULL,_binary '2025-07-03 00:18:38.623629',_binary '','Soo good','illbal97@gmail.com'),(73,'1204466022431763','CMSI_Asana','project',107,'light-green',_binary '2023-04-25 00:21:23.866',NULL,_binary '2023-05-20 00:21:23.991798',_binary '','wefeef','illbal97@gmail.com'),(74,'1204465687450183','FLY-SHT','project',110,'light-blue',_binary '2023-04-25 00:23:28.321',NULL,_binary '2023-04-29 00:23:28.427363',_binary '','erterger','illbal97@gmail.com'),(75,'1204501493690882','AWS-T3','project',107,'light-blue',_binary '2023-04-29 21:27:54.039',NULL,_binary '2023-07-10 21:27:53.397042',_binary '','AWS test project','illbal97@gmail.com'),(76,'1204524914940171','test-11','project',110,NULL,NULL,NULL,NULL,_binary '\0',NULL,NULL),(77,'1204593689573627','WERT-QW','project',107,'light-blue',_binary '2023-05-13 02:21:48.428',NULL,_binary '2023-07-11 02:21:46.690613',_binary '','This is a project for nurse','illbal97@gmail.com');
+/*!40000 ALTER TABLE `asana_project` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `asana_section` (
   `asana_project_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKgij77qxhhkugm2bkebd2wbn85` (`asana_project_id`),
-  CONSTRAINT `FKgij77qxhhkugm2bkebd2wbn85` FOREIGN KEY (`asana_project_id`) REFERENCES `asana_projects` (`id`)
+  CONSTRAINT `FKgij77qxhhkugm2bkebd2wbn85` FOREIGN KEY (`asana_project_id`) REFERENCES `asana_project` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -110,19 +110,18 @@ INSERT INTO `asana_section` VALUES (47,'2022-10-29 02:35:10.793000','12032628853
 UNLOCK TABLES;
 
 --
--- Table structure for table `asana_tasks`
+-- Table structure for table `asana_task`
 --
 
-DROP TABLE IF EXISTS `asana_tasks`;
+DROP TABLE IF EXISTS `asana_task`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `asana_tasks` (
+CREATE TABLE `asana_task` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `created_at` datetime(6) DEFAULT NULL,
   `due_date` datetime(6) DEFAULT NULL,
   `gid` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `resource_sub_type` varchar(255) DEFAULT NULL,
   `resource_type` varchar(255) DEFAULT NULL,
   `asana_section_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -132,23 +131,23 @@ CREATE TABLE `asana_tasks` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `asana_tasks`
+-- Dumping data for table `asana_task`
 --
 
-LOCK TABLES `asana_tasks` WRITE;
-/*!40000 ALTER TABLE `asana_tasks` DISABLE KEYS */;
-INSERT INTO `asana_tasks` VALUES (18,NULL,NULL,'1203266100874365','Reading',NULL,'task',72),(19,NULL,NULL,'1203266100874367','Writting',NULL,'task',73),(22,NULL,NULL,'1203266570340438','sdfg',NULL,'task',71),(26,NULL,NULL,'1203282479130290','reading documentations',NULL,'task',82),(27,NULL,NULL,'1203285923451703','List people',NULL,'task',53),(28,NULL,NULL,'1203295666108726','debug feature',NULL,'task',81);
-/*!40000 ALTER TABLE `asana_tasks` ENABLE KEYS */;
+LOCK TABLES `asana_task` WRITE;
+/*!40000 ALTER TABLE `asana_task` DISABLE KEYS */;
+INSERT INTO `asana_task` VALUES (18,NULL,NULL,'1203266100874365','Reading','task',72),(19,NULL,NULL,'1203266100874367','Writting','task',73),(22,NULL,NULL,'1203266570340438','sdfg','task',71),(26,NULL,NULL,'1203282479130290','reading documentations','task',82),(27,NULL,NULL,'1203285923451703','List people','task',53),(28,NULL,NULL,'1203295666108726','debug feature','task',81);
+/*!40000 ALTER TABLE `asana_task` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `asana_workspaces`
+-- Table structure for table `asana_workspace`
 --
 
-DROP TABLE IF EXISTS `asana_workspaces`;
+DROP TABLE IF EXISTS `asana_workspace`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `asana_workspaces` (
+CREATE TABLE `asana_workspace` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `email_domains` varchar(255) DEFAULT NULL,
   `is_organization` bit(1) NOT NULL,
@@ -159,17 +158,17 @@ CREATE TABLE `asana_workspaces` (
   PRIMARY KEY (`id`),
   KEY `FKsbr6ly4ujdqlu9ixh8uxnolxw` (`asana_id`),
   CONSTRAINT `FKsbr6ly4ujdqlu9ixh8uxnolxw` FOREIGN KEY (`asana_id`) REFERENCES `asana` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `asana_workspaces`
+-- Dumping data for table `asana_workspace`
 --
 
-LOCK TABLES `asana_workspaces` WRITE;
-/*!40000 ALTER TABLE `asana_workspaces` DISABLE KEYS */;
-INSERT INTO `asana_workspaces` VALUES (107,'null',_binary '\0','Asana test','workspace',50,'1202213699892899'),(110,'null',_binary '\0','Production','workspace',50,'1203151506851890');
-/*!40000 ALTER TABLE `asana_workspaces` ENABLE KEYS */;
+LOCK TABLES `asana_workspace` WRITE;
+/*!40000 ALTER TABLE `asana_workspace` DISABLE KEYS */;
+INSERT INTO `asana_workspace` VALUES (107,'null',_binary '\0','Asana test','workspace',50,'1202213699892899'),(110,'null',_binary '\0','Production','workspace',50,'1203151506851890');
+/*!40000 ALTER TABLE `asana_workspace` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -181,12 +180,12 @@ DROP TABLE IF EXISTS `aws`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `aws` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `token_expiration_time` datetime(6) DEFAULT NULL,
-  `token_last_time_used` datetime(6) DEFAULT NULL,
   `user_id` bigint DEFAULT NULL,
+  `cache_expiration_time` datetime(6) DEFAULT NULL,
+  `last_activity_time` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK6vogtit8ek7vws40q01y8roqi` (`user_id`),
-  CONSTRAINT `FK6vogtit8ek7vws40q01y8roqi` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `FK6vogtit8ek7vws40q01y8roqi` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,7 +195,7 @@ CREATE TABLE `aws` (
 
 LOCK TABLES `aws` WRITE;
 /*!40000 ALTER TABLE `aws` DISABLE KEYS */;
-INSERT INTO `aws` VALUES (1,'2023-05-01 23:12:44.000000','2023-05-01 23:11:44.172364',1);
+INSERT INTO `aws` VALUES (1,1,'2023-05-13 00:57:20.000000','2023-05-13 00:56:20.068900');
 /*!40000 ALTER TABLE `aws` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,7 +228,7 @@ CREATE TABLE `aws_ec2_instance` (
 
 LOCK TABLES `aws_ec2_instance` WRITE;
 /*!40000 ALTER TABLE `aws_ec2_instance` DISABLE KEYS */;
-INSERT INTO `aws_ec2_instance` VALUES (16,'i-0cdf548abfa734ba5','t2.micro','sg-07efe38ae679ad3ca','default','test2','stopped',1,'QWESDay-test3'),(17,'i-005021a08a359e815','t2.micro','sg-07efe38ae679ad3ca','default','test-ec2','stopped',1,'ASFSEFE-test-2'),(18,'i-075379b8bda87af93','t2.micro','sg-07efe38ae679ad3ca','default','test-ec3','stopped',1,'-asd'),(19,'i-07180861fd37d9d92','t2.micro','sg-07efe38ae679ad3ca','default','test-ec2-3','running',1,'-aws'),(20,'i-0f79d477bd1c5d32a','t2.micro','sg-07efe38ae679ad3ca','default','test-ec2-4','stopped',1,'function getMilliseconds() { [native code] }-love'),(21,'i-0708d533a6a0f4ce0','t2.micro','sg-07efe38ae679ad3ca','default','test-ec2-5','running',1,'741-one');
+INSERT INTO `aws_ec2_instance` VALUES (16,'i-0cdf548abfa734ba5','t2.micro','sg-07efe38ae679ad3ca','default','test2','stopped',1,'QWESDay-test3'),(17,'i-005021a08a359e815','t2.micro','sg-07efe38ae679ad3ca','default','test-ec2','running',1,'ASFSEFE-test-2'),(18,'i-075379b8bda87af93','t2.micro','sg-07efe38ae679ad3ca','default','test-ec3','stopped',1,'-asd'),(19,'i-07180861fd37d9d92','t2.micro','sg-07efe38ae679ad3ca','default','test-ec2-3','running',1,'-aws'),(20,'i-0f79d477bd1c5d32a','t2.micro','sg-07efe38ae679ad3ca','default','test-ec2-4','stopped',1,'function getMilliseconds() { [native code] }-love'),(21,'i-0708d533a6a0f4ce0','t2.micro','sg-07efe38ae679ad3ca','default','test-ec2-5','running',1,'741-one');
 /*!40000 ALTER TABLE `aws_ec2_instance` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,12 +241,12 @@ DROP TABLE IF EXISTS `gitlab`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gitlab` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `token_expiration_time` datetime(6) DEFAULT NULL,
-  `token_last_time_used` datetime(6) DEFAULT NULL,
   `user_id` bigint DEFAULT NULL,
+  `cache_expiration_time` datetime(6) DEFAULT NULL,
+  `last_activity_time` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKryrrc6rjkryv4qms731hmfhue` (`user_id`),
-  CONSTRAINT `FKryrrc6rjkryv4qms731hmfhue` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `FKryrrc6rjkryv4qms731hmfhue` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -257,7 +256,7 @@ CREATE TABLE `gitlab` (
 
 LOCK TABLES `gitlab` WRITE;
 /*!40000 ALTER TABLE `gitlab` DISABLE KEYS */;
-INSERT INTO `gitlab` VALUES (1,'2023-05-01 23:02:35.000000','2023-05-01 23:01:35.881568',1);
+INSERT INTO `gitlab` VALUES (1,1,'2023-05-13 00:57:08.000000','2023-05-13 00:56:08.402623');
 /*!40000 ALTER TABLE `gitlab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,6 +283,7 @@ CREATE TABLE `gitlab_branch` (
 
 LOCK TABLES `gitlab_branch` WRITE;
 /*!40000 ALTER TABLE `gitlab_branch` DISABLE KEYS */;
+INSERT INTO `gitlab_branch` VALUES (39,'release',45834276),(40,'develop',45834276),(41,'list_people',45834276);
 /*!40000 ALTER TABLE `gitlab_branch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,7 +331,7 @@ CREATE TABLE `gitlab_project` (
   PRIMARY KEY (`id`),
   KEY `FKsbbxlgesv2gk9k682vlutlfht` (`gitlab_id`),
   CONSTRAINT `FKsbbxlgesv2gk9k682vlutlfht` FOREIGN KEY (`gitlab_id`) REFERENCES `gitlab` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45608651 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45834277 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,7 +340,7 @@ CREATE TABLE `gitlab_project` (
 
 LOCK TABLES `gitlab_project` WRITE;
 /*!40000 ALTER TABLE `gitlab_project` DISABLE KEYS */;
-INSERT INTO `gitlab_project` VALUES (29282541,'2021-09-01 10:51:05.974000',NULL,'test',NULL),(29282542,'2021-09-01 10:51:06.622000','Learn how to use GitLab to support your software development life cycle.','Learn GitLab',NULL),(40839370,'2022-11-07 13:16:26.372000',NULL,'test2',NULL),(40844943,'2022-11-07 15:52:01.500000',NULL,'test3',NULL),(41160513,'2022-11-17 19:11:15.390000','this is cool','test5',NULL),(41184219,'2022-11-18 16:13:05.920000','This is important','test777',NULL),(41187899,'2022-11-18 19:21:08.403000','This is a test','test333',NULL),(41187972,'2022-11-18 19:24:33.020000','test is fine','test755',NULL),(41188152,'2022-11-18 19:35:33.700000','test is fine','test5555',NULL),(41254840,'2022-11-22 00:02:35.106000','Cool','test2000',NULL),(45447681,'2023-04-24 22:29:21.334000','asdsa','test77777',NULL);
+INSERT INTO `gitlab_project` VALUES (29282541,'2021-09-01 10:51:05.974000',NULL,'test',NULL),(29282542,'2021-09-01 10:51:06.622000','Learn how to use GitLab to support your software development life cycle.','Learn GitLab',NULL),(40839370,'2022-11-07 13:16:26.372000',NULL,'test2',NULL),(40844943,'2022-11-07 15:52:01.500000',NULL,'test3',NULL),(41160513,'2022-11-17 19:11:15.390000','this is cool','test5',NULL),(41184219,'2022-11-18 16:13:05.920000','This is important','test777',NULL),(41187899,'2022-11-18 19:21:08.403000','This is a test','test333',NULL),(41187972,'2022-11-18 19:24:33.020000','test is fine','test755',NULL),(41188152,'2022-11-18 19:35:33.700000','test is fine','test5555',NULL),(41254840,'2022-11-22 00:02:35.106000','Cool','test2000',NULL),(45447681,'2023-04-24 22:29:21.334000','asdsa','test77777',NULL),(45834276,'2023-05-08 21:56:02.023000','VM-2 functionions','VM-2',1);
 /*!40000 ALTER TABLE `gitlab_project` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -362,7 +362,7 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (39);
+INSERT INTO `hibernate_sequence` VALUES (42);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,18 +388,18 @@ CREATE TABLE `jwt_refresh_token` (
 
 LOCK TABLES `jwt_refresh_token` WRITE;
 /*!40000 ALTER TABLE `jwt_refresh_token` DISABLE KEYS */;
-INSERT INTO `jwt_refresh_token` VALUES ('c51ab731-3324-4e9d-a0fb-2d739408b4dc','2023-05-01 23:06:11.196743','2023-05-02 00:06:11.196743',1);
+INSERT INTO `jwt_refresh_token` VALUES ('a20aa391-15b6-45ba-835f-81b904cef9ff','2023-05-13 02:21:04.930891','2023-05-13 03:21:04.930891',1);
 /*!40000 ALTER TABLE `jwt_refresh_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `asana_personal_access_token` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
@@ -415,13 +415,13 @@ CREATE TABLE `users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'46G1pZO937x+Gw5IBun5SbWJNU+Xvim/UYUqQLn4uTGD6YMmbb2fRyqJI8Q6qwoUjZf+HOD96Rn3+DmBtX5wlg==','Illés Bálint','$2a$10$i1C9x2es.307QCXC1egxJOI6w0j8NrT3qXfUIyPcrbslV1Z0eQDQq','ADMIN','illbal9','z+W49mbs1PuBlxBgO5/Utftq+X4k0Q0wwQmrvH4mROA=','npnK1iS9F1WIn8J14zDdzNpPm8jF5VV7AamkyT0FDBg=','yFfFV+6AvUz0S1Ks47jYXULB7/+mcRGMVrlFyli3Hz1XMhZB53UocCXkwU/zUy7k');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'46G1pZO937x+Gw5IBun5SbWJNU+Xvim/UYUqQLn4uTGD6YMmbb2fRyqJI8Q6qwoUjZf+HOD96Rn3+DmBtX5wlg==','Illés Bálint','$2a$10$i1C9x2es.307QCXC1egxJOI6w0j8NrT3qXfUIyPcrbslV1Z0eQDQq','ADMIN','illbal9','z+W49mbs1PuBlxBgO5/Utftq+X4k0Q0wwQmrvH4mROA=','npnK1iS9F1WIn8J14zDdzNpPm8jF5VV7AamkyT0FDBg=','yFfFV+6AvUz0S1Ks47jYXULB7/+mcRGMVrlFyli3Hz1XMhZB53UocCXkwU/zUy7k');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -437,4 +437,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-02  2:43:05
+-- Dump completed on 2023-05-13  2:26:07
